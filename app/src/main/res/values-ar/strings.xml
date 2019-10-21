@@ -11,4 +11,10 @@
     <string name="city">مدينة</string>
     <string name="address">عنوان</string>
     <string name="home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_booking">Booking</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_more">More</string>
+    <string name="chalet">Chalet</string>
+    <string name="sort">Sort</string>
 </resources>

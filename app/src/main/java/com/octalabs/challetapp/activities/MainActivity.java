@@ -2,15 +2,6 @@ package com.octalabs.challetapp.activities;
 
 import android.graphics.Color;
 import android.os.Bundle;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.octalabs.challetapp.R;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuBuilder;
-
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,8 +9,20 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.octalabs.challetapp.R;
+import com.octalabs.challetapp.adapter.MyPagerAdapter;
+import com.octalabs.challetapp.fragments.HomeFragment;
+
 public class MainActivity extends AppCompatActivity {
-    private TextView mTextMessage;
+    private MyPagerAdapter mPagerAdapter;
+    private ViewPager mMainViewPager;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -28,13 +31,19 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    mMainViewPager.setCurrentItem(0);
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.navigation_search:
+//                    mTextMessage.setText(R.string.title_dashboard);
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                case R.id.navigation_booking:
+//                    mTextMessage.setText(R.string.title_notifications);
+                    return true;
+                case R.id.navigation_profile:
+//                    mTextMessage.setText(R.string.title_notifications);
+                    return true;
+                case R.id.navigation_more:
+//                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
@@ -51,8 +60,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Init() {
+        mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
+        mPagerAdapter.addFragmeent(new HomeFragment(), "Home");
+        mMainViewPager = findViewById(R.id.main_pager);
+        mMainViewPager.setAdapter(mPagerAdapter);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
