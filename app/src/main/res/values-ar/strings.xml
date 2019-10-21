@@ -10,4 +10,5 @@
     <string name="phone">هاتف</string>
     <string name="city">مدينة</string>
     <string name="address">عنوان</string>
+    <string name="home">Home</string>
 </resources>

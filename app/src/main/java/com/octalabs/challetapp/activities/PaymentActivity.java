@@ -1,8 +1,10 @@
-package com.octalabs.challetapp;
+package com.octalabs.challetapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.octalabs.challetapp.R;
 
 public class PaymentActivity extends AppCompatActivity {
 
