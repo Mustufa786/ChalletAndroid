@@ -1,0 +1,13 @@
+<resources tools:ignore="ExtraTranslation" xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Challet</string>
+    <string name="user_name">اسم المستخدم</string>
+    <string name="password">كلمه السر</string>
+    <string name="forgot_password"><u>هل نسيت كلمة المرور</u></string>
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="sign_up">سجل</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="con_password">تأكيد كلمة المرور</string>
+    <string name="phone">هاتف</string>
+    <string name="city">مدينة</string>
+    <string name="address">عنوان</string>
+</resources>
