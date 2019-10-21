@@ -2,4 +2,12 @@
     <string name="app_name">Challet</string>
     <string name="user_name">User Name</string>
     <string name="password">Password</string>
+    <string name="forgot_password"><u>Forgot Password</u></string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="con_password">Confirm Password</string>
+    <string name="address">Address</string>
+    <string name="city">City</string>
 </resources>

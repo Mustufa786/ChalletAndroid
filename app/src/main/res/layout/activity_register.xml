@@ -38,6 +38,28 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/emailicon"
+            android:drawablePadding="40dp"
+            android:hint="@string/email"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColorHint="@color/black" />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/mobileicon"
+            android:drawablePadding="40dp"
+            android:hint="@string/phone"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColorHint="@color/black" />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_passwordicon"
             android:drawablePadding="40dp"
             android:hint="@string/password"
@@ -45,31 +67,51 @@
             android:paddingEnd="10dp"
             android:textColorHint="@color/black" />
 
-        <TextView
+
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:autoLink="all"
-            android:gravity="center"
-            android:linksClickable="false"
-            android:text="@string/forgot_password"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:drawableStart="@drawable/ic_passwordicon"
+            android:drawablePadding="40dp"
+            android:hint="@string/con_password"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColorHint="@color/black" />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/addressicon"
+            android:drawablePadding="40dp"
+            android:hint="@string/address"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColorHint="@color/black" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/cityicon1"
+            android:drawablePadding="40dp"
+            android:hint="@string/city"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColorHint="@color/black" />
 
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/ic_rectangle_rounded"
             android:backgroundTint="@color/colorPrimary"
-            android:text="@string/sign_in"
+            android:text="@string/sign_up"
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/btn_sig_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -77,8 +119,9 @@
             android:layout_marginEnd="20dp"
             android:background="@drawable/ic_rectangle_rounded"
             android:backgroundTint="@color/colorPrimaryDark"
-            android:text="@string/sign_up"
+            android:text="@string/sign_in"
             android:textColor="@color/white" />
+
 
     </LinearLayout>
 
