@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
 
         myPagerAdapter = new MyPagerAdapter(getChildFragmentManager());
         myPagerAdapter.addFragmeent(new ChaletFragment(), "Chalet");
-        myPagerAdapter.addFragmeent(new ChaletFragment(), "Marriage Hall");
+        myPagerAdapter.addFragmeent(new MarriageHallFragment(), "Marriage Hall");
         mHomePager.setAdapter(myPagerAdapter);
 
         mHomePager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

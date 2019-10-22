@@ -1,5 +1,6 @@
 package com.octalabs.challetapp.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -18,11 +19,15 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.adapter.MyPagerAdapter;
+import com.octalabs.challetapp.custome.NonSwipeableViewPager;
+import com.octalabs.challetapp.fragments.FragmentBookingHistory;
+import com.octalabs.challetapp.fragments.FragmentSearchListing;
 import com.octalabs.challetapp.fragments.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
+    public static ActionBar getactionbar;
     private MyPagerAdapter mPagerAdapter;
-    private ViewPager mMainViewPager;
+    private NonSwipeableViewPager mMainViewPager;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -32,12 +37,15 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mMainViewPager.setCurrentItem(0);
+                    setTextAction(getactionbar, getResources().getString(R.string.home));
                     return true;
                 case R.id.navigation_search:
-//                    mTextMessage.setText(R.string.title_dashboard);
+                    mMainViewPager.setCurrentItem(1);
+                    setTextAction(getactionbar, getResources().getString(R.string.title_search));
                     return true;
                 case R.id.navigation_booking:
-//                    mTextMessage.setText(R.string.title_notifications);
+                    mMainViewPager.setCurrentItem(2);
+                    setTextAction(getactionbar, getResources().getString(R.string.booking_history));
                     return true;
                 case R.id.navigation_profile:
 //                    mTextMessage.setText(R.string.title_notifications);
@@ -55,24 +63,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActionBar actionbar = getSupportActionBar();
-        setTextAction(actionbar);
+        setTextAction(actionbar, getResources().getString(R.string.home));
+        getactionbar = actionbar;
         Init();
     }
 
     private void Init() {
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        mPagerAdapter.addFragmeent(new HomeFragment(), "Home");
+        mPagerAdapter.addFragmeent(new HomeFragment(), getResources().getString(R.string.home));
+        mPagerAdapter.addFragmeent(new FragmentSearchListing(), getResources().getString(R.string.title_search));
+        mPagerAdapter.addFragmeent(new FragmentBookingHistory(), getResources().getString(R.string.booking_history));
         mMainViewPager = findViewById(R.id.main_pager);
         mMainViewPager.setAdapter(mPagerAdapter);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    private void setTextAction(ActionBar actionbar) {
+    private void setTextAction(ActionBar actionbar, String title) {
         TextView textview = new TextView(MainActivity.this);
         RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
         textview.setLayoutParams(layoutparams);
-        textview.setText(getResources().getString(R.string.home));
+        textview.setText(title);
         textview.setTextColor(Color.WHITE);
         textview.setGravity(Gravity.CENTER);
         textview.setTextSize(16);
@@ -90,5 +101,14 @@ public class MainActivity extends AppCompatActivity {
             menuBuilder.setOptionalIconsVisible(true);
         }
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.ADD) {
+            startActivity(new Intent(this, ActivityCart.class));
+        }
+        return false;
     }
 }

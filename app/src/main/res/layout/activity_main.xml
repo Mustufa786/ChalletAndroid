@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <androidx.viewpager.widget.ViewPager
+    <com.octalabs.challetapp.custome.NonSwipeableViewPager
         android:id="@+id/main_pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

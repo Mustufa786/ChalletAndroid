@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -20,14 +17,22 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
         <activity
             android:name=".activities.ActivityLogin"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.RegisterActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.ActivityCart"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>
