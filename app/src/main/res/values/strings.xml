@@ -36,5 +36,10 @@
     <string name="country">Country</string>
     <string name="state">State</string>
     <string name="thank_you">Thank you</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="mobile_no">Mobile No</string>
+    <string name="user_profile">User Profile</string>
+    <string name="more">More</string>
 
 </resources>
