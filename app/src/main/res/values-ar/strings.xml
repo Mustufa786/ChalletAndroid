@@ -10,4 +10,12 @@
     <string name="phone">هاتف</string>
     <string name="city">مدينة</string>
     <string name="address">عنوان</string>
+    <string name="cardholder_s_name">Cardholder\'s Name</string>
+    <string name="card_number">Card Number</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="ccv">CCV</string>
+    <string name="billing_address">Billing Address</string>
+    <string name="city_new">City</string>
+
+    <string name="postal_code">Postal Code</string>
 </resources>

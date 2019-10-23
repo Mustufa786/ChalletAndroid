@@ -10,4 +10,11 @@
     <string name="con_password">Confirm Password</string>
     <string name="address">Address</string>
     <string name="city">City</string>
+    <string name="cardholder_s_name">Cardholder\'s Name</string>
+    <string name="card_number">Card Number</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="ccv">CCV</string>
+    <string name="billing_address">Billing Address</string>
+    <string name="city_new">City</string>
+    <string name="postal_code">Postal Code</string>
 </resources>
