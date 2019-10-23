@@ -12,16 +12,27 @@ public class ActivityLogin extends Activity {
 
 
     private Button mBtnSignUP;
+    private Button mBtnSignIN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mBtnSignIN = findViewById(R.id.btn_sig_in);
         mBtnSignUP = findViewById(R.id.btn_sig_up);
+
         mBtnSignUP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ActivityLogin.this,RegisterActivity.class));
+            }
+        });
+
+        mBtnSignIN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ActivityLogin.this,MainActivity.class));
             }
         });
     }

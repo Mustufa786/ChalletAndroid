@@ -17,4 +17,24 @@
     <string name="billing_address">Billing Address</string>
     <string name="city_new">City</string>
     <string name="postal_code">Postal Code</string>
+
+    <string name="home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_booking">Booking</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_more">More</string>
+    <string name="chalet">Chalet</string>
+    <string name="marriage_hall">Marriage Hall</string>
+    <string name="sort">Sort</string>
+    <string name="filter">Filter</string>
+    <string name="map">Map</string>
+    <string name="booking_history">Booking Histoy</string>
+    <string name="check_out">Check Out</string>
+    <string name="cart">Cart</string>
+    <string name="payment">Payment</string>
+    <string name="confirm_payment"> Confirm Payment </string>
+    <string name="country">Country</string>
+    <string name="state">State</string>
+    <string name="thank_you">Thank you</string>
+
 </resources>

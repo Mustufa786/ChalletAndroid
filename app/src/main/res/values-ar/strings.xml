@@ -10,6 +10,7 @@
     <string name="phone">هاتف</string>
     <string name="city">مدينة</string>
     <string name="address">عنوان</string>
+
     <string name="cardholder_s_name">Cardholder\'s Name</string>
     <string name="card_number">Card Number</string>
     <string name="expiry_date">Expiry Date</string>
@@ -18,4 +19,24 @@
     <string name="city_new">City</string>
 
     <string name="postal_code">Postal Code</string>
+
+    <string name="home">الصفحة الرئيسية</string>
+    <string name="title_search">بحث</string>
+    <string name="title_booking">الحجز</string>
+    <string name="title_profile">الملف الشخصي</string>
+    <string name="title_more">أكثر</string>
+    <string name="chalet">الشاليه</string>
+    <string name="sort">فرز</string>
+    <string name="booking_history">تاريخ الحجز</string>
+    <string name="marriage_hall">قاعة الزواج</string>
+    <string name="filter">منقي</string>
+    <string name="map">خريطة</string>
+    <string name="check_out">Check Out</string>
+    <string name="cart">عربة التسوق</string>
+    <string name="payment">دفع</string>
+    <string name="confirm_payment" > Confirm Payment  </string>
+    <string name="country">Country</string>
+    <string name="state">State</string>
+    <string name="thank_you">Thank you</string>
+
 </resources>
