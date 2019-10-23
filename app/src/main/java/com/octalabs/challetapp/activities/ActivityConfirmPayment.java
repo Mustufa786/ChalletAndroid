@@ -32,9 +32,6 @@ public class ActivityConfirmPayment extends AppCompatActivity {
             }
         });
 
-        setTextAction(getSupportActionBar(), getResources().getString(R.string.thank_you));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
     }
 

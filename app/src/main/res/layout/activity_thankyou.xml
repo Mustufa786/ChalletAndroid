@@ -18,21 +18,19 @@
 
 
             <ImageView
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="80dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"
+                android:layout_gravity="center_horizontal"
                 android:src="@drawable/thankyouimage" />
 
 
 
             <ImageView
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_height="70dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="60dp"
-                android:layout_marginEnd="60dp"
                 android:src="@drawable/handshake" />
 
 
@@ -41,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="vertical"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1">
 
 
@@ -60,6 +58,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:textSize="18sp"
+                    android:textColor="#585959"
                     android:layout_marginTop="5dp"
                     android:text="Your booking has been \n successfully made"/>
 
@@ -89,6 +88,8 @@
                         android:text="001"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
+
+                        android:textColor="#585959"
                         android:layout_weight="1"/>
 
 
@@ -98,7 +99,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="8dp"
 
                     android:orientation="horizontal">
 
@@ -119,6 +120,8 @@
                         android:layout_height="match_parent"
                         android:text="Sample Name"
                         android:paddingStart="15dp"
+
+                        android:textColor="#585959"
                         android:paddingEnd="15dp"
                         android:layout_weight="1"/>
 
@@ -129,7 +132,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="8dp"
 
                     android:orientation="horizontal">
 
@@ -150,6 +153,8 @@
                         android:layout_height="match_parent"
                         android:text="30/09/2019"
                         android:paddingStart="15dp"
+
+                        android:textColor="#585959"
                         android:paddingEnd="15dp"
                         android:layout_weight="1"/>
 
@@ -160,7 +165,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="8dp"
 
                     android:orientation="horizontal">
 
@@ -182,6 +187,8 @@
                         android:text="600 Riyal"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
+
+                        android:textColor="#585959"
                         android:layout_weight="1"/>
 
 
