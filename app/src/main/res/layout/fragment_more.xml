@@ -40,6 +40,7 @@
 
 
                 <TextView
+                    android:id="@+id/text_wish_list"
                     android:layout_height="match_parent"
                     android:text="WishList"
                     android:drawableStart="@drawable/wishlisticon"
@@ -63,6 +64,7 @@
 
 
                 <TextView
+                    android:id="@+id/text_change_password"
                     android:layout_height="match_parent"
                     android:text="Change Password"
                     android:drawableStart="@drawable/changepasswordicon"
@@ -86,6 +88,7 @@
 
 
                 <TextView
+                    android:id="@+id/text_contact_us"
                     android:layout_height="match_parent"
                     android:text="Contact Us"
                     android:drawableStart="@drawable/contactusicon"
@@ -107,6 +110,7 @@
 
 
                 <TextView
+                    android:id="@+id/text_privacy_policy"
                     android:layout_height="match_parent"
                     android:text="Privacy Policy"
                     android:drawableStart="@drawable/privacypolicy"
@@ -130,6 +134,8 @@
 
 
                 <TextView
+
+                    android:id="@+id/text_terms_conditions"
                     android:layout_height="match_parent"
                     android:text="Terms &amp; Conditions"
                     android:drawableStart="@drawable/termsconditionicon"
@@ -151,6 +157,7 @@
 
 
                 <TextView
+                    android:id="@+id/text_logout"
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/logouticon"
                     android:text="Logout"

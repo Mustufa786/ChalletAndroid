@@ -43,5 +43,13 @@
     <string name="mobile_no">Mobile No</string>
     <string name="user_profile">User Profile</string>
     <string name="more">More</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="message">Message</string>
+    <string name="change_password">Change Password</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="enter_your_message_here">Enter your message here</string>
+    <string name="title">Title</string>
 
 </resources>
