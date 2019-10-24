@@ -23,4 +23,6 @@
     <string name="booking_history">Booking Histoy</string>
     <string name="check_out">Check Out</string>
     <string name="cart">Cart</string>
+    <string name="time" translatable="false"><b>Time</b> : 9:45</string>
+    <string name="building_111_abxc_street_xyz_road_2nd_ncommercial_area_dammam_saudi_arabia">Building # 111 ABXC Street Xyz Road, 2nd Commercial Area, Dammam, Saudi Arabia</string>
 </resources>
