@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.ActivityThankyou">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+
+        android:background="@drawable/ic_bg_splash"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="80dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/thankyouimage" />
+
+
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/handshake" />
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="RO 600"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textSize="18sp"
+                    android:textColor="#585959"
+                    android:layout_marginTop="5dp"
+                    android:text="Your booking has been \n successfully made"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="Invoice#"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:layout_weight="1"/>
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="001"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+
+                        android:textColor="#585959"
+                        android:layout_weight="1"/>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="Chalet Name#"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:layout_weight="1"/>
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="Sample Name"
+                        android:paddingStart="15dp"
+
+                        android:textColor="#585959"
+                        android:paddingEnd="15dp"
+                        android:layout_weight="1"/>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="Booking Date:"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:layout_weight="1"/>
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="30/09/2019"
+                        android:paddingStart="15dp"
+
+                        android:textColor="#585959"
+                        android:paddingEnd="15dp"
+                        android:layout_weight="1"/>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="Price:"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:layout_weight="1"/>
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="600 Riyal"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+
+                        android:textColor="#585959"
+                        android:layout_weight="1"/>
+
+
+                </LinearLayout>
+
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginStart="25dp"
+                    android:text="Done"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/rounded_btn_new"
+                    />
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+</layout>

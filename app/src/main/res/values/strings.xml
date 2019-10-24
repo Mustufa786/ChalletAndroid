@@ -10,6 +10,14 @@
     <string name="con_password">Confirm Password</string>
     <string name="address">Address</string>
     <string name="city">City</string>
+    <string name="cardholder_s_name" translatable="false">Cardholder\'s Name</string>
+    <string name="card_number" translatable="false">Card Number</string>
+    <string name="expiry_date" translatable="false">Expiry Date</string>
+    <string name="ccv" translatable="false">CCV</string>
+    <string name="billing_address" translatable="false">Billing Address</string>
+    <string name="city_new" translatable="false">City</string>
+    <string name="postal_code" translatable="false">Postal Code</string>
+
     <string name="home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_booking">Booking</string>
@@ -24,5 +32,24 @@
     <string name="check_out">Check Out</string>
     <string name="cart">Cart</string>
     <string name="time" translatable="false"><b>Time</b> : 9:45</string>
-    <string name="building_111_abxc_street_xyz_road_2nd_ncommercial_area_dammam_saudi_arabia">Building # 111 ABXC Street Xyz Road, 2nd Commercial Area, Dammam, Saudi Arabia</string>
+    <string name="building_111_abxc_street_xyz_road_2nd_ncommercial_area_dammam_saudi_arabia" translatable="false">Building # 111 ABXC Street Xyz Road, 2nd Commercial Area, Dammam, Saudi Arabia</string>
+    <string name="payment" translatable="false">Payment</string>
+    <string name="confirm_payment" translatable="false"> Confirm Payment </string>
+    <string name="country" translatable="false">Country</string>
+    <string name="state" translatable="false">State</string>
+    <string name="thank_you" translatable="false">Thank you</string>
+    <string name="last_name" translatable="false">Last Name</string>
+    <string name="first_name" translatable="false">First Name</string>
+    <string name="mobile_no" translatable="false">Mobile No</string>
+    <string name="user_profile" translatable="false">User Profile</string>
+    <string name="more" translatable="false">More</string>
+    <string name="old_password" translatable="false">Old Password</string>
+    <string name="new_password" translatable="false">New Password</string>
+    <string name="confirm_password" translatable="false">Confirm Password</string>
+    <string name="message" translatable="false">Message</string>
+    <string name="change_password" translatable="false">Change Password</string>
+    <string name="contact_us" translatable="false">Contact Us</string>
+    <string name="enter_your_message_here" translatable="false">Enter your message here</string>
+    <string name="title" translatable="false">Title</string>
+
 </resources>

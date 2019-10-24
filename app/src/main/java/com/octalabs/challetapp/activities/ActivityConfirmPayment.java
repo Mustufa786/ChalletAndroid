@@ -14,32 +14,34 @@ import android.widget.TextView;
 
 import com.octalabs.challetapp.R;
 
-public class PaymentActivity extends AppCompatActivity {
+public class ActivityConfirmPayment extends AppCompatActivity {
 
-
-    Button btnProceed;
+    Button btnConfirm ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
+        setContentView(R.layout.activity_confirm_payment);
 
 
-        btnProceed = findViewById(R.id.btn_process);
-        btnProceed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(PaymentActivity.this , ActivityConfirmPayment.class));
-            }
-        });
-        setTextAction(getSupportActionBar(), getResources().getString(R.string.payment));
+        setTextAction(getSupportActionBar(), getResources().getString(R.string.confirm_payment));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        btnConfirm = findViewById(R.id.btn_confirm);
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ActivityConfirmPayment.this , ActivityThankyou.class));
+            }
+        });
+
+
     }
 
+
     private void setTextAction(ActionBar actionbar, String title) {
-        TextView textview = new TextView(PaymentActivity.this);
+        TextView textview = new TextView(ActivityConfirmPayment.this);
         RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
         textview.setLayoutParams(layoutparams);
         textview.setText(title);

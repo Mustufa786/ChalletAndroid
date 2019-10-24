@@ -38,7 +38,6 @@ public class FragmentBookingHistory extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.activity_booking_history, container, false);
         Init(v);
         return v;

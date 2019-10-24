@@ -1,31 +1,267 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activities.PaymentActivity">
+    >
 
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    <LinearLayout  android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#D4D4D4"
+        tools:context=".activities.PaymentActivity">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
+
+        <ScrollView
             android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            android:layout_height="wrap_content" />
+            <androidx.cardview.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                card_view:cardElevation="5dp"
+                android:elevation="10dp"
 
-    </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="match_parent"
+                card_view:cardCornerRadius="4dp">
 
-</LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="15dp"
+                    android:orientation="vertical">
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="14sp"
+                            android:hint="@string/cardholder_s_name"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        >
+
+
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="14sp"
+                            android:hint="@string/card_number" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            >
+
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
+                                android:textSize="14sp"
+                                android:hint="@string/expiry_date" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            >
+
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="10dp"
+                                android:textSize="14sp"
+                                android:paddingEnd="10dp"
+                                android:hint="@string/ccv" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        >
+
+
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="10dp"
+                            android:textSize="14sp"
+                            android:paddingEnd="10dp"
+                            android:hint="@string/billing_address" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        >
+
+
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:textSize="14sp"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:hint="Country" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        >
+
+
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="14sp"
+                            android:hint="State" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            >
+
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
+                                android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                                android:textSize="14sp"
+                                android:focusable="false"
+                                android:hint="@string/city" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            >
+
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
+                                android:textSize="14sp"
+                                android:hint="@string/postal_code" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    </LinearLayout>
+
+
+                    <Button
+                        android:id="@+id/btn_process"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:layout_margin="20dp"
+                        android:text="Proceed"
+
+                        android:textColor="@color/white"
+                        android:background="@drawable/rounded_btn_new"
+                        />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</layout>

@@ -23,7 +23,6 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         Init(v);
         return v;
@@ -36,7 +35,7 @@ public class HomeFragment extends Fragment {
 
         myPagerAdapter = new MyPagerAdapter(getChildFragmentManager());
         myPagerAdapter.addFragmeent(new ChaletFragment(), "Chalet");
-        myPagerAdapter.addFragmeent(new MarriageHallFragment(), "Marriage Hall");
+//        myPagerAdapter.addFragmeent(new MarriageHallFragment(), "Marriage Hall");
         mHomePager.setAdapter(myPagerAdapter);
 
         mHomePager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

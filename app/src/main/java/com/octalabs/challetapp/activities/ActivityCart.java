@@ -4,11 +4,13 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,17 +23,27 @@ import java.util.ArrayList;
 public class ActivityCart extends AppCompatActivity {
 
     private RecyclerView mRvCart;
+    private Button btnCheckout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         mRvCart = findViewById(R.id.rv_cart);
+        btnCheckout = findViewById(R.id.btn_checkout);
         AdapterCart adapterCart = new AdapterCart(this, new ArrayList<ModelCart>());
         mRvCart.setAdapter(adapterCart);
         setTextAction(getSupportActionBar(), getResources().getString(R.string.cart));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ActivityCart.this, PaymentActivity.class));
+            }
+        });
     }
 
     private void setTextAction(ActionBar actionbar, String title) {
