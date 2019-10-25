@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.ActivityFillIntroOne"></activity>
+        <activity android:name=".activities.ActivityDetails"/>
+        <activity android:name=".activities.ActivityContactUs"/>
+        <activity android:name=".activities.ChangePasswordActivity" />
         <activity
             android:name=".activities.ActivityThankyou"
             android:screenOrientation="portrait"

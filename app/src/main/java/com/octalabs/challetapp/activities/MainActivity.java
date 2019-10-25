@@ -21,8 +21,10 @@ import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.adapter.MyPagerAdapter;
 import com.octalabs.challetapp.custome.NonSwipeableViewPager;
 import com.octalabs.challetapp.fragments.FragmentBookingHistory;
+import com.octalabs.challetapp.fragments.FragmentMore;
 import com.octalabs.challetapp.fragments.FragmentSearchListing;
 import com.octalabs.challetapp.fragments.HomeFragment;
+import com.octalabs.challetapp.fragments.UserProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
     public static ActionBar getactionbar;
@@ -48,10 +50,12 @@ public class MainActivity extends AppCompatActivity {
                     setTextAction(getactionbar, getResources().getString(R.string.booking_history));
                     return true;
                 case R.id.navigation_profile:
-//                    mTextMessage.setText(R.string.title_notifications);
+                    mMainViewPager.setCurrentItem(3);
+                    setTextAction(getactionbar, getResources().getString(R.string.user_profile));
                     return true;
                 case R.id.navigation_more:
-//                    mTextMessage.setText(R.string.title_notifications);
+                    mMainViewPager.setCurrentItem(4);
+                    setTextAction(getactionbar, getResources().getString(R.string.more));
                     return true;
             }
             return false;
@@ -73,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
         mPagerAdapter.addFragmeent(new HomeFragment(), getResources().getString(R.string.home));
         mPagerAdapter.addFragmeent(new FragmentSearchListing(), getResources().getString(R.string.title_search));
         mPagerAdapter.addFragmeent(new FragmentBookingHistory(), getResources().getString(R.string.booking_history));
+        mPagerAdapter.addFragmeent(new UserProfileFragment(), getResources().getString(R.string.user_profile));
+        mPagerAdapter.addFragmeent(new FragmentMore(), getResources().getString(R.string.more));
+
         mMainViewPager = findViewById(R.id.main_pager);
         mMainViewPager.setAdapter(mPagerAdapter);
         BottomNavigationView navView = findViewById(R.id.nav_view);
