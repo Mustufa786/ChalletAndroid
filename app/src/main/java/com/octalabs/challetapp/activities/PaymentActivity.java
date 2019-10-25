@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -32,6 +33,7 @@ public class PaymentActivity extends AppCompatActivity {
                 startActivity(new Intent(PaymentActivity.this , ActivityConfirmPayment.class));
             }
         });
+
         setTextAction(getSupportActionBar(), getResources().getString(R.string.payment));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -44,9 +46,23 @@ public class PaymentActivity extends AppCompatActivity {
         textview.setLayoutParams(layoutparams);
         textview.setText(title);
         textview.setTextColor(Color.WHITE);
-        textview.setGravity(Gravity.CENTER);
+//        textview.setGravity(Gravity.CENTER);
         textview.setTextSize(16);
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionbar.setCustomView(textview);
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return false;
+    }
+
+
+
+
 }

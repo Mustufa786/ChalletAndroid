@@ -2,33 +2,44 @@ package com.octalabs.challetapp.activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.octalabs.challetapp.R;
+import com.octalabs.challetapp.adapter.AdapterChalets;
+import com.octalabs.challetapp.models.ModelChalet;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
-public class ChangePasswordActivity extends AppCompatActivity {
+public class ActivityWishList extends AppCompatActivity {
+
+
+    RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_password);
+        setContentView(R.layout.activity_wish_list);
 
-
-        setTextAction(Objects.requireNonNull(getSupportActionBar()), getResources().getString(R.string.change_password));
+        init();
+        setTextAction(Objects.requireNonNull(getSupportActionBar()), "WishList");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
     }
 
+    private void init() {
+        mRecyclerView = findViewById(R.id.recycler_view);
+        AdapterChalets adapterbookinghistory = new AdapterChalets(this, new ArrayList<ModelChalet>());
+        mRecyclerView.setAdapter(adapterbookinghistory);
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -41,8 +52,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
         return false;
     }
 
+
     private void setTextAction(ActionBar actionbar, String title) {
-        TextView textview = new TextView(ChangePasswordActivity.this);
+        TextView textview = new TextView(ActivityWishList.this);
         RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
         textview.setLayoutParams(layoutparams);
         textview.setText(title);

@@ -53,14 +53,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:gravity="center"
             android:orientation="horizontal">
 
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:text="Chalet Name"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -68,22 +67,23 @@
 
             <RatingBar
                 style="?ratingBarStyleSmall"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:isIndicator="true"
                 android:numStars="5"
+                android:layout_gravity="center_vertical"
                 android:saveEnabled="true"
                 android:stepSize="5" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
-                android:layout_weight="0.1"
                 android:background="@drawable/shape_one"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:gravity="center"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:text="4.0"
                 android:textColor="@color/white"
                 android:textStyle="bold" />

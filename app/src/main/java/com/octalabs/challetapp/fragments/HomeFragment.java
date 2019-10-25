@@ -9,16 +9,21 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.octalabs.challetapp.R;
+import com.octalabs.challetapp.adapter.AdapterMarriageHall;
 import com.octalabs.challetapp.adapter.MyPagerAdapter;
+import com.octalabs.challetapp.models.ModelChalet;
 
-public class HomeFragment extends Fragment {
+import java.util.ArrayList;
 
-    private ViewPager mHomePager;
+public class HomeFragment extends Fragment implements View.OnClickListener {
+
     private MyPagerAdapter myPagerAdapter;
     private Button mBtnchalet, mBtnMarriageall;
+    RecyclerView mRecyclerView;
 
     @Nullable
     @Override
@@ -29,41 +34,34 @@ public class HomeFragment extends Fragment {
     }
 
     private void Init(View v) {
-        mHomePager = v.findViewById(R.id.home_pager);
         mBtnchalet = v.findViewById(R.id.btn_chalet);
         mBtnMarriageall = v.findViewById(R.id.btn_marriage_hall);
+        mBtnchalet.setOnClickListener(this);
+        mBtnMarriageall.setOnClickListener(this);
+        mRecyclerView = v.findViewById(R.id.rv_marriage_hall);
+        AdapterMarriageHall adapterMarriageHall = new AdapterMarriageHall(getActivity(), new ArrayList<ModelChalet>());
+        mRecyclerView.setAdapter(adapterMarriageHall);
+    }
 
-        myPagerAdapter = new MyPagerAdapter(getChildFragmentManager());
-        myPagerAdapter.addFragmeent(new ChaletFragment(), "Chalet");
-//        myPagerAdapter.addFragmeent(new MarriageHallFragment(), "Marriage Hall");
-        mHomePager.setAdapter(myPagerAdapter);
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.btn_chalet:
+                mBtnchalet.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+                mBtnchalet.setTextColor(getActivity().getResources().getColor(R.color.white));
+                mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
+                mBtnMarriageall.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+                break;
 
-        mHomePager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            case R.id.btn_marriage_hall:
+                mBtnchalet.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
+                mBtnchalet.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+                mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+                mBtnMarriageall.setTextColor(getActivity().getResources().getColor(R.color.white));
+                break;
 
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (position == 0) {
-                    mBtnchalet.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
-                    mBtnchalet.setTextColor(getActivity().getResources().getColor(R.color.white));
-                    mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
-                    mBtnMarriageall.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
-                } else if (position == 1){
-                    mBtnchalet.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
-                    mBtnchalet.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
-                    mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
-                    mBtnMarriageall.setTextColor(getActivity().getResources().getColor(R.color.white));
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        }
     }
 }
 

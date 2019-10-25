@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,6 +27,17 @@ public class ActivityContactUs extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return false;
+    }
+
 
     private void setTextAction(ActionBar actionbar, String title) {
         TextView textview = new TextView(ActivityContactUs.this);
@@ -33,7 +45,7 @@ public class ActivityContactUs extends AppCompatActivity {
         textview.setLayoutParams(layoutparams);
         textview.setText(title);
         textview.setTextColor(Color.WHITE);
-        textview.setGravity(Gravity.CENTER);
+//        textview.setGravity(Gravity.CENTER);
         textview.setTextSize(16);
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionbar.setCustomView(textview);

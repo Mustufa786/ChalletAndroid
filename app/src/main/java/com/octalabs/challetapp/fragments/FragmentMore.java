@@ -13,11 +13,12 @@ import androidx.fragment.app.Fragment;
 
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.activities.ActivityContactUs;
+import com.octalabs.challetapp.activities.ActivityWishList;
 import com.octalabs.challetapp.activities.ChangePasswordActivity;
 
 public class FragmentMore extends Fragment implements View.OnClickListener {
 
-    private TextView textChangePassword, textContactUs;
+    private TextView textChangePassword, textContactUs, textWishList;
 
     @Nullable
     @Override
@@ -34,6 +35,8 @@ public class FragmentMore extends Fragment implements View.OnClickListener {
         textChangePassword.setOnClickListener(this);
         textContactUs = v.findViewById(R.id.text_contact_us);
         textContactUs.setOnClickListener(this);
+        textWishList = v.findViewById(R.id.text_wish_list);
+        textWishList.setOnClickListener(this);
     }
 
 
@@ -49,6 +52,10 @@ public class FragmentMore extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), ActivityContactUs.class));
                 break;
 
+
+            case R.id.text_wish_list:
+                startActivity(new Intent(getContext(), ActivityWishList.class));
+                break;
 
             default:
                 break;

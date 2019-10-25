@@ -52,7 +52,7 @@ public class ActivityCart extends AppCompatActivity {
         textview.setLayoutParams(layoutparams);
         textview.setText(title);
         textview.setTextColor(Color.WHITE);
-        textview.setGravity(Gravity.CENTER);
+//        textview.setGravity(Gravity.CENTER);
         textview.setTextSize(16);
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionbar.setCustomView(textview);
@@ -69,5 +69,5 @@ public class ActivityCart extends AppCompatActivity {
         return false;
     }
 
-    ;
+
 }
