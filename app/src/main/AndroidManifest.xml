@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ActivityThankyou"
+        <activity android:name=".activities.ActivityFillIntroOne"></activity>
+        <activity
+            android:name=".activities.ActivityThankyou"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.NoActionBar"></activity>
+            android:theme="@style/Theme.Design.NoActionBar" />
         <activity android:name=".activities.ActivityConfirmPayment" />
         <activity
             android:name=".activities.SplashActivity"
