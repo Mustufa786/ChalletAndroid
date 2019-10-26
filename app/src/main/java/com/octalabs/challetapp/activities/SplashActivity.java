@@ -2,12 +2,23 @@ package com.octalabs.challetapp.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 
 import com.octalabs.challetapp.R;
+import com.octalabs.challetapp.utils.Constants;
+
+import java.util.Locale;
 
 public class SplashActivity extends Activity {
+
+
+    Resources res;
+    DisplayMetrics dm;
+    android.content.res.Configuration conf;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,8 +28,23 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this,ActivityLogin.class));
+
+                res = getResources();
+                dm = res.getDisplayMetrics();
+                conf = res.getConfiguration();
+
+                if (getSharedPreferences("main", MODE_PRIVATE).getString(Constants.SELECTED_LANGUAGE, "en").equalsIgnoreCase("en")) {
+
+                    conf.setLocale(new Locale("en"));
+                    res.updateConfiguration(conf, dm);
+                } else if (getSharedPreferences("main", MODE_PRIVATE).getString(Constants.SELECTED_LANGUAGE, "en").equalsIgnoreCase("ar")) {
+                    conf.setLocale(new Locale("ar"));
+                    res.updateConfiguration(conf, dm);
+                }
+
+
+                startActivity(new Intent(SplashActivity.this, ActivityLogin.class));
             }
-        },3000);
+        }, 3000);
     }
 }

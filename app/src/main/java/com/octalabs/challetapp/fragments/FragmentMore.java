@@ -1,6 +1,8 @@
 package com.octalabs.challetapp.fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +17,11 @@ import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.activities.ActivityContactUs;
 import com.octalabs.challetapp.activities.ActivityWishList;
 import com.octalabs.challetapp.activities.ChangePasswordActivity;
+import com.octalabs.challetapp.utils.CustomDialog;
 
 public class FragmentMore extends Fragment implements View.OnClickListener {
 
-    private TextView textChangePassword, textContactUs, textWishList;
+    private TextView textChangePassword, textContactUs, textWishList, textChangeLanguage;
 
     @Nullable
     @Override
@@ -37,6 +40,8 @@ public class FragmentMore extends Fragment implements View.OnClickListener {
         textContactUs.setOnClickListener(this);
         textWishList = v.findViewById(R.id.text_wish_list);
         textWishList.setOnClickListener(this);
+        textChangeLanguage = v.findViewById(R.id.text_change_language);
+        textChangeLanguage.setOnClickListener(this);
     }
 
 
@@ -55,6 +60,13 @@ public class FragmentMore extends Fragment implements View.OnClickListener {
 
             case R.id.text_wish_list:
                 startActivity(new Intent(getContext(), ActivityWishList.class));
+                break;
+
+
+            case R.id.text_change_language:
+                CustomDialog cd = new CustomDialog(getActivity());
+                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cd.show();
                 break;
 
             default:

@@ -11,14 +11,14 @@
     <string name="city">مدينة</string>
     <string name="address">عنوان</string>
 
-    <string name="cardholder_s_name">Cardholder\'s Name</string>
-    <string name="card_number">Card Number</string>
-    <string name="expiry_date">Expiry Date</string>
+    <string name="cardholder_s_name">اسم حامل البطاقة</string>
+    <string name="card_number">رقم البطاقة</string>
+    <string name="expiry_date">تاريخ الانتهاء</string>
     <string name="ccv">CCV</string>
-    <string name="billing_address">Billing Address</string>
-    <string name="city_new">City</string>
+    <string name="billing_address">عنوان وصول الفواتير</string>
+    <string name="city_new">مدينة</string>
 
-    <string name="postal_code">Postal Code</string>
+    <string name="postal_code">الرمز البريدي</string>
 
     <string name="home">الصفحة الرئيسية</string>
     <string name="title_search">بحث</string>
@@ -31,25 +31,26 @@
     <string name="marriage_hall">قاعة الزواج</string>
     <string name="filter">منقي</string>
     <string name="map">خريطة</string>
-    <string name="check_out">Check Out</string>
+    <string name="check_out">الدفع</string>
     <string name="cart">عربة التسوق</string>
     <string name="payment">دفع</string>
-    <string name="confirm_payment" > Confirm Payment  </string>
-    <string name="country">Country</string>
-    <string name="state">State</string>
-    <string name="thank_you">Thank you</string>
-    <string name="last_name">Last Name</string>
-    <string name="first_name">First Name</string>
-    <string name="mobile_no">Mobile No</string>
-    <string name="user_profile">User Profile</string>
-    <string name="more">More</string>
-    <string name="old_password">Old Password</string>
-    <string name="new_password">New Password</string>
-    <string name="confirm_password">Confirm Password</string>
-    <string name="message">Message</string>
-    <string name="change_password">Change Password</string>
-    <string name="contact_us">Contact Us</string>
-    <string name="enter_your_message_here">Enter your message here</string>
-    <string name="title">Title</string>
+    <string name="confirm_payment" > تأكيد الدفع  </string>
+    <string name="country">بلد</string>
+    <string name="state">حالة</string>
+    <string name="thank_you">شكرا</string>
+    <string name="last_name">الكنية</string>
+    <string name="first_name">الاسم الاول</string>
+    <string name="mobile_no">رقم الموبايل</string>
+    <string name="user_profile">ملف تعريفي للمستخدم</string>
+    <string name="more">أكثر</string>
+    <string name="old_password">كلمة سر قديمة</string>
+    <string name="new_password">كلمة سر جديدة</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="message">رسالة</string>
+    <string name="change_password">تغيير كلمة المرور</string>
+    <string name="contact_us">اتصل بنا</string>
+    <string name="enter_your_message_here">أدخل رسالتك هنا</string>
+    <string name="title">عنوان</string>
+    <string name="select_language">اختار اللغة</string>
 
 </resources>

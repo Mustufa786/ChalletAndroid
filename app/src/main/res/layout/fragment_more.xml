@@ -156,6 +156,32 @@
                     android:background="#000"></View>
 
 
+
+
+                <TextView
+
+                    android:id="@+id/text_change_language"
+                    android:layout_height="match_parent"
+                    android:text="Change Language"
+                    android:drawableStart="@drawable/termsconditionicon"
+                    android:drawablePadding="20dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:layout_marginTop="30dp"
+                    android:textSize="18sp"
+                    android:textColor="#000"
+                    android:layout_width="match_parent"
+                    />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="3dp"
+                    android:background="#000"></View>
+
+
+
                 <TextView
                     android:id="@+id/text_logout"
                     android:layout_height="match_parent"
