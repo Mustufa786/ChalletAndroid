@@ -52,5 +52,9 @@
     <string name="enter_your_message_here">أدخل رسالتك هنا</string>
     <string name="title">عنوان</string>
     <string name="select_language">اختار اللغة</string>
+    <string name="wishlist">قائمة الرغبات</string>
+    <string name="privacy_policy">سياسة خاصة</string>
+    <string name="terms_amp_conditions">البنود و الظروف</string>
+    <string name="logout">تسجيل خروج</string>
 
 </resources>

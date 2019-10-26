@@ -42,7 +42,7 @@
                 <TextView
                     android:id="@+id/text_wish_list"
                     android:layout_height="match_parent"
-                    android:text="WishList"
+                    android:text="@string/wishlist"
                     android:drawableStart="@drawable/wishlisticon"
                     android:drawablePadding="20dp"
                     android:paddingStart="15dp"
@@ -66,7 +66,7 @@
                 <TextView
                     android:id="@+id/text_change_password"
                     android:layout_height="match_parent"
-                    android:text="Change Password"
+                    android:text="@string/change_password"
                     android:drawableStart="@drawable/changepasswordicon"
                     android:drawablePadding="20dp"
                     android:paddingStart="15dp"
@@ -90,7 +90,7 @@
                 <TextView
                     android:id="@+id/text_contact_us"
                     android:layout_height="match_parent"
-                    android:text="Contact Us"
+                    android:text="@string/contact_us"
                     android:drawableStart="@drawable/contactusicon"
                     android:drawablePadding="20dp"
                     android:paddingStart="15dp"
@@ -112,7 +112,7 @@
                 <TextView
                     android:id="@+id/text_privacy_policy"
                     android:layout_height="match_parent"
-                    android:text="Privacy Policy"
+                    android:text="@string/privacy_policy"
                     android:drawableStart="@drawable/privacypolicy"
                     android:drawablePadding="20dp"
                     android:paddingStart="15dp"
@@ -137,7 +137,7 @@
 
                     android:id="@+id/text_terms_conditions"
                     android:layout_height="match_parent"
-                    android:text="Terms &amp; Conditions"
+                    android:text="@string/terms_amp_conditions"
                     android:drawableStart="@drawable/termsconditionicon"
                     android:drawablePadding="20dp"
                     android:paddingStart="15dp"
@@ -162,7 +162,7 @@
 
                     android:id="@+id/text_change_language"
                     android:layout_height="match_parent"
-                    android:text="Change Language"
+                    android:text="@string/select_language"
                     android:drawableStart="@drawable/termsconditionicon"
                     android:drawablePadding="20dp"
                     android:paddingStart="15dp"
@@ -186,7 +186,7 @@
                     android:id="@+id/text_logout"
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/logouticon"
-                    android:text="Logout"
+                    android:text="@string/logout"
                     android:drawablePadding="20dp"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
