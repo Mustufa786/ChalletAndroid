@@ -56,5 +56,8 @@
     <string name="privacy_policy">سياسة خاصة</string>
     <string name="terms_amp_conditions">البنود و الظروف</string>
     <string name="logout">تسجيل خروج</string>
+    <string name="submit">تقديم</string>
+    <string name="update">تحديث</string>
+    <string name="confirm">تؤكد</string>
 
 </resources>

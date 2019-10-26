@@ -71,7 +71,7 @@
                     android:textColor="#000"
                     android:layout_margin="10dp"
                     android:hint="@string/enter_your_message_here"
-                    android:gravity="top|left"
+                    android:gravity="top|start"
                     android:padding="8dp"
                     android:background="@drawable/edittextbackground"/>
 
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:layout_margin="20dp"
-                android:text="Submit"
+                android:text="@string/submit"
                 android:layout_gravity="bottom"
                 android:textColor="@color/white"
                 android:background="@drawable/rounded_btn_new"

@@ -56,5 +56,8 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
     <string name="logout">Logout</string>
+    <string name="submit">Submit</string>
+    <string name="update">Update</string>
+    <string name="confirm">Confirm</string>
 
 </resources>
