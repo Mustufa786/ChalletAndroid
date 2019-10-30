@@ -103,18 +103,28 @@ public class RegisterActivity extends Activity {
 
     private void Register() {
 
-        RequestBody username = RequestBody.create(MediaType.parse("text/plain"), mEdtusername.getText().toString());
-        RequestBody address = RequestBody.create(MediaType.parse("text/plain"), mEdtaddress.getText().toString());
-        RequestBody password = RequestBody.create(MediaType.parse("text/plain"), mEdtpassword.getText().toString());
-        RequestBody email = RequestBody.create(MediaType.parse("text/plain"), mEdtemail.getText().toString());
-        RequestBody mobile = RequestBody.create(MediaType.parse("text/plain"), mEdtmobileno.getText().toString());
-        RequestBody role = RequestBody.create(MediaType.parse("text/plain"), "admin");
-        File file = new File(filePath);
-        RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part part = MultipartBody.Part.createFormData("upload", file.getName(), fileReqBody);
+
+        MultipartBody.Builder multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        multipartBody.addFormDataPart("userName", mEdtusername.getText().toString());
+        multipartBody.addFormDataPart("email", mEdtemail.getText().toString());
+        multipartBody.addFormDataPart("password", mEdtpassword.getText().toString());
+        multipartBody.addFormDataPart("mobileNo", mEdtmobileno.getText().toString());
+        multipartBody.addFormDataPart("address", mEdtaddress.getText().toString());
+        multipartBody.addFormDataPart("role", "end_user");
+        multipartBody.addFormDataPart("userName", mEdtusername.getText().toString());
+        if (filePath != null && !filePath.equalsIgnoreCase("")) {
+            File file = new File(filePath);
+            multipartBody.addFormDataPart("image", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+        }
+
+
+
+        RequestBody mBody = multipartBody.build();
+
 
         ApiInterface apiInterface = RetrofitInstance.getClient().create(ApiInterface.class);
-        Call<ApiResponce<ModelRegisterResponce>> call = apiInterface.userregister(username, email, password, mobile, address, role, part);
+        Call<ApiResponce<ModelRegisterResponce>> call = apiInterface.register(mBody);
         call.enqueue(new Callback<ApiResponce<ModelRegisterResponce>>() {
             @Override
             public void onResponse(Call<ApiResponce<ModelRegisterResponce>> call, Response<ApiResponce<ModelRegisterResponce>> response) {
