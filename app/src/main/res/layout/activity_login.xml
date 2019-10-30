@@ -26,6 +26,7 @@
 
 
         <EditText
+            android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:drawableStart="@drawable/ic_usernameicon"
@@ -36,6 +37,7 @@
             android:textColorHint="@color/black" />
 
         <EditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_passwordicon"

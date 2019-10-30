@@ -13,6 +13,11 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class RetrofitInstance {
 
     public static final String BASE_URL = "https://134.209.77.214:6000/api/";
+    public static final String BASE_USER_PIC_URL = "https://134.209.77.214:6000/picture";
+    public static final String BASE_IMG_AMENTY_URL = "https://134.209.77.214:6000/amenity";
+    public static final String BASE_IMG_CHALET_URL = "https://134.209.77.214:6000/item";
+
+
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
