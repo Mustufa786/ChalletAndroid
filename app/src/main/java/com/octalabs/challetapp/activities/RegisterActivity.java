@@ -62,10 +62,12 @@ public class RegisterActivity extends Activity {
         mEdtaddress = findViewById(R.id.address);
         mEdtmobileno = findViewById(R.id.mobile);
         mEdtemail = findViewById(R.id.email);
-        mEdtcity = findViewById(R.id.city);
+        spinnerCitites = findViewById(R.id.city);
         mEdtpassword = findViewById(R.id.password);
         mEdtconpassword = findViewById(R.id.con_password);
         spinnerCountry = findViewById(R.id.country);
+        spinnerStates = findViewById(R.id.state);
+
         hud = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
 
         getCountries();
@@ -187,7 +189,7 @@ public class RegisterActivity extends Activity {
 
     private void getCountries() {
         hud.show();
-        Call<CountryModel> call = RetrofitInstance.service.getAllCountries(Helper.getJsonHeader());
+        Call<CountryModel> call = RetrofitInstance.service.getAllCountries();
         call.enqueue(new Callback<CountryModel>() {
             @Override
             public void onResponse(Call<CountryModel> call, Response<CountryModel> response) {

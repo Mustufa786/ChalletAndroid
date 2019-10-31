@@ -41,7 +41,7 @@ public interface ApiInterface {
     Call<ApiResponce<ModelRegisterResponce>> register(@Body RequestBody body);
 
     @GET("country")
-    Call<CountryModel> getAllCountries(HashMap<String, String> jsonHeader);
+    Call<CountryModel> getAllCountries();
 
     @GET("state/{id}")
     Call<StateModel> getAllStates(@Path("id") String id);

@@ -58,7 +58,7 @@ public class ActivityLogin extends Activity {
             @Override
             public void onClick(View view) {
                 loginUser();
-                startActivity(new Intent(ActivityLogin.this, MainActivity.class));
+
             }
         });
     }
@@ -84,7 +84,7 @@ public class ActivityLogin extends Activity {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("email", inputEmail.getText().toString());
             jsonObject.put("password", inputPassowd.getText().toString());
-            RequestBody requestBody = RequestBody.create(MediaType.get("appplication/json"), jsonObject.toString());
+            RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
 
             Call<LoginModel> call = RetrofitInstance.service.loginUser(requestBody);
 
