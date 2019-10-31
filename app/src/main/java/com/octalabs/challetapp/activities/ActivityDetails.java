@@ -1,27 +1,50 @@
 package com.octalabs.challetapp.activities;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
+import com.octalabs.challetapp.adapter.AdapterDetailPicture;
+import com.octalabs.challetapp.adapter.AdapterDetailReviews;
+import com.octalabs.challetapp.adapter.AdapterDetailsAmenities;
 import com.octalabs.challetapp.databinding.ActivityDetailsBinding;
+import com.octalabs.challetapp.models.ModelAddReview;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
+import com.octalabs.challetapp.models.ModelChangePassword;
 import com.octalabs.challetapp.models.ModelDetails.ModelChaletsDetails;
 import com.octalabs.challetapp.models.ModelLogin.LoginModel;
+import com.octalabs.challetapp.retrofit.ApiResponce;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.Helper;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -35,21 +58,28 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.octalabs.challetapp.utils.Helper.displayDialog;
+import static java.lang.Double.valueOf;
 
-public class ActivityDetails extends AppCompatActivity implements View.OnClickListener {
+public class ActivityDetails extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
     KProgressHUD hud;
 
     ActivityDetailsBinding mBinding;
+    private RecyclerView mRvPictures, mRvAmenities, mRvReview;
+    private TextView mCheckIn, mCheckOut, mPrice, mAddress, mName, mTvRating;
+    SupportMapFragment mapFragment;
+    private LatLng latLng;
+    private RatingBar mRatingBar;
+    private String bookingItemID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_details);
-
-        setTextAction(Objects.requireNonNull(getSupportActionBar()), "Chalet Name");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
 
         init();
 
@@ -60,6 +90,18 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
     private void init() {
         hud = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
         mBinding.layoutAddToWishlist.setOnClickListener(this);
+        mBinding.layoutAddReview.setOnClickListener(this);
+        mRvPictures = findViewById(R.id.rv_details);
+        mRvReview = findViewById(R.id.rv_detail_review);
+        mRvAmenities = findViewById(R.id.rv_amenities);
+        mCheckIn = findViewById(R.id.time_check_in);
+        mCheckOut = findViewById(R.id.time_check_out);
+        mPrice = findViewById(R.id.chalet_price_nit);
+        mName = findViewById(R.id.chalet_name);
+        mAddress = findViewById(R.id.chalet_address);
+        mTvRating = findViewById(R.id.tv_rating);
+        mRatingBar = findViewById(R.id.chalet_rating);
+
     }
 
     private void getDetails(String id) {
@@ -73,6 +115,27 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                     ModelChaletsDetails model = response.body();
                     if (model.getSuccess()) {
 
+                        AdapterDetailPicture adapter = new AdapterDetailPicture(ActivityDetails.this, model.getData().getPicture());
+                        mRvPictures.setAdapter(adapter);
+
+                        AdapterDetailsAmenities adapteramenities = new AdapterDetailsAmenities(ActivityDetails.this, model.getData().getAmenityIds());
+                        mRvAmenities.setAdapter(adapteramenities);
+
+                        AdapterDetailReviews adapterReview = new AdapterDetailReviews(ActivityDetails.this, model.getData().getReviews());
+                        mRvReview.setAdapter(adapterReview);
+                        latLng = new LatLng(valueOf(model.getData().getLatitude()), valueOf(model.getData().getLongitude()));
+                        mapFragment.getMapAsync(ActivityDetails.this);
+                        mPrice.setText(model.getData().getPricePerNight() + "");
+                        mAddress.setText(model.getData().getLocation() + "");
+                        mCheckIn.setText(model.getData().getCheckIn() + "");
+                        mCheckOut.setText(model.getData().getCheckOut() + "");
+                        mName.setText(model.getData().getName() + "");
+                        mRatingBar.setRating(model.getData().getRating());
+                        mTvRating.setText(model.getData().getRating() + "");
+                        bookingItemID = model.getData().getId();
+                        setTextAction(Objects.requireNonNull(getSupportActionBar()), model.getData().getName() + "");
+                        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
                     } else {
                         displayDialog("Alert", model.getMessage(), ActivityDetails.this);
@@ -106,7 +169,6 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
         textview.setLayoutParams(layoutparams);
         textview.setText(title);
         textview.setTextColor(Color.WHITE);
-//        textview.setGravity(Gravity.CENTER);
         textview.setTextSize(16);
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionbar.setCustomView(textview);
@@ -117,11 +179,85 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
         switch (view.getId()) {
             case R.id.layout_add_to_wishlist:
                 addToWishList();
+                break;
+            case R.id.layout_add_review:
+                LayoutInflater factory = LayoutInflater.from(this);
+                final View deleteDialogView = factory.inflate(R.layout.dialog_review, null);
+                final AlertDialog deleteDialog = new AlertDialog.Builder(this).create();
+                deleteDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                deleteDialog.setView(deleteDialogView);
+                deleteDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.transparent));
+                final EditText mEdtComment = deleteDialogView.findViewById(R.id.comment);
+                Button mBtnAddReview = deleteDialogView.findViewById(R.id.btn_add_review);
+                deleteDialog.setCancelable(false);
+                mBtnAddReview.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (!mEdtComment.getText().toString().equalsIgnoreCase("") && !bookingItemID.equalsIgnoreCase("")) {
+                            addReview(deleteDialog,mEdtComment.getText().toString(), bookingItemID);
+                        }
+                    }
+                });
+                deleteDialog.show();
+                break;
         }
+    }
+
+    private void addReview(final AlertDialog deleteDialog, String comment, String bookingItemId) {
+        try {
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("comment", comment);
+            jsonObject.put("bookingItemId", bookingItemId);
+            final RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
+
+            Call<ApiResponce<ModelAddReview>> call = RetrofitInstance.service.addReView(Helper.getJsonHeaderWithToken(this), requestBody);
+
+
+            hud.show();
+            call.enqueue(new Callback<ApiResponce<ModelAddReview>>() {
+                @Override
+                public void onResponse(Call<ApiResponce<ModelAddReview>> call, Response<ApiResponce<ModelAddReview>> response) {
+                    try {
+                        hud.dismiss();
+                        if (response.body() != null) {
+                            if (response.body().isSuccess == true) {
+                                if (response.body().msg.equalsIgnoreCase("Review added successfully")) {
+                                    deleteDialog.dismiss();
+                                }
+                            }else {
+
+                            }
+                        } else {
+                            deleteDialog.dismiss();
+//                            displayDialog("Alert", "Invalid Username or Password", ActivityLogin.this);
+
+                        }
+
+                    } catch (Exception e) {
+                        deleteDialog.dismiss();
+                        e.printStackTrace();
+                    }
+
+
+                }
+
+                @Override
+                public void onFailure(Call<ApiResponce<ModelAddReview>> call, Throwable t) {
+                    t.printStackTrace();
+                    hud.dismiss();
+                    deleteDialog.dismiss();
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void addToWishList() {
         try {
+            hud.show();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("bookingItemId", getIntent().getStringExtra(Constants.CHALET_OR_MARRAIGE_ID));
             RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
@@ -130,7 +266,10 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                    hud.dismiss();
                     try {
+
                         if (response.body() != null) {
                             JSONObject jsonObject1 = new JSONObject(response.body().string());
                             if (jsonObject1.getBoolean("success")) {
@@ -146,7 +285,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                    hud.dismiss();
                 }
             });
 
@@ -155,5 +294,11 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        googleMap.addMarker(new MarkerOptions().position(latLng));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
     }
 }

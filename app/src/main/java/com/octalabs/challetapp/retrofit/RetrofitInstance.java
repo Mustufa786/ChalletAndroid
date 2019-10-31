@@ -24,9 +24,13 @@ public class RetrofitInstance {
     public static ApiInterface service;
 
     public static void createRetrofitInstance() {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
                 .connectTimeout(2, TimeUnit.MINUTES)
                 .readTimeout(2, TimeUnit.MINUTES)
+                .addInterceptor(logging)
                 .writeTimeout(2, TimeUnit.MINUTES)
                 .build();
 
