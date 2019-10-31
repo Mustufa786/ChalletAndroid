@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.adapter.AdapterChalets;
+import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
 import com.octalabs.challetapp.models.ModelChalet;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class ChaletFragment extends Fragment {
 
     private void Init(View v) {
         mRvChalet = v.findViewById(R.id.rv_chalet);
-        AdapterChalets adapterChalets = new AdapterChalets(getActivity(),new ArrayList<ModelChalet>());
+        AdapterChalets adapterChalets = new AdapterChalets(getActivity(),new ArrayList<Chalet>());
         mRvChalet.setAdapter(adapterChalets);
 
     }

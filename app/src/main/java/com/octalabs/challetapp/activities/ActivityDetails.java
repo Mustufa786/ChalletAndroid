@@ -9,11 +9,26 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
+import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
+import com.octalabs.challetapp.models.ModelDetails.ModelChaletsDetails;
+import com.octalabs.challetapp.retrofit.RetrofitInstance;
+import com.octalabs.challetapp.utils.Constants;
+import com.octalabs.challetapp.utils.Helper;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.octalabs.challetapp.utils.Helper.displayDialog;
+
 public class ActivityDetails extends AppCompatActivity {
+
+    KProgressHUD hud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +39,40 @@ public class ActivityDetails extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        init();
+
+        getDetails(getIntent().getStringExtra(Constants.CHALET_OR_MARRAIGE_ID));
+
     }
 
+    private void init() {
+        hud = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
+    }
+
+    private void getDetails(String id) {
+        hud.show();
+        Call<ModelChaletsDetails> call = RetrofitInstance.service.getChaletsMarraigeDetails(id, Helper.getJsonHeaderWithToken(ActivityDetails.this));
+        call.enqueue(new Callback<ModelChaletsDetails>() {
+            @Override
+            public void onResponse(Call<ModelChaletsDetails> call, Response<ModelChaletsDetails> response) {
+                if (response.body() != null) {
+                    hud.dismiss();
+                    ModelChaletsDetails model = response.body();
+                    if (model.getSuccess()) {
+
+
+                    } else {
+                        displayDialog("Alert", model.getMessage(), ActivityDetails.this);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelChaletsDetails> call, Throwable t) {
+                hud.dismiss();
+            }
+        });
+    }
 
 
     @Override

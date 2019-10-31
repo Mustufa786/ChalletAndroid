@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.adapter.AdapterBookingHistory;
 import com.octalabs.challetapp.adapter.AdapterChalets;
+import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
 import com.octalabs.challetapp.models.ModelChalet;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class FragmentSearchListing extends Fragment {
 
     private void Init(View v) {
         mRvBookingHistory = v.findViewById(R.id.rv_booking_history);
-        AdapterChalets adapterbookinghistory = new AdapterChalets(getActivity(), new ArrayList<ModelChalet>());
+        AdapterChalets adapterbookinghistory = new AdapterChalets(getActivity(), new ArrayList<Chalet>());
         mRvBookingHistory.setAdapter(adapterbookinghistory);
     }
 }

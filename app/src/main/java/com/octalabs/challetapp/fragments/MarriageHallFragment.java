@@ -31,7 +31,7 @@ class MarriageHallFragment extends Fragment {
 
     private void Init(View v) {
         mRvMarriageHalls = v.findViewById(R.id.rv_marriage_hall);
-        AdapterMarriageHall adapterMarriageHall = new AdapterMarriageHall(getActivity(), new ArrayList<AllChaletsModel>());
-        mRvMarriageHalls.setAdapter(adapterMarriageHall);
+//        AdapterMarriageHall adapterMarriageHall = new AdapterMarriageHall(getActivity(), new ArrayList<AllChaletsModel>());
+//        mRvMarriageHalls.setAdapter(adapterMarriageHall);
     }
 }

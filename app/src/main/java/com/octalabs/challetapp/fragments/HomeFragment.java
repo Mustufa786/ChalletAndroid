@@ -14,9 +14,13 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
+import com.octalabs.challetapp.adapter.AdapterChalets;
 import com.octalabs.challetapp.adapter.AdapterMarriageHall;
 import com.octalabs.challetapp.adapter.MyPagerAdapter;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
+import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
+import com.octalabs.challetapp.models.ModelAllMarraiges.AllMarraigesModel;
+import com.octalabs.challetapp.models.ModelAllMarraiges.Marraige;
 import com.octalabs.challetapp.models.ModelChalet;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Helper;
@@ -36,6 +40,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     RecyclerView mRecyclerView;
     KProgressHUD hud;
     AdapterMarriageHall adapterMarriageHall;
+    AdapterChalets adapterChalets;
 
     @Nullable
     @Override
@@ -59,8 +64,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     hud.dismiss();
                     AllChaletsModel model = response.body();
                     if (model.getSuccess()) {
+                        getAllMarrigeHalls();
                         ArrayList arrayList = new ArrayList<>(model.getData());
-                        adapterMarriageHall.setMlist(arrayList);
+                        adapterChalets.setMlist(arrayList);
 
                     } else {
                         displayDialog("Alert", model.getMessage(), getContext());
@@ -76,14 +82,42 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
 
+    private void getAllMarrigeHalls() {
+        hud.show();
+        Call<AllMarraigesModel> call = RetrofitInstance.service.getAllMarraiges(Helper.getJsonHeaderWithToken(getContext()));
+        call.enqueue(new Callback<AllMarraigesModel>() {
+            @Override
+            public void onResponse(Call<AllMarraigesModel> call, Response<AllMarraigesModel> response) {
+                if (response.body() != null) {
+                    hud.dismiss();
+                    AllMarraigesModel model = response.body();
+                    if (model.getSuccess()) {
+                        ArrayList arrayList = new ArrayList<>(model.getData());
+                        adapterMarriageHall.setMlist(arrayList);
+
+                    } else {
+                        displayDialog("Alert", model.getMessage(), getContext());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AllMarraigesModel> call, Throwable t) {
+                hud.dismiss();
+            }
+        });
+    }
+
+
     private void Init(View v) {
         mBtnchalet = v.findViewById(R.id.btn_chalet);
         mBtnMarriageall = v.findViewById(R.id.btn_marriage_hall);
         mBtnchalet.setOnClickListener(this);
         mBtnMarriageall.setOnClickListener(this);
         mRecyclerView = v.findViewById(R.id.rv_marriage_hall);
-        adapterMarriageHall = new AdapterMarriageHall(getActivity(), new ArrayList<AllChaletsModel>());
-        mRecyclerView.setAdapter(adapterMarriageHall);
+        adapterMarriageHall = new AdapterMarriageHall(getActivity(), new ArrayList<Marraige>());
+        adapterChalets = new AdapterChalets(getActivity(), new ArrayList<Chalet>());
+        mRecyclerView.setAdapter(adapterChalets);
     }
 
     @Override
@@ -94,6 +128,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 mBtnchalet.setTextColor(getActivity().getResources().getColor(R.color.white));
                 mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
                 mBtnMarriageall.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+                mRecyclerView.setAdapter(adapterChalets);
                 break;
 
             case R.id.btn_marriage_hall:
@@ -101,6 +136,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 mBtnchalet.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
                 mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
                 mBtnMarriageall.setTextColor(getActivity().getResources().getColor(R.color.white));
+                mRecyclerView.setAdapter(adapterMarriageHall);
                 break;
 
         }

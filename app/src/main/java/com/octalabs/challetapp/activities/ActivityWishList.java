@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.adapter.AdapterChalets;
+import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
 import com.octalabs.challetapp.models.ModelChalet;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class ActivityWishList extends AppCompatActivity {
 
     private void init() {
         mRecyclerView = findViewById(R.id.recycler_view);
-        AdapterChalets adapterbookinghistory = new AdapterChalets(this, new ArrayList<ModelChalet>());
+        AdapterChalets adapterbookinghistory = new AdapterChalets(this, new ArrayList<Chalet>());
         mRecyclerView.setAdapter(adapterbookinghistory);
 
     }
