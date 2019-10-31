@@ -30,10 +30,14 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:drawableStart="@drawable/ic_usernameicon"
-            android:drawablePadding="40dp"
+            android:drawablePadding="20dp"
+            android:ellipsize="end"
             android:hint="@string/user_name"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
+            android:singleLine="true"
             android:textColorHint="@color/black" />
 
         <EditText
@@ -41,10 +45,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_passwordicon"
-            android:drawablePadding="40dp"
+            android:drawablePadding="20dp"
+            android:ellipsize="end"
+
             android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLines="1"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
+            android:singleLine="true"
             android:textColorHint="@color/black" />
 
         <TextView

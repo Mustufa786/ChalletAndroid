@@ -3,8 +3,8 @@
     style="@style/spinnerItemStyle"
     android:singleLine="true"
     android:padding="8dp"
-    android:textColor="#000"
     android:textSize="14sp"
+    android:textColor="#000"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:ellipsize="marquee" />

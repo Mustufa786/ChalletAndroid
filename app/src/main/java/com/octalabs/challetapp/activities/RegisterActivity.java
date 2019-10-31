@@ -2,6 +2,7 @@ package com.octalabs.challetapp.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.adapter.CustomSpinnerAdapter;
@@ -20,14 +22,20 @@ import com.octalabs.challetapp.models.ModelCity.CityModel;
 import com.octalabs.challetapp.models.ModelCity.StateCity;
 import com.octalabs.challetapp.models.ModelCountry.Country;
 import com.octalabs.challetapp.models.ModelCountry.CountryModel;
+import com.octalabs.challetapp.models.ModelLogin.Login;
+import com.octalabs.challetapp.models.ModelLogin.LoginModel;
+import com.octalabs.challetapp.models.ModelRegister.RegisterModel;
 import com.octalabs.challetapp.models.ModelRegisterResponce;
 import com.octalabs.challetapp.models.ModelState.CountryState;
 import com.octalabs.challetapp.models.ModelState.StateModel;
 import com.octalabs.challetapp.retrofit.ApiInterface;
 import com.octalabs.challetapp.retrofit.ApiResponce;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
+import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.FilePath;
 import com.octalabs.challetapp.utils.Helper;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,7 +55,7 @@ public class RegisterActivity extends Activity {
     private Button mBtnRegister;
     private EditText mEdtusername, mEdtaddress, mEdtmobileno, mEdtpassword, mEdtconpassword, mEdtemail, mEdtcity;
     private String filePath;
-    Spinner spinnerCountry , spinnerStates , spinnerCitites;
+    Spinner spinnerCountry, spinnerStates, spinnerCitites;
     private String countryID;
     private String stateID;
     private String cityID;
@@ -84,34 +92,31 @@ public class RegisterActivity extends Activity {
     }
 
 
-
     private boolean validation() {
-        if (mEdtaddress.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(this, "Please insert Address", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (mEdtcity.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(this, "Please insert City", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (mEdtconpassword.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(this, "Please insert Confirm Password", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (mEdtpassword.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(this, "Please insert Password", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (mEdtmobileno.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(this, "Please insert Mobile Number", Toast.LENGTH_SHORT).show();
-            return false;
-        }
         if (mEdtusername.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(this, "Please insert Username", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (mEdtemail.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(this, "Please insert Email", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (mEdtmobileno.getText().toString().equalsIgnoreCase("")) {
+            Toast.makeText(this, "Please insert Mobile Number", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (mEdtpassword.getText().toString().equalsIgnoreCase("")) {
+            Toast.makeText(this, "Please insert Password", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (mEdtconpassword.getText().toString().equalsIgnoreCase("")) {
+            Toast.makeText(this, "Please insert Confirm Password", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+        if (mEdtaddress.getText().toString().equalsIgnoreCase("")) {
+            Toast.makeText(this, "Please insert Address", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -158,7 +163,6 @@ public class RegisterActivity extends Activity {
         multipartBody.addFormDataPart("mobileNo", mEdtmobileno.getText().toString());
         multipartBody.addFormDataPart("address", mEdtaddress.getText().toString());
         multipartBody.addFormDataPart("role", "end_user");
-        multipartBody.addFormDataPart("userName", mEdtusername.getText().toString());
         multipartBody.addFormDataPart("countryId", countryID);
         multipartBody.addFormDataPart("stateId", stateID);
         multipartBody.addFormDataPart("cityId", cityID);
@@ -172,15 +176,43 @@ public class RegisterActivity extends Activity {
         RequestBody mBody = multipartBody.build();
 
 
-        Call<ApiResponce<ModelRegisterResponce>> call = RetrofitInstance.service.register(mBody);
-        call.enqueue(new Callback<ApiResponce<ModelRegisterResponce>>() {
+        Call<RegisterModel> call = RetrofitInstance.service.register(mBody);
+        call.enqueue(new Callback<RegisterModel>() {
             @Override
-            public void onResponse(Call<ApiResponce<ModelRegisterResponce>> call, Response<ApiResponce<ModelRegisterResponce>> response) {
-                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+            public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
+
+
+                try {
+                    hud.dismiss();
+                    if (response.body() != null) {
+                        RegisterModel model = response.body();
+                        if (model.getSuccess()) {
+                            Gson gson = new Gson();
+                            JSONObject object = new JSONObject(gson.toJson(model.getData(), Login.class));
+                            SharedPreferences mPref = getSharedPreferences("main", MODE_PRIVATE);
+                            mPref.edit().putString(Constants.user_profile, object.toString()).apply();
+                            mPref.edit().putString(Constants.email_address, mEdtemail.getText().toString()).apply();
+                            mPref.edit().putString(Constants.password, mEdtpassword.getText().toString()).apply();
+                            mPref.edit().putBoolean(Constants.IS_USER_LOGGED_IN, true).apply();
+                            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                            finish();
+                            Log.i("tag", object.toString());
+                        } else {
+                            displayDialog("Alert", model.getMessage(), RegisterActivity.this);
+                        }
+                    } else {
+                        displayDialog("Alert", "Invalid Username or Password", RegisterActivity.this);
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
-            public void onFailure(Call<ApiResponce<ModelRegisterResponce>> call, Throwable t) {
+            public void onFailure(Call<RegisterModel> call, Throwable t) {
 
             }
         });
@@ -291,7 +323,7 @@ public class RegisterActivity extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 CustomSpinnerAdapter adapter = (CustomSpinnerAdapter) parent.getAdapter();
 
-               CountryState item = (CountryState) adapter.getItem(position);
+                CountryState item = (CountryState) adapter.getItem(position);
                 stateID = item.getId() + "";
                 if (!item.getId().equalsIgnoreCase("0")) {
                     getCities(stateID);

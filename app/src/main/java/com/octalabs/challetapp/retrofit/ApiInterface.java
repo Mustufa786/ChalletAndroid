@@ -5,6 +5,7 @@ import com.octalabs.challetapp.models.ModelCity.CityModel;
 import com.octalabs.challetapp.models.ModelCountry.CountryModel;
 import com.octalabs.challetapp.models.ModelDetails.ModelChaletsDetails;
 import com.octalabs.challetapp.models.ModelLogin.LoginModel;
+import com.octalabs.challetapp.models.ModelRegister.RegisterModel;
 import com.octalabs.challetapp.models.ModelRegisterResponce;
 import com.octalabs.challetapp.models.ModelState.StateModel;
 
@@ -42,7 +43,7 @@ public interface ApiInterface {
 
 
     @POST("user")
-    Call<ApiResponce<ModelRegisterResponce>> register(@Body RequestBody body);
+    Call<RegisterModel> register(@Body RequestBody body);
 
     @GET("country")
     Call<CountryModel> getAllCountries();
@@ -69,7 +70,7 @@ public interface ApiInterface {
 
 
     @GET("wishlist")
-    Call<ResponseBody> getWishList(@HeaderMap HashMap<String, String> hashMap);
+    Call<AllChaletsModel> getWishList(@HeaderMap HashMap<String, String> hashMap);
 
 
 

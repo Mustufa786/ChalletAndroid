@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,10 +13,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.databinding.ActivityDetailsBinding;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
+import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
 import com.octalabs.challetapp.models.ModelDetails.ModelChaletsDetails;
 import com.octalabs.challetapp.models.ModelLogin.LoginModel;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
@@ -25,6 +28,7 @@ import com.octalabs.challetapp.utils.Helper;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import okhttp3.MediaType;
@@ -60,6 +64,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
     private void init() {
         hud = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
         mBinding.layoutAddToWishlist.setOnClickListener(this);
+
     }
 
     private void getDetails(String id) {
@@ -117,8 +122,12 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
         switch (view.getId()) {
             case R.id.layout_add_to_wishlist:
                 addToWishList();
+                break;
+
+
         }
     }
+
 
     private void addToWishList() {
         try {

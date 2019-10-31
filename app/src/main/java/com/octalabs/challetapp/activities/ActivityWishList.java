@@ -10,18 +10,31 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.adapter.AdapterChalets;
+import com.octalabs.challetapp.adapter.AdapterMarriageHall;
+import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
 import com.octalabs.challetapp.models.ModelChalet;
+import com.octalabs.challetapp.retrofit.RetrofitInstance;
+import com.octalabs.challetapp.utils.Helper;
 
 import java.util.ArrayList;
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.octalabs.challetapp.utils.Helper.displayDialog;
 
 public class ActivityWishList extends AppCompatActivity {
 
 
     RecyclerView mRecyclerView;
+    KProgressHUD hud;
+    AdapterChalets mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,19 +45,41 @@ public class ActivityWishList extends AppCompatActivity {
         setTextAction(Objects.requireNonNull(getSupportActionBar()), "WishList");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        hud = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
         getAllWishListData();
 
     }
 
     private void getAllWishListData() {
+        hud.show();
+        Call<AllChaletsModel> call = RetrofitInstance.service.getAllMarraiges(Helper.getJsonHeaderWithToken(this));
+        call.enqueue(new Callback<AllChaletsModel>() {
+            @Override
+            public void onResponse(Call<AllChaletsModel> call, Response<AllChaletsModel> response) {
+                if (response.body() != null) {
+                    hud.dismiss();
+                    AllChaletsModel model = response.body();
+                    if (model.getSuccess()) {
+                        ArrayList arrayList = new ArrayList<>(model.getData());
+                        mAdapter.setMlist(arrayList);
 
+                    } else {
+                        displayDialog("Alert", model.getMessage(), ActivityWishList.this);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AllChaletsModel> call, Throwable t) {
+                hud.dismiss();
+            }
+        });
     }
 
     private void init() {
         mRecyclerView = findViewById(R.id.recycler_view);
-        AdapterChalets adapterbookinghistory = new AdapterChalets(this, new ArrayList<Chalet>());
-        mRecyclerView.setAdapter(adapterbookinghistory);
+        mAdapter = new AdapterChalets(this, new ArrayList<Chalet>());
+        mRecyclerView.setAdapter(mAdapter);
 
     }
 

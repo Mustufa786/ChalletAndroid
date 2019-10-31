@@ -1,6 +1,8 @@
 package com.octalabs.challetapp.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,13 +17,15 @@ import androidx.fragment.app.Fragment;
 
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.activities.ActivityContactUs;
+import com.octalabs.challetapp.activities.ActivityLogin;
 import com.octalabs.challetapp.activities.ActivityWishList;
 import com.octalabs.challetapp.activities.ChangePasswordActivity;
+import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.CustomDialog;
 
 public class FragmentMore extends Fragment implements View.OnClickListener {
 
-    private TextView textChangePassword, textContactUs, textWishList, textChangeLanguage;
+    private TextView textChangePassword, textContactUs, textWishList, textChangeLanguage, textLogout;
 
     @Nullable
     @Override
@@ -42,6 +46,8 @@ public class FragmentMore extends Fragment implements View.OnClickListener {
         textWishList.setOnClickListener(this);
         textChangeLanguage = v.findViewById(R.id.text_change_language);
         textChangeLanguage.setOnClickListener(this);
+        textLogout = v.findViewById(R.id.text_logout);
+        textLogout.setOnClickListener(this);
     }
 
 
@@ -69,9 +75,28 @@ public class FragmentMore extends Fragment implements View.OnClickListener {
                 cd.show();
                 break;
 
+
+            case R.id.text_logout:
+                logoutUser();
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void logoutUser() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("main", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove(Constants.email_address);
+        editor.remove(Constants.user_profile);
+        editor.remove(Constants.password);
+        editor.putBoolean(Constants.IS_USER_LOGGED_IN, false);
+        editor.apply();
+
+        getActivity().finishAffinity();
+        Intent intent = new Intent(getContext(), ActivityLogin.class);
+        startActivity(intent);
     }
 }
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -14,6 +15,8 @@ import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.activities.ActivityDetails;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
 import com.octalabs.challetapp.models.ModelChalet;
+import com.octalabs.challetapp.retrofit.RetrofitInstance;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -44,6 +47,10 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Chalet item = mlist.get(position);
+        if (item.getPicture() != null && item.getPicture().size() > 0) {
+            Picasso.get().load(RetrofitInstance.BASE_IMG_CHALET_URL + item.getPicture().get(0)).into(holder.imgChalet);
+
+        }
         holder.textChaletName.setText(item.getName());
         holder.textLocation.setText(item.getLocation());
         holder.textPrice.setText(item.getPricePerNight() + " Riyal");
@@ -62,7 +69,7 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
 
         TextView textChaletName, textLocation, textPrice;
         RatingBar ratingBar;
-
+        ImageView imgChalet;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +78,7 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
             textPrice = itemView.findViewById(R.id.text_price);
             ratingBar = itemView.findViewById(R.id.rating);
 
+            imgChalet = itemView.findViewById(R.id.img_chalet);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
