@@ -71,6 +71,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
     private LatLng latLng;
     private RatingBar mRatingBar;
     private String bookingItemID;
+    private AlertDialog deleteDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,18 +184,18 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
             case R.id.layout_add_review:
                 LayoutInflater factory = LayoutInflater.from(this);
                 final View deleteDialogView = factory.inflate(R.layout.dialog_review, null);
-                final AlertDialog deleteDialog = new AlertDialog.Builder(this).create();
+                deleteDialog = new AlertDialog.Builder(this).create();
                 deleteDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 deleteDialog.setView(deleteDialogView);
                 deleteDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.transparent));
                 final EditText mEdtComment = deleteDialogView.findViewById(R.id.comment);
                 Button mBtnAddReview = deleteDialogView.findViewById(R.id.btn_add_review);
-                deleteDialog.setCancelable(false);
+                deleteDialog.setCancelable(true);
                 mBtnAddReview.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (!mEdtComment.getText().toString().equalsIgnoreCase("") && !bookingItemID.equalsIgnoreCase("")) {
-                            addReview(deleteDialog,mEdtComment.getText().toString(), bookingItemID);
+                            addReview(deleteDialog, mEdtComment.getText().toString(), bookingItemID);
                         }
                     }
                 });
@@ -225,7 +226,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                                 if (response.body().msg.equalsIgnoreCase("Review added successfully")) {
                                     deleteDialog.dismiss();
                                 }
-                            }else {
+                            } else {
 
                             }
                         } else {
@@ -294,6 +295,15 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (deleteDialog.isShowing()) {
+            deleteDialog.dismiss();
+            return;
+        }
+        super.onBackPressed();
     }
 
     @Override
