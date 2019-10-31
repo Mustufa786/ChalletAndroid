@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.util.DisplayMetrics;
 
 import com.octalabs.challetapp.R;
+import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
 
 import java.util.Locale;
@@ -24,6 +25,9 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+
+        RetrofitInstance.createRetrofitInstance();
 
         new Handler().postDelayed(new Runnable() {
             @Override

@@ -6,12 +6,17 @@
     android:orientation="vertical">
 
 
+
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.4"
         android:padding="10dp"
         android:src="@drawable/ic_logo" />
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -95,47 +100,95 @@
             android:paddingEnd="10dp"
             android:textColorHint="@color/black" />
 
-        <EditText
-            android:id="@+id/country"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:textSize="14sp"
-            android:drawableStart="@drawable/cityicon1"
-            android:drawablePadding="40dp"
-            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textColorHint="@color/black"
-            android:hint="@string/country" />
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:paddingStart="10dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/cityicon1"/>
+
+            <Spinner
+                android:id="@+id/country"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="false"
+                android:textSize="14sp"
+
+                android:drawableStart="@drawable/cityicon1"
+                android:drawablePadding="40dp"
+                android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                android:textColorHint="@color/black"
+                android:hint="@string/country" />
 
 
-        <EditText
-            android:id="@+id/state"
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:textSize="14sp"
-            android:drawableStart="@drawable/cityicon1"
-            android:drawablePadding="40dp"
-            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textColorHint="@color/black"
-            android:hint="@string/country" />
+            android:layout_height="40dp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/city"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/cityicon1"/>
+
+            <Spinner
+                android:id="@+id/state"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="false"
+                android:textSize="14sp"
+
+                android:drawableStart="@drawable/cityicon1"
+                android:drawablePadding="40dp"
+                android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                android:textColorHint="@color/black"
+                android:hint="@string/country" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/cityicon1"
-            android:drawablePadding="40dp"
-            android:hint="@string/city"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textColorHint="@color/black" />
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/cityicon1"/>
+
+            <Spinner
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="false"
+                android:textSize="14sp"
+
+                android:drawableStart="@drawable/cityicon1"
+                android:drawablePadding="40dp"
+                android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                android:textColorHint="@color/black"
+                android:hint="@string/country" />
 
 
+        </LinearLayout>
 
 
 

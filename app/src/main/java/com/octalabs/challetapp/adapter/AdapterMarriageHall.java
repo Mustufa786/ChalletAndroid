@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.activities.ActivityDetails;
+import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
 import com.octalabs.challetapp.models.ModelChalet;
 
 import java.util.ArrayList;
@@ -17,9 +18,15 @@ import java.util.ArrayList;
 public class AdapterMarriageHall extends RecyclerView.Adapter<AdapterMarriageHall.MyViewHolder> {
 
     private final Activity activity;
-    private final ArrayList<ModelChalet> mlist;
 
-    public AdapterMarriageHall(Activity activity, ArrayList<ModelChalet> mlist) {
+    public void setMlist(ArrayList<AllChaletsModel> mlist) {
+        this.mlist = mlist;
+        notifyDataSetChanged();
+    }
+
+    private ArrayList<AllChaletsModel> mlist;
+
+    public AdapterMarriageHall(Activity activity, ArrayList<AllChaletsModel> mlist) {
         this.activity = activity;
         this.mlist = mlist;
     }
@@ -37,17 +44,17 @@ public class AdapterMarriageHall extends RecyclerView.Adapter<AdapterMarriageHal
 
     @Override
     public int getItemCount() {
-        return 10;
+        return mlist.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public MyViewHolder(@NonNull View itemView) {
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(activity , ActivityDetails.class);
+                    Intent intent = new Intent(activity, ActivityDetails.class);
                     activity.startActivity(intent);
                 }
             });

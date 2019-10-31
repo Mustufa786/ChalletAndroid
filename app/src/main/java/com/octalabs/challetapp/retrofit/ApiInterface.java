@@ -33,7 +33,7 @@ public interface ApiInterface {
 
 
     @PUT("auth")
-    Call<ApiResponce<LoginModel>> loginUser(@Body RequestBody body);
+    Call<LoginModel> loginUser(@Body RequestBody body);
 
 
 
@@ -41,7 +41,7 @@ public interface ApiInterface {
     Call<ApiResponce<ModelRegisterResponce>> register(@Body RequestBody body);
 
     @GET("country")
-    Call<CountryModel> getAllCountries();
+    Call<CountryModel> getAllCountries(HashMap<String, String> jsonHeader);
 
     @GET("state/{id}")
     Call<StateModel> getAllStates(@Path("id") String id);

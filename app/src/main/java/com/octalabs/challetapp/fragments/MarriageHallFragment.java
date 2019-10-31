@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.adapter.AdapterMarriageHall;
+import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
 import com.octalabs.challetapp.models.ModelChalet;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ class MarriageHallFragment extends Fragment {
 
     private void Init(View v) {
         mRvMarriageHalls = v.findViewById(R.id.rv_marriage_hall);
-        AdapterMarriageHall adapterMarriageHall = new AdapterMarriageHall(getActivity(), new ArrayList<ModelChalet>());
+        AdapterMarriageHall adapterMarriageHall = new AdapterMarriageHall(getActivity(), new ArrayList<AllChaletsModel>());
         mRvMarriageHalls.setAdapter(adapterMarriageHall);
     }
 }
