@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +14,6 @@ import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.activities.ActivityDetails;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
-import com.octalabs.challetapp.models.ModelAllMarraiges.Marraige;
 import com.octalabs.challetapp.models.ModelChalet;
 
 import java.util.ArrayList;
@@ -23,14 +24,14 @@ public class AdapterMarriageHall extends RecyclerView.Adapter<AdapterMarriageHal
 
     private final Activity activity;
 
-    public void setMlist(ArrayList<Marraige> mlist) {
+    public void setMlist(ArrayList<Chalet> mlist) {
         this.mlist = mlist;
         notifyDataSetChanged();
     }
 
-    private ArrayList<Marraige> mlist;
+    private ArrayList<Chalet> mlist;
 
-    public AdapterMarriageHall(Activity activity, ArrayList<Marraige> mlist) {
+    public AdapterMarriageHall(Activity activity, ArrayList<Chalet> mlist) {
         this.activity = activity;
         this.mlist = mlist;
     }
@@ -43,6 +44,14 @@ public class AdapterMarriageHall extends RecyclerView.Adapter<AdapterMarriageHal
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Chalet item = mlist.get(position);
+        holder.textChaletName.setText(item.getName());
+        holder.textLocation.setText(item.getLocation());
+        holder.textPrice.setText(item.getPricePerNight() + " Riyal");
+        if (item.getRating() > 0) {
+            holder.ratingBar.setNumStars(item.getRating());
+        }
+
 
     }
 
@@ -53,8 +62,16 @@ public class AdapterMarriageHall extends RecyclerView.Adapter<AdapterMarriageHal
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
+        TextView textChaletName, textLocation, textPrice;
+        RatingBar ratingBar;
+
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            textChaletName = itemView.findViewById(R.id.text_chalet_name);
+            textLocation = itemView.findViewById(R.id.text_location);
+            textPrice = itemView.findViewById(R.id.text_price);
+            ratingBar = itemView.findViewById(R.id.rating);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

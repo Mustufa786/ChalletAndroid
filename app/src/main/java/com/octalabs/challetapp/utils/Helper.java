@@ -61,6 +61,12 @@ public class Helper {
     }
 
 
+    public static boolean isUserLoggedIn(Context context) {
+
+        return context.getSharedPreferences("main", MODE_PRIVATE).getBoolean(Constants.IS_USER_LOGGED_IN, false);
+    }
+
+
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
@@ -97,7 +103,7 @@ public class Helper {
     }
 
 
-    public static boolean hasInternetConnection(Context context)  {
+    public static boolean hasInternetConnection(Context context) {
 //        final String command = "ping -c 1 google.com";
 //        return Runtime.getRuntime().exec(command).waitFor() == 0;
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

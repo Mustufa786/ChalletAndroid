@@ -105,6 +105,7 @@ public class ActivityLogin extends Activity {
                                 mPref.edit().putString(Constants.user_profile, object.toString()).apply();
                                 mPref.edit().putString(Constants.email_address, inputEmail.getText().toString()).apply();
                                 mPref.edit().putString(Constants.password, inputEmail.getText().toString()).apply();
+                                mPref.edit().putBoolean(Constants.IS_USER_LOGGED_IN, true).apply();
                                 startActivity(new Intent(ActivityLogin.this, MainActivity.class));
                                 finish();
                                 Log.i("tag", object.toString());

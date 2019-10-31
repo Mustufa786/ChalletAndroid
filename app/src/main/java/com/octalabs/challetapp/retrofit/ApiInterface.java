@@ -1,7 +1,6 @@
 package com.octalabs.challetapp.retrofit;
 
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
-import com.octalabs.challetapp.models.ModelAllMarraiges.AllMarraigesModel;
 import com.octalabs.challetapp.models.ModelCity.CityModel;
 import com.octalabs.challetapp.models.ModelCountry.CountryModel;
 import com.octalabs.challetapp.models.ModelDetails.ModelChaletsDetails;
@@ -60,7 +59,7 @@ public interface ApiInterface {
 
 
     @GET("item/hall")
-    Call<AllMarraigesModel> getAllMarraiges(@HeaderMap HashMap<String, String> hashMap);
+    Call<AllChaletsModel> getAllMarraiges(@HeaderMap HashMap<String, String> hashMap);
 
     @POST("wishlist")
     Call<ResponseBody> addtoWishList(@Body RequestBody body, @HeaderMap HashMap<String, String> hashMap);
