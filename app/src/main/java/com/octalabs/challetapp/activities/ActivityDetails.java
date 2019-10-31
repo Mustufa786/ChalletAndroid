@@ -2,38 +2,50 @@ package com.octalabs.challetapp.activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
+import com.octalabs.challetapp.databinding.ActivityDetailsBinding;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
 import com.octalabs.challetapp.models.ModelDetails.ModelChaletsDetails;
+import com.octalabs.challetapp.models.ModelLogin.LoginModel;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.Helper;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.octalabs.challetapp.utils.Helper.displayDialog;
 
-public class ActivityDetails extends AppCompatActivity {
+public class ActivityDetails extends AppCompatActivity implements View.OnClickListener {
 
     KProgressHUD hud;
+
+    ActivityDetailsBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_details);
 
         setTextAction(Objects.requireNonNull(getSupportActionBar()), "Chalet Name");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -47,6 +59,7 @@ public class ActivityDetails extends AppCompatActivity {
 
     private void init() {
         hud = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
+        mBinding.layoutAddToWishlist.setOnClickListener(this);
     }
 
     private void getDetails(String id) {
@@ -97,5 +110,50 @@ public class ActivityDetails extends AppCompatActivity {
         textview.setTextSize(16);
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionbar.setCustomView(textview);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.layout_add_to_wishlist:
+                addToWishList();
+        }
+    }
+
+    private void addToWishList() {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("bookingItemId", getIntent().getStringExtra(Constants.CHALET_OR_MARRAIGE_ID));
+            RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
+
+            Call<ResponseBody> call = RetrofitInstance.service.addtoWishList(requestBody, Helper.getJsonHeaderWithToken(this));
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        if (response.body() != null) {
+                            JSONObject jsonObject1 = new JSONObject(response.body().string());
+                            if (jsonObject1.getBoolean("success")) {
+                                Toast.makeText(ActivityDetails.this, "Added to WishList", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(ActivityDetails.this, "Already Exist In Your WishList", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

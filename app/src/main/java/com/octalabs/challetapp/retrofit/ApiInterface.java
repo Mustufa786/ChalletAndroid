@@ -63,7 +63,7 @@ public interface ApiInterface {
     Call<AllMarraigesModel> getAllMarraiges(@HeaderMap HashMap<String, String> hashMap);
 
     @POST("wishlist")
-    Call<ResponseBody> postWishList(@Body RequestBody body, @HeaderMap HashMap<String, String> hashMap);
+    Call<ResponseBody> addtoWishList(@Body RequestBody body, @HeaderMap HashMap<String, String> hashMap);
 
 
     @GET("wishlist")
