@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.models.ModelLogin.Login;
 import com.octalabs.challetapp.models.ModelLogin.LoginModel;
@@ -35,6 +36,7 @@ public class ActivityLogin extends Activity {
     private Button mBtnSignUP;
     private Button mBtnSignIN;
     EditText inputEmail, inputPassowd;
+    KProgressHUD hud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +47,7 @@ public class ActivityLogin extends Activity {
         mBtnSignUP = findViewById(R.id.btn_sig_up);
         inputEmail = findViewById(R.id.user_name);
         inputPassowd = findViewById(R.id.password);
-
-
+        hud = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
         mBtnSignUP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,11 +90,12 @@ public class ActivityLogin extends Activity {
             Call<LoginModel> call = RetrofitInstance.service.loginUser(requestBody);
 
 
+            hud.show();
             call.enqueue(new Callback<LoginModel>() {
                 @Override
                 public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
                     try {
-
+                        hud.dismiss();
                         if (response.body() != null) {
                             LoginModel model = response.body();
                             if (model.getSuccess()) {
@@ -124,6 +126,7 @@ public class ActivityLogin extends Activity {
                 @Override
                 public void onFailure(Call<LoginModel> call, Throwable t) {
 
+                    hud.dismiss();
                 }
             });
 
