@@ -23,8 +23,6 @@ public class ActivityConfirmPayment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_payment);
-
-
         setTextAction(getSupportActionBar(), getResources().getString(R.string.confirm_payment));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

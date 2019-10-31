@@ -37,6 +37,9 @@ public interface ApiInterface {
     @PUT("auth")
     Call<LoginModel> loginUser(@Body RequestBody body);
 
+    @PUT("password")
+    Call<LoginModel> changePassword(@Body RequestBody body);
+
 
 
     @POST("user")

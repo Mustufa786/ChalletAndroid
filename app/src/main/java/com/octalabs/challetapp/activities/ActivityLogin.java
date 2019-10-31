@@ -104,7 +104,7 @@ public class ActivityLogin extends Activity {
                                 SharedPreferences mPref = getSharedPreferences("main", MODE_PRIVATE);
                                 mPref.edit().putString(Constants.user_profile, object.toString()).apply();
                                 mPref.edit().putString(Constants.email_address, inputEmail.getText().toString()).apply();
-                                mPref.edit().putString(Constants.password, inputEmail.getText().toString()).apply();
+                                mPref.edit().putString(Constants.password, inputPassowd.getText().toString()).apply();
                                 startActivity(new Intent(ActivityLogin.this, MainActivity.class));
                                 finish();
                                 Log.i("tag", object.toString());
