@@ -19,8 +19,6 @@ import com.octalabs.challetapp.adapter.AdapterMarriageHall;
 import com.octalabs.challetapp.adapter.MyPagerAdapter;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
-import com.octalabs.challetapp.models.ModelAllMarraiges.AllMarraigesModel;
-import com.octalabs.challetapp.models.ModelAllMarraiges.Marraige;
 import com.octalabs.challetapp.models.ModelChalet;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Helper;
@@ -84,13 +82,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void getAllMarrigeHalls() {
         hud.show();
-        Call<AllMarraigesModel> call = RetrofitInstance.service.getAllMarraiges(Helper.getJsonHeaderWithToken(getContext()));
-        call.enqueue(new Callback<AllMarraigesModel>() {
+        Call<AllChaletsModel> call = RetrofitInstance.service.getAllMarraiges(Helper.getJsonHeaderWithToken(getContext()));
+        call.enqueue(new Callback<AllChaletsModel>() {
             @Override
-            public void onResponse(Call<AllMarraigesModel> call, Response<AllMarraigesModel> response) {
+            public void onResponse(Call<AllChaletsModel> call, Response<AllChaletsModel> response) {
                 if (response.body() != null) {
                     hud.dismiss();
-                    AllMarraigesModel model = response.body();
+                    AllChaletsModel model = response.body();
                     if (model.getSuccess()) {
                         ArrayList arrayList = new ArrayList<>(model.getData());
                         adapterMarriageHall.setMlist(arrayList);
@@ -102,7 +100,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
 
             @Override
-            public void onFailure(Call<AllMarraigesModel> call, Throwable t) {
+            public void onFailure(Call<AllChaletsModel> call, Throwable t) {
                 hud.dismiss();
             }
         });
@@ -115,7 +113,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         mBtnchalet.setOnClickListener(this);
         mBtnMarriageall.setOnClickListener(this);
         mRecyclerView = v.findViewById(R.id.rv_marriage_hall);
-        adapterMarriageHall = new AdapterMarriageHall(getActivity(), new ArrayList<Marraige>());
+        adapterMarriageHall = new AdapterMarriageHall(getActivity(), new ArrayList<Chalet>());
         adapterChalets = new AdapterChalets(getActivity(), new ArrayList<Chalet>());
         mRecyclerView.setAdapter(adapterChalets);
     }

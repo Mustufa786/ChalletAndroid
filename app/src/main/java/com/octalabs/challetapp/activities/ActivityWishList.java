@@ -33,6 +33,12 @@ public class ActivityWishList extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        getAllWishListData();
+
+    }
+
+    private void getAllWishListData() {
+
     }
 
     private void init() {

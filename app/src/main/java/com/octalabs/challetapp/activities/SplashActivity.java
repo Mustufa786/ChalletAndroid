@@ -10,6 +10,7 @@ import android.util.DisplayMetrics;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
+import com.octalabs.challetapp.utils.Helper;
 
 import java.util.Locale;
 
@@ -46,8 +47,13 @@ public class SplashActivity extends Activity {
                     res.updateConfiguration(conf, dm);
                 }
 
+                if (Helper.isUserLoggedIn(SplashActivity.this)) {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                } else {
+                    startActivity(new Intent(SplashActivity.this, ActivityLogin.class));
 
-                startActivity(new Intent(SplashActivity.this, ActivityLogin.class));
+                }
+
             }
         }, 3000);
     }

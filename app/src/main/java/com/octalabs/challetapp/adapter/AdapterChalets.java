@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +43,13 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Chalet item = mlist.get(position);
+        holder.textChaletName.setText(item.getName());
+        holder.textLocation.setText(item.getLocation());
+        holder.textPrice.setText(item.getPricePerNight() + " Riyal");
+        if (item.getRating() > 0) {
+            holder.ratingBar.setNumStars(item.getRating());
+        }
 
     }
 
@@ -51,8 +60,17 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
+        TextView textChaletName, textLocation, textPrice;
+        RatingBar ratingBar;
+
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            textChaletName = itemView.findViewById(R.id.text_chalet_name);
+            textLocation = itemView.findViewById(R.id.text_location);
+            textPrice = itemView.findViewById(R.id.text_price);
+            ratingBar = itemView.findViewById(R.id.rating);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
