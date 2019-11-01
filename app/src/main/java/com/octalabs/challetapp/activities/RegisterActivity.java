@@ -101,10 +101,10 @@ public class RegisterActivity extends Activity {
             Toast.makeText(this, "Please insert Email", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (mEdtmobileno.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(this, "Please insert Mobile Number", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+//        if (mEdtmobileno.getText().toString().equalsIgnoreCase("")) {
+//            Toast.makeText(this, "Please insert Mobile Number", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
         if (mEdtpassword.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(this, "Please insert Password", Toast.LENGTH_SHORT).show();
             return false;
@@ -115,27 +115,27 @@ public class RegisterActivity extends Activity {
         }
 
 
-        if (mEdtaddress.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(this, "Please insert Address", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-
-        if (countryID == null) {
-            Toast.makeText(this, "Please Select Country To Continue", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (stateID == null) {
-            Toast.makeText(this, "Please Select State To Continue", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-
-        if (cityID == null) {
-            Toast.makeText(this, "Please Select City To Continue", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+//        if (mEdtaddress.getText().toString().equalsIgnoreCase("")) {
+//            Toast.makeText(this, "Please insert Address", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+//
+//
+//        if (countryID == null) {
+//            Toast.makeText(this, "Please Select Country To Continue", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+//
+//        if (stateID == null) {
+//            Toast.makeText(this, "Please Select State To Continue", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+//
+//
+//        if (cityID == null) {
+//            Toast.makeText(this, "Please Select City To Continue", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
 
         return true;
     }
@@ -154,6 +154,7 @@ public class RegisterActivity extends Activity {
 
     private void Register() {
 
+        hud.show();
 
         MultipartBody.Builder multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
 

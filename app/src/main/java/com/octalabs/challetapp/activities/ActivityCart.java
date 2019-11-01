@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -14,16 +15,26 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.adapter.AdapterCart;
+import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
 import com.octalabs.challetapp.models.ModelCart;
+import com.octalabs.challetapp.models.ModelDetails.ChaletDetails;
+import com.octalabs.challetapp.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ActivityCart extends AppCompatActivity {
 
     private RecyclerView mRvCart;
     private Button btnCheckout;
+    ArrayList<ChaletDetails> checkoutList;
+    SharedPreferences sharedPreferences;
+    Gson gson;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +42,18 @@ public class ActivityCart extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
         mRvCart = findViewById(R.id.rv_cart);
         btnCheckout = findViewById(R.id.btn_checkout);
-        AdapterCart adapterCart = new AdapterCart(this, new ArrayList<ModelCart>());
+        sharedPreferences = getSharedPreferences("main", MODE_PRIVATE);
+        gson = new Gson();
+        checkoutList = gson.fromJson(sharedPreferences.getString(Constants.USER_CART, "[]"), new TypeToken<List<ChaletDetails>>() {
+        }.getType());
+
+
+        AdapterCart adapterCart = new AdapterCart(this, checkoutList);
         mRvCart.setAdapter(adapterCart);
         setTextAction(getSupportActionBar(), getResources().getString(R.string.cart));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
 
         btnCheckout.setOnClickListener(new View.OnClickListener() {

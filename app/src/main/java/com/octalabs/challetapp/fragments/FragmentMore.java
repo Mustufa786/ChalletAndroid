@@ -91,6 +91,8 @@ public class FragmentMore extends Fragment implements View.OnClickListener {
         editor.remove(Constants.email_address);
         editor.remove(Constants.user_profile);
         editor.remove(Constants.password);
+        editor.remove(Constants.USER_CART);
+
         editor.putBoolean(Constants.IS_USER_LOGGED_IN, false);
         editor.apply();
 

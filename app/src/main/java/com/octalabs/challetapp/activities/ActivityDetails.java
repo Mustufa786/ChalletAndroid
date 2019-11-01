@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,11 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.databinding.ActivityDetailsBinding;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
+import com.octalabs.challetapp.models.ModelDetails.ChaletDetails;
 import com.octalabs.challetapp.models.ModelDetails.ModelChaletsDetails;
 import com.octalabs.challetapp.models.ModelLogin.LoginModel;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
@@ -28,6 +31,8 @@ import com.octalabs.challetapp.utils.Helper;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,6 +50,10 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
     KProgressHUD hud;
 
     ActivityDetailsBinding mBinding;
+    ArrayList<ChaletDetails> checkoutList;
+    SharedPreferences sharedPreferences;
+    ChaletDetails chaletDetails;
+    Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +73,11 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
     private void init() {
         hud = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
         mBinding.layoutAddToWishlist.setOnClickListener(this);
+        mBinding.btnAddToCart.setOnClickListener(this);
+        sharedPreferences = getSharedPreferences("main", MODE_PRIVATE);
+        gson = new Gson();
+        checkoutList = gson.fromJson(sharedPreferences.getString(Constants.USER_CART, "[]"), new TypeToken<List<ChaletDetails>>() {
+        }.getType());
 
     }
 
@@ -77,7 +91,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                     hud.dismiss();
                     ModelChaletsDetails model = response.body();
                     if (model.getSuccess()) {
-
+                        chaletDetails = model.getData();
 
                     } else {
                         displayDialog("Alert", model.getMessage(), ActivityDetails.this);
@@ -124,10 +138,33 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                 addToWishList();
                 break;
 
-
+            case R.id.btn_add_to_cart:
+                addToLocalCart();
+                break;
         }
     }
 
+    private void addToLocalCart() {
+
+        int index = Collections.binarySearch(checkoutList, chaletDetails, new Comparator<ChaletDetails>() {
+            @Override
+            public int compare(ChaletDetails chalet, ChaletDetails t1) {
+                return chalet.getId().compareTo(t1.getId());
+            }
+        });
+        if (index >= 0) {
+
+            Toast.makeText(ActivityDetails.this, "Item Already Added to Cart", Toast.LENGTH_SHORT).show();
+
+        } else {
+            checkoutList.add(chaletDetails);
+            getSharedPreferences("main", Context.MODE_PRIVATE).edit().putString(Constants.USER_CART, new Gson().toJson(checkoutList)).apply();
+
+            Toast.makeText(ActivityDetails.this, "Item Successfully Added to Cart", Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
 
     private void addToWishList() {
         try {
@@ -166,3 +203,4 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
     }
 }
+

@@ -29,6 +29,8 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/text_chalet_name"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Chalet Name"
@@ -36,10 +38,12 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/text_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_location"
                 android:drawablePadding="10dp"
+
                 android:gravity="center_vertical"
                 android:text="Sample Location"
                 android:textColor="@color/black"
@@ -53,6 +57,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price: "
@@ -60,6 +65,8 @@
                     android:textStyle="bold" />
 
                 <TextView
+
+                    android:id="@+id/text_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1550 Riyal"
@@ -83,6 +90,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/booking_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="12/5/2019"
@@ -100,6 +108,7 @@
 
 
                 <Button
+                    android:id="@+id/btn_remove"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:background="@drawable/ic_rectangle_rounded"
