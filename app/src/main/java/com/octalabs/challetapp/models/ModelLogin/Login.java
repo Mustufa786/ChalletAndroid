@@ -31,13 +31,13 @@ public class Login {
     private String role;
     @SerializedName("countryId")
     @Expose
-    private String countryId;
+    private Object countryId;
     @SerializedName("stateId")
     @Expose
-    private String stateId;
+    private Object stateId;
     @SerializedName("cityId")
     @Expose
-    private String cityId;
+    private Object cityId;
     @SerializedName("createdAt")
     @Expose
     private String createdAt;
@@ -115,27 +115,27 @@ public class Login {
         this.role = role;
     }
 
-    public String getCountryId() {
+    public Object getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(String countryId) {
+    public void setCountryId(Object countryId) {
         this.countryId = countryId;
     }
 
-    public String getStateId() {
+    public Object getStateId() {
         return stateId;
     }
 
-    public void setStateId(String stateId) {
+    public void setStateId(Object stateId) {
         this.stateId = stateId;
     }
 
-    public String getCityId() {
+    public Object getCityId() {
         return cityId;
     }
 
-    public void setCityId(String cityId) {
+    public void setCityId(Object cityId) {
         this.cityId = cityId;
     }
 

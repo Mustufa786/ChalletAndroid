@@ -2,6 +2,7 @@ package com.octalabs.challetapp.models.ModelRegister;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.octalabs.challetapp.models.ModelLogin.Login;
 
 public class RegisterModel {
 
@@ -14,7 +15,7 @@ public class RegisterModel {
     private String message;
     @SerializedName("data")
     @Expose
-    private Register data;
+    private Login data;
 
     public Boolean getSuccess() {
         return success;
@@ -32,11 +33,11 @@ public class RegisterModel {
         this.message = message;
     }
 
-    public Register getData() {
+    public Login getData() {
         return data;
     }
 
-    public void setData(Register data) {
+    public void setData(Login data) {
         this.data = data;
     }
 

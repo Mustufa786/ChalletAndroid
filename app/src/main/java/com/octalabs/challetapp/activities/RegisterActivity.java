@@ -23,17 +23,12 @@ import com.octalabs.challetapp.models.ModelCity.StateCity;
 import com.octalabs.challetapp.models.ModelCountry.Country;
 import com.octalabs.challetapp.models.ModelCountry.CountryModel;
 import com.octalabs.challetapp.models.ModelLogin.Login;
-import com.octalabs.challetapp.models.ModelLogin.LoginModel;
 import com.octalabs.challetapp.models.ModelRegister.RegisterModel;
-import com.octalabs.challetapp.models.ModelRegisterResponce;
 import com.octalabs.challetapp.models.ModelState.CountryState;
 import com.octalabs.challetapp.models.ModelState.StateModel;
-import com.octalabs.challetapp.retrofit.ApiInterface;
-import com.octalabs.challetapp.retrofit.ApiResponce;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.FilePath;
-import com.octalabs.challetapp.utils.Helper;
 
 import org.json.JSONObject;
 
@@ -161,7 +156,7 @@ public class RegisterActivity extends Activity {
         multipartBody.addFormDataPart("userName", mEdtusername.getText().toString());
         multipartBody.addFormDataPart("email", mEdtemail.getText().toString());
         multipartBody.addFormDataPart("password", mEdtpassword.getText().toString());
-        multipartBody.addFormDataPart("mobileNo", mEdtmobileno.getText().toString());
+        multipartBody.addFormDataPart("mobileNo",  mEdtmobileno.getText().toString());
         multipartBody.addFormDataPart("address", mEdtaddress.getText().toString());
         multipartBody.addFormDataPart("role", "end_user");
         multipartBody.addFormDataPart("countryId", countryID);
@@ -214,7 +209,7 @@ public class RegisterActivity extends Activity {
 
             @Override
             public void onFailure(Call<RegisterModel> call, Throwable t) {
-
+                hud.dismiss();
             }
         });
     }
