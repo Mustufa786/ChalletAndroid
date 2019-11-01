@@ -36,7 +36,7 @@ public class AdapterDetailReviews extends RecyclerView.Adapter<AdapterDetailRevi
     @Override
     public void onBindViewHolder(@NonNull AdapterDetailReviews.ViewHolder holder, int position) {
         Review model = mlist.get(position);
-        Picasso.get().load(RetrofitInstance.BASE_USER_PIC_URL + model.getUserId().getPicture()).resize(100 , 100).into(holder.mImg);
+        Picasso.get().load(RetrofitInstance.BASE_USER_PIC_URL + model.getUserId().getPicture()).placeholder(activity.getResources().getDrawable(R.drawable.new_avatar)).resize(100 , 100).into(holder.mImg);
         holder.mName.setText(model.getUserId().getUserName() + "");
         holder.mReview.setText(model.getComment() + "");
 //        holder.mDate.setText(model.getBookingItemId() + "");

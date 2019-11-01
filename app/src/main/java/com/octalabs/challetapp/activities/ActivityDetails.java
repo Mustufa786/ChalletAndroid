@@ -217,7 +217,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                 deleteDialog.setView(deleteDialogView);
                 deleteDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.transparent));
                 final EditText mEdtComment = deleteDialogView.findViewById(R.id.comment);
-                final EditText mUserName = deleteDialogView.findViewById(R.id.user_name);
+//                final EditText mUserName = deleteDialogView.findViewById(R.id.user_name);
 
                 Button mBtnAddReview = deleteDialogView.findViewById(R.id.btn_add_review);
                 deleteDialog.setCancelable(true);
@@ -352,7 +352,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onBackPressed() {
-        if (deleteDialog.isShowing()) {
+        if (deleteDialog != null &&  deleteDialog.isShowing()) {
             deleteDialog.dismiss();
             return;
         }
