@@ -1,6 +1,8 @@
 package com.octalabs.challetapp.retrofit;
 
+import com.octalabs.challetapp.models.ModelAddReview;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
+import com.octalabs.challetapp.models.ModelChangePassword;
 import com.octalabs.challetapp.models.ModelCity.CityModel;
 import com.octalabs.challetapp.models.ModelCountry.CountryModel;
 import com.octalabs.challetapp.models.ModelDetails.ModelChaletsDetails;
@@ -38,7 +40,10 @@ public interface ApiInterface {
     Call<LoginModel> loginUser(@Body RequestBody body);
 
     @PUT("password")
-    Call<LoginModel> changePassword(@Body RequestBody body);
+    Call<ApiResponce<ModelChangePassword>> changePassword(@HeaderMap HashMap<String, String> hashMap,@Body RequestBody body);
+
+    @POST("review")
+    Call<ApiResponce<ModelAddReview>> addReView(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);
 
 
 

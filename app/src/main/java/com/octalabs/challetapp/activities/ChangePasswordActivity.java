@@ -21,10 +21,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
+import com.octalabs.challetapp.models.ModelChangePassword;
 import com.octalabs.challetapp.models.ModelLogin.Login;
 import com.octalabs.challetapp.models.ModelLogin.LoginModel;
+import com.octalabs.challetapp.retrofit.ApiResponce;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
+import com.octalabs.challetapp.utils.Helper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -100,25 +103,23 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("oldPassword", mEdtOldPassword.getText().toString());
             jsonObject.put("newPassword", mEdtConPassword.getText().toString());
-            RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
+            final RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
 
-            Call<LoginModel> call = RetrofitInstance.service.changePassword(requestBody);
+            Call<ApiResponce<ModelChangePassword>> call = RetrofitInstance.service.changePassword(Helper.getJsonHeaderWithToken(this), requestBody);
 
 
             hud.show();
-            call.enqueue(new Callback<LoginModel>() {
+            call.enqueue(new Callback<ApiResponce<ModelChangePassword>>() {
                 @Override
-                public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+                public void onResponse(Call<ApiResponce<ModelChangePassword>> call, Response<ApiResponce<ModelChangePassword>> response) {
                     try {
                         hud.dismiss();
                         if (response.body() != null) {
-                            LoginModel model = response.body();
-                            if (model.getSuccess()) {
-                                JSONObject object = new JSONObject(new Gson().toJson(model.getData(), Login.class));
-                                finish();
-                                Log.i("tag", object.toString());
-                            } else {
-//                                displayDialog("Alert", model.getMessage(), ActivityLogin.this);
+                            Log.e("RESPONCE: ", response.body().msg);
+                            if (response.body().isSuccess == true) {
+                                if (response.body().msg.equalsIgnoreCase("Password updated successfully")) {
+                                    finish();
+                                }
                             }
                         } else {
 //                            displayDialog("Alert", "Invalid Username or Password", ActivityLogin.this);
@@ -133,8 +134,8 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                 }
 
                 @Override
-                public void onFailure(Call<LoginModel> call, Throwable t) {
-
+                public void onFailure(Call<ApiResponce<ModelChangePassword>> call, Throwable t) {
+                    t.printStackTrace();
                     hud.dismiss();
                 }
             });
@@ -158,7 +159,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
             return false;
         }
 
-        if (!mEdtConPassword.getText().toString().equalsIgnoreCase(mEdtOldPassword.getText().toString())) {
+        if (!mEdtConPassword.getText().toString().equalsIgnoreCase(mEdtNewPassword.getText().toString())) {
             Toast.makeText(this, "Password not matched", Toast.LENGTH_SHORT).show();
             return false;
         }
