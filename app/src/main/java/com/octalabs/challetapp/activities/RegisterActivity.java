@@ -1,6 +1,8 @@
 package com.octalabs.challetapp.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -190,8 +192,24 @@ public class RegisterActivity extends Activity {
                             mPref.edit().putString(Constants.email_address, mEdtemail.getText().toString()).apply();
                             mPref.edit().putString(Constants.password, mEdtpassword.getText().toString()).apply();
                             mPref.edit().putBoolean(Constants.IS_USER_LOGGED_IN, true).apply();
-                            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                            finish();
+
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterActivity.this)
+                                    .setTitle("Success")
+                                    .setMessage(model.getMessage())
+                                    .setCancelable(false)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.dismiss();
+                                            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                            finish();
+
+                                        }
+                                    });
+
+
+                            AlertDialog dialog = alertDialog.create();
+                            dialog.show();
                             Log.i("tag", object.toString());
                         } else {
                             displayDialog("Alert", model.getMessage(), RegisterActivity.this);

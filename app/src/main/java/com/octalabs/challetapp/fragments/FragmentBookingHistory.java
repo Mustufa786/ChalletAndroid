@@ -67,7 +67,7 @@ public class FragmentBookingHistory extends Fragment {
 
     private void Init(View v) {
         mRvBookingHistory = v.findViewById(R.id.rv_booking_history);
-        mAdapter = new AdapterBookingHistory(getActivity(), new ArrayList<BookingHistoryDetails>());
+        mAdapter = new AdapterBookingHistory(getActivity(), new ArrayList<BookingHistoryItem>());
         mRvBookingHistory.setAdapter(mAdapter);
     }
 
@@ -81,7 +81,7 @@ public class FragmentBookingHistory extends Fragment {
                     hud.dismiss();
                     ModelBookingHistory model = response.body();
                     if (model.getSuccess()) {
-                        ArrayList arrayList = new ArrayList<>(model.getData().get(0).getBookingItemIds());
+                        ArrayList arrayList = new ArrayList<>(model.getData());
                         mAdapter.setMlist(arrayList);
 
                     } else {

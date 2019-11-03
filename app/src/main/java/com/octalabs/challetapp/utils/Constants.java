@@ -10,9 +10,10 @@ public class Constants {
     public static String USER_CART = "USER_CART";
     public static String ORDER_DETAILS = "ORDER_DETAILS";
 
-
-
+    public static String PAYMENT_DETAILS = "PAYMENT_DETAILS";
     public static String CHALET_OR_MARRAIGE_ID = "CHALET_OR_MARRAIGE_ID";
+    public static String BOOKING_HISTORY_DETAILS = "BOOKING_HISTORY_DETAILS";
+
 
 
 }

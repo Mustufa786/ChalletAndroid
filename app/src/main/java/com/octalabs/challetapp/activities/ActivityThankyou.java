@@ -10,7 +10,7 @@ import android.view.View;
 import com.google.gson.Gson;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.databinding.ActivityThankyouBinding;
-import com.octalabs.challetapp.models.ModelCheckout.Checkout;
+import com.octalabs.challetapp.models.ModelCheckout.Data;
 import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.Helper;
 
@@ -18,7 +18,7 @@ public class ActivityThankyou extends AppCompatActivity {
 
 
     ActivityThankyouBinding mBinding;
-    Checkout item;
+    Data item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +26,12 @@ public class ActivityThankyou extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_thankyou);
 
 
-        item = new Gson().fromJson(getIntent().getStringExtra(Constants.ORDER_DETAILS), Checkout.class);
+        item = new Gson().fromJson(getIntent().getStringExtra(Constants.ORDER_DETAILS), Data.class);
 
 
 
         mBinding.textInvoice.setText(item.getId());
-        mBinding.textBookingDate.setText(Helper.getDate("dd-MMM-yyyy" , "yyyy-MM-dd'T'HH:mm:ss Z" , item.getBookingFrom()));
+//        mBinding.textBookingDate.setText(Helper.getDate("dd-MMM-yyyy" , "yyyy-MM-dd'T'HH:mm:ss Z" , item.getBookingFrom()));
 
         mBinding.btnDone.setOnClickListener(new View.OnClickListener() {
             @Override

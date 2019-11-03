@@ -5,37 +5,38 @@ import com.google.gson.annotations.SerializedName;
 
 public class ModelChangePassword {
 
-    @SerializedName("n")
+    @SerializedName("success")
     @Expose
-    private Integer n;
-    @SerializedName("nModified")
+    private Boolean success;
+    @SerializedName("message")
     @Expose
-    private Integer nModified;
-    @SerializedName("ok")
+    private String message;
+    @SerializedName("data")
     @Expose
-    private Integer ok;
+    private ChangePassword data;
 
-    public Integer getN() {
-        return n;
+    public Boolean getSuccess() {
+        return success;
     }
 
-    public void setN(Integer n) {
-        this.n = n;
+    public void setSuccess(Boolean success) {
+        this.success = success;
     }
 
-    public Integer getNModified() {
-        return nModified;
+    public String getMessage() {
+        return message;
     }
 
-    public void setNModified(Integer nModified) {
-        this.nModified = nModified;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public Integer getOk() {
-        return ok;
+    public ChangePassword getData() {
+        return data;
     }
 
-    public void setOk(Integer ok) {
-        this.ok = ok;
+    public void setData(ChangePassword data) {
+        this.data = data;
     }
+
 }

@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.ActivityFillIntroThree"></activity>
+        <activity android:name=".activities.ActivityBookingHistoryDetails"></activity>
+        <activity android:name=".activities.ActivityFillIntroThree" />
         <activity android:name=".activities.ActivityFillIntroTwo" />
 
         <meta-data

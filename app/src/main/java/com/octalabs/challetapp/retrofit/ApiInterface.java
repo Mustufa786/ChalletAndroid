@@ -42,8 +42,8 @@ public interface ApiInterface {
     @PUT("auth")
     Call<LoginModel> loginUser(@Body RequestBody body);
 
-    @PUT("password")
-    Call<ApiResponce<ModelChangePassword>> changePassword(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);
+    @PUT("auth/password")
+    Call<ModelChangePassword> changePassword(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);
 
     @POST("review")
     Call<ApiResponce<ModelAddReview>> addReView(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);

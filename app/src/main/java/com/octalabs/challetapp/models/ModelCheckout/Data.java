@@ -5,11 +5,10 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Checkout {
+public class Data {
 
     @SerializedName("bookingItemIds")
     @Expose
-
     private List<String> bookingItemIds = null;
     @SerializedName("isActive")
     @Expose
@@ -17,12 +16,9 @@ public class Checkout {
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("bookingFrom")
+    @SerializedName("bookingDates")
     @Expose
-    private String bookingFrom;
-    @SerializedName("bookingTo")
-    @Expose
-    private String bookingTo;
+    private List<BookingDate> bookingDates = null;
     @SerializedName("paymentStatus")
     @Expose
     private String paymentStatus;
@@ -66,20 +62,12 @@ public class Checkout {
         this.id = id;
     }
 
-    public String getBookingFrom() {
-        return bookingFrom;
+    public List<BookingDate> getBookingDates() {
+        return bookingDates;
     }
 
-    public void setBookingFrom(String bookingFrom) {
-        this.bookingFrom = bookingFrom;
-    }
-
-    public String getBookingTo() {
-        return bookingTo;
-    }
-
-    public void setBookingTo(String bookingTo) {
-        this.bookingTo = bookingTo;
+    public void setBookingDates(List<BookingDate> bookingDates) {
+        this.bookingDates = bookingDates;
     }
 
     public String getPaymentStatus() {

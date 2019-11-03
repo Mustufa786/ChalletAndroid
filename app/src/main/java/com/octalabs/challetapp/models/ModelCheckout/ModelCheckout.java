@@ -14,8 +14,7 @@ public class ModelCheckout {
     private String message;
     @SerializedName("data")
     @Expose
-
-    private Checkout data;
+    private Data data;
 
     public Boolean getSuccess() {
         return success;
@@ -33,11 +32,11 @@ public class ModelCheckout {
         this.message = message;
     }
 
-    public Checkout getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(Checkout data) {
+    public void setData(Data data) {
         this.data = data;
     }
 

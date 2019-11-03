@@ -52,9 +52,10 @@
 
 
                         <TextView
+                            android:id="@+id/text_card_holder_name"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="John Doe"
+                            android:text=""
                             android:paddingStart="10dp"
                             android:paddingEnd="10dp"
                             android:textColor="@color/black"
@@ -81,9 +82,10 @@
 
 
                         <TextView
+                            android:id="@+id/text_card_number"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="123456789"
+                            android:text=""
                             android:paddingStart="10dp"
                             android:paddingEnd="10dp"
                             android:textColor="@color/black"
@@ -111,9 +113,10 @@
 
 
                         <TextView
+                            android:id="@+id/text_expiry_date"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Sample"
+                            android:text=""
                             android:paddingStart="10dp" android:paddingEnd="10dp"
                             android:textColor="@color/black"
                             android:layout_weight="0.6"/>
@@ -141,9 +144,10 @@
 
 
                         <TextView
+                            android:id="@+id/text_cvv"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Sample"
+                            android:text=""
                             android:paddingStart="10dp" android:paddingEnd="10dp"
                             android:textColor="@color/black"
                             android:layout_weight="0.6"/>
@@ -171,9 +175,10 @@
 
 
                         <TextView
+                            android:id="@+id/text_billing_address"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Sample"
+                            android:text=""
                             android:paddingStart="10dp" android:paddingEnd="10dp"
                             android:textColor="@color/black"
                             android:layout_weight="0.6"/>
@@ -201,9 +206,10 @@
 
 
                         <TextView
+                            android:id="@+id/text_country_name"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Sample"
+                            android:text=""
                             android:paddingStart="10dp" android:paddingEnd="10dp"
                             android:textColor="@color/black"
                             android:layout_weight="0.6"/>
@@ -230,9 +236,10 @@
 
 
                         <TextView
+                            android:id="@+id/text_state_name"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Sample"
+                            android:text=""
                             android:paddingStart="10dp" android:paddingEnd="10dp"
                             android:textColor="@color/black"
                             android:layout_weight="0.6"/>
@@ -259,9 +266,10 @@
 
 
                         <TextView
+                            android:id="@+id/text_city_name"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Sample"
+                            android:text=""
                             android:paddingStart="10dp" android:paddingEnd="10dp"
                             android:textColor="@color/black"
                             android:layout_weight="0.6"/>
@@ -286,9 +294,10 @@
 
 
                         <TextView
+                            android:id="@+id/text_postal_code"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Sample"
+                            android:text=""
                             android:paddingStart="10dp" android:paddingEnd="10dp"
                             android:textColor="@color/black"
                             android:layout_weight="0.6"/>

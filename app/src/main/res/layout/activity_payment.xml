@@ -49,6 +49,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="10dp"
                             android:paddingEnd="10dp"
+                            android:id="@+id/input_name"
                             android:textSize="14sp"
                             android:hint="@string/cardholder_s_name"
                             />
@@ -67,6 +68,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="10dp"
                             android:paddingEnd="10dp"
+                            android:id="@+id/input_card_number"
                             android:textSize="14sp"
                             android:hint="@string/card_number" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -93,6 +95,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingStart="10dp"
+                                android:focusable="false"
+                                android:id="@+id/input_expiry_date"
                                 android:paddingEnd="10dp"
                                 android:textSize="14sp"
                                 android:hint="@string/expiry_date" />
@@ -116,6 +120,7 @@
                                 android:layout_height="wrap_content"
                                 android:paddingStart="10dp"
                                 android:textSize="14sp"
+                                android:id="@+id/input_cvv"
                                 android:paddingEnd="10dp"
                                 android:hint="@string/ccv" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -137,6 +142,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="10dp"
                             android:textSize="14sp"
+                            android:id="@+id/input_billing_address"
                             android:paddingEnd="10dp"
                             android:hint="@string/billing_address" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -149,50 +155,75 @@
                         android:layout_height="40dp"
                         android:focusable="false"
                         android:textSize="14sp"
+                        android:layout_marginTop="10dp"
 
-                        android:drawableStart="@drawable/cityicon1"
-                        android:drawablePadding="20dp"
                         android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
                         android:textColorHint="@color/black"
                         android:hint="@string/country" />
 
-
-
-
-
-
-
-                    <LinearLayout
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="#000"
+                        android:alpha="0.5"></View>
+
+
+
+
+
+
+
+                    <Spinner
+                        android:id="@+id/state"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:focusable="false"
+                        android:textSize="14sp"
+                        android:layout_marginTop="10dp"
+
+                        android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:textColorHint="@color/black"
+                        android:hint="@string/country" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="#000"
+                        android:alpha="0.5"></View>
+
+
+
+                    <Spinner
+                        android:id="@+id/city"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:focusable="false"
+                        android:textSize="14sp"
+                        android:layout_marginTop="10dp"
+
+                        android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:textColorHint="@color/black"
+                        android:hint="@string/country" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="#000"
+                        android:alpha="0.5"></View>
+
+
+
+
 
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="10dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            >
-
-
-
-                            <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingStart="10dp"
-                                android:paddingEnd="10dp"
-                                android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
-                                android:textSize="14sp"
-                                android:focusable="false"
-                                android:hint="@string/city" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_weight="1"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
@@ -206,6 +237,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingStart="10dp"
+                                android:id="@+id/input_postal_code"
                                 android:paddingEnd="10dp"
                                 android:textSize="14sp"
                                 android:hint="@string/postal_code" />
@@ -213,7 +245,6 @@
 
 
 
-                    </LinearLayout>
 
 
                     <Button

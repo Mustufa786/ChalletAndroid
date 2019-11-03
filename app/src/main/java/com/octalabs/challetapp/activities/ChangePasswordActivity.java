@@ -3,6 +3,8 @@ package com.octalabs.challetapp.activities;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -105,24 +107,37 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
             jsonObject.put("newPassword", mEdtConPassword.getText().toString());
             final RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
 
-            Call<ApiResponce<ModelChangePassword>> call = RetrofitInstance.service.changePassword(Helper.getJsonHeaderWithToken(this), requestBody);
+            Call<ModelChangePassword> call = RetrofitInstance.service.changePassword(Helper.getJsonHeaderWithToken(this), requestBody);
 
 
             hud.show();
-            call.enqueue(new Callback<ApiResponce<ModelChangePassword>>() {
+            call.enqueue(new Callback<ModelChangePassword>() {
                 @Override
-                public void onResponse(Call<ApiResponce<ModelChangePassword>> call, Response<ApiResponce<ModelChangePassword>> response) {
+                public void onResponse(Call<ModelChangePassword> call, Response<ModelChangePassword> response) {
                     try {
                         hud.dismiss();
                         if (response.body() != null) {
-                            Log.e("RESPONCE: ", response.body().msg);
-                            if (response.body().isSuccess == true) {
-                                if (response.body().msg.equalsIgnoreCase("Password updated successfully")) {
-                                    finish();
-                                }
+                            ModelChangePassword model = response.body();
+                            if (model.getSuccess()) {
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ChangePasswordActivity.this)
+                                        .setTitle("Success")
+                                        .setMessage(model.getMessage())
+                                        .setCancelable(false)
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                                finish();
+                                            }
+                                        });
+
+
+                                AlertDialog dialog = alertDialog.create();
+                                dialog.show();
+
                             }
                         } else {
-//                            displayDialog("Alert", "Invalid Username or Password", ActivityLogin.this);
+                            displayDialog("Alert", response.errorBody().string(), ChangePasswordActivity.this);
 
                         }
 
@@ -134,7 +149,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                 }
 
                 @Override
-                public void onFailure(Call<ApiResponce<ModelChangePassword>> call, Throwable t) {
+                public void onFailure(Call<ModelChangePassword> call, Throwable t) {
                     t.printStackTrace();
                     hud.dismiss();
                 }
