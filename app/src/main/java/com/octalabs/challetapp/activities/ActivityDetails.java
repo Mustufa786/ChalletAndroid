@@ -284,16 +284,11 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                             }
                         } else {
                             deleteDialog.dismiss();
-//                            displayDialog("Alert", "Invalid Username or Password", ActivityLogin.this);
-
                         }
-
                     } catch (Exception e) {
                         deleteDialog.dismiss();
                         e.printStackTrace();
                     }
-
-
                 }
 
                 @Override
@@ -303,6 +298,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                     deleteDialog.dismiss();
                 }
             });
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
