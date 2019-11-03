@@ -13,9 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.activities.ActivityDetails;
-import com.octalabs.challetapp.models.ModelBookingHistory.BookingHistoryDetails;
-import com.octalabs.challetapp.models.ModelBookingHistory.BookingHistoryItem;
-import com.octalabs.challetapp.models.ModelChalet;
 import com.octalabs.challetapp.models.ModelWishlist.Datum;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.squareup.picasso.Picasso;
@@ -24,43 +21,43 @@ import java.util.ArrayList;
 
 import static com.octalabs.challetapp.utils.Constants.CHALET_OR_MARRAIGE_ID;
 
-public class AdapterBookingHistory extends RecyclerView.Adapter<AdapterBookingHistory.MyViewHolder> {
+public class AdapterWishList extends RecyclerView.Adapter<AdapterWishList.MyViewHolder> {
     private final Activity activity;
 
-    public void setMlist(ArrayList<BookingHistoryDetails> mlist) {
+    public void setMlist(ArrayList<Datum> mlist) {
         this.mlist = mlist;
         notifyDataSetChanged();
 
     }
 
-    private ArrayList<BookingHistoryDetails> mlist;
+    private ArrayList<Datum> mlist;
 
-    public AdapterBookingHistory(Activity activity, ArrayList<BookingHistoryDetails> mlist) {
+    public AdapterWishList(Activity activity, ArrayList<Datum> mlist) {
         this.activity = activity;
         this.mlist = mlist;
     }
 
     @NonNull
     @Override
-    public AdapterBookingHistory.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new AdapterBookingHistory.MyViewHolder(activity.getLayoutInflater().inflate(R.layout.adapter_chalets, parent, false));
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new AdapterWishList.MyViewHolder(activity.getLayoutInflater().inflate(R.layout.adapter_chalets, parent, false));
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterBookingHistory.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        BookingHistoryDetails item = mlist.get(position);
-        if (item.getPicture() != null && item.getPicture().size() > 0) {
-            Picasso.get().load(RetrofitInstance.BASE_IMG_CHALET_URL + item.getPicture().get(0)).into(holder.imgChalet);
+        Datum item = mlist.get(position);
+        if (item.getBookingItemId().getPicture() != null && item.getBookingItemId().getPicture().size() > 0) {
+            Picasso.get().load(RetrofitInstance.BASE_IMG_CHALET_URL + item.getBookingItemId().getPicture().get(0)).into(holder.imgChalet);
 
         }
 
-        holder.textChaletName.setText(item.getName());
-        holder.textLocation.setText(item.getLocation());
-        holder.textPrice.setText(item.getPricePerNight() + " Riyal");
-        if (item.getRating() > 0) {
-            holder.ratingBar.setNumStars(item.getRating());
+        holder.textChaletName.setText(item.getBookingItemId().getName());
+        holder.textLocation.setText(item.getBookingItemId().getLocation());
+        holder.textPrice.setText(item.getBookingItemId().getPricePerNight() + " Riyal");
+        if (item.getBookingItemId().getRating() > 0) {
+            holder.ratingBar.setNumStars(item.getBookingItemId().getRating());
         }
 
 
@@ -88,7 +85,7 @@ public class AdapterBookingHistory extends RecyclerView.Adapter<AdapterBookingHi
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(activity, ActivityDetails.class);
-                    intent.putExtra(CHALET_OR_MARRAIGE_ID, mlist.get(getAdapterPosition()).getId());
+                    intent.putExtra(CHALET_OR_MARRAIGE_ID, mlist.get(getAdapterPosition()).getBookingItemId().getId());
                     activity.startActivity(intent);
                 }
             });

@@ -8,6 +8,8 @@ public class Constants {
     public static String password = "password";
     public static String IS_USER_LOGGED_IN = "IS_USER_LOGGED_IN";
     public static String USER_CART = "USER_CART";
+    public static String ORDER_DETAILS = "ORDER_DETAILS";
+
 
 
     public static String CHALET_OR_MARRAIGE_ID = "CHALET_OR_MARRAIGE_ID";

@@ -2,7 +2,9 @@ package com.octalabs.challetapp.retrofit;
 
 import com.octalabs.challetapp.models.ModelAddReview;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
+import com.octalabs.challetapp.models.ModelBookingHistory.ModelBookingHistory;
 import com.octalabs.challetapp.models.ModelChangePassword;
+import com.octalabs.challetapp.models.ModelCheckout.ModelCheckout;
 import com.octalabs.challetapp.models.ModelCity.CityModel;
 import com.octalabs.challetapp.models.ModelCountry.CountryModel;
 import com.octalabs.challetapp.models.ModelDetails.ModelChaletsDetails;
@@ -10,6 +12,7 @@ import com.octalabs.challetapp.models.ModelLogin.LoginModel;
 import com.octalabs.challetapp.models.ModelRegister.RegisterModel;
 import com.octalabs.challetapp.models.ModelRegisterResponce;
 import com.octalabs.challetapp.models.ModelState.StateModel;
+import com.octalabs.challetapp.models.ModelWishlist.ModelWishlist;
 
 import java.util.HashMap;
 
@@ -40,11 +43,10 @@ public interface ApiInterface {
     Call<LoginModel> loginUser(@Body RequestBody body);
 
     @PUT("password")
-    Call<ApiResponce<ModelChangePassword>> changePassword(@HeaderMap HashMap<String, String> hashMap,@Body RequestBody body);
+    Call<ApiResponce<ModelChangePassword>> changePassword(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);
 
     @POST("review")
     Call<ApiResponce<ModelAddReview>> addReView(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);
-
 
 
     @POST("user")
@@ -75,8 +77,14 @@ public interface ApiInterface {
 
 
     @GET("wishlist")
-    Call<AllChaletsModel> getWishList(@HeaderMap HashMap<String, String> hashMap);
+    Call<ModelWishlist> getWishList(@HeaderMap HashMap<String, String> hashMap);
 
+    @POST("checkout")
+    Call<ModelCheckout> postCheckout(@Body RequestBody body, @HeaderMap HashMap<String, String> hashMap);
+
+
+    @GET("checkout")
+    Call<ModelBookingHistory> getBookingHistory(@HeaderMap HashMap<String, String> hashMap);
 
 
 }

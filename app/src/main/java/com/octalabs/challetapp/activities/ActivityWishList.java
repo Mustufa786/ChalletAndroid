@@ -14,9 +14,12 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.adapter.AdapterChalets;
 import com.octalabs.challetapp.adapter.AdapterMarriageHall;
+import com.octalabs.challetapp.adapter.AdapterWishList;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
 import com.octalabs.challetapp.models.ModelChalet;
+import com.octalabs.challetapp.models.ModelWishlist.Datum;
+import com.octalabs.challetapp.models.ModelWishlist.ModelWishlist;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Helper;
 
@@ -34,7 +37,7 @@ public class ActivityWishList extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
     KProgressHUD hud;
-    AdapterChalets mAdapter;
+        AdapterWishList mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +55,13 @@ public class ActivityWishList extends AppCompatActivity {
 
     private void getAllWishListData() {
         hud.show();
-        Call<AllChaletsModel> call = RetrofitInstance.service.getAllMarraiges(Helper.getJsonHeaderWithToken(this));
-        call.enqueue(new Callback<AllChaletsModel>() {
+        Call<ModelWishlist> call = RetrofitInstance.service.getWishList(Helper.getJsonHeaderWithToken(this));
+        call.enqueue(new Callback<ModelWishlist>() {
             @Override
-            public void onResponse(Call<AllChaletsModel> call, Response<AllChaletsModel> response) {
+            public void onResponse(Call<ModelWishlist> call, Response<ModelWishlist> response) {
                 if (response.body() != null) {
                     hud.dismiss();
-                    AllChaletsModel model = response.body();
+                    ModelWishlist model = response.body();
                     if (model.getSuccess()) {
                         ArrayList arrayList = new ArrayList<>(model.getData());
                         mAdapter.setMlist(arrayList);
@@ -70,7 +73,7 @@ public class ActivityWishList extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<AllChaletsModel> call, Throwable t) {
+            public void onFailure(Call<ModelWishlist> call, Throwable t) {
                 hud.dismiss();
             }
         });
@@ -78,7 +81,7 @@ public class ActivityWishList extends AppCompatActivity {
 
     private void init() {
         mRecyclerView = findViewById(R.id.recycler_view);
-        mAdapter = new AdapterChalets(this, new ArrayList<Chalet>());
+        mAdapter = new AdapterWishList(this, new ArrayList<Datum>());
         mRecyclerView.setAdapter(mAdapter);
 
     }

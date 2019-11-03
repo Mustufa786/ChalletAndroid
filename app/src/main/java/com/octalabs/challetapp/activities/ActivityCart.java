@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -55,11 +56,14 @@ public class ActivityCart extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ActivityCart.this, PaymentActivity.class));
+                if (checkoutList.size() > 0) {
+                    startActivity(new Intent(ActivityCart.this, PaymentActivity.class));
+                } else {
+                    Toast.makeText(ActivityCart.this, "No Items Found In the Cart", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

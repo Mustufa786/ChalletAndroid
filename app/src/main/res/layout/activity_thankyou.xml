@@ -85,7 +85,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:text="001"
+                        android:text=""
+                        android:id="@+id/text_invoice"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
 
@@ -118,9 +119,9 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:text="Sample Name"
+                        android:text="Chalet"
                         android:paddingStart="15dp"
-
+                        android:id="@+id/text_chalet_name"
                         android:textColor="#585959"
                         android:paddingEnd="15dp"
                         android:layout_weight="1"/>
@@ -153,7 +154,7 @@
                         android:layout_height="match_parent"
                         android:text="30/09/2019"
                         android:paddingStart="15dp"
-
+                        android:id="@+id/text_booking_date"
                         android:textColor="#585959"
                         android:paddingEnd="15dp"
                         android:layout_weight="1"/>
@@ -187,7 +188,7 @@
                         android:text="600 Riyal"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
-
+                        android:id="@+id/text_price"
                         android:textColor="#585959"
                         android:layout_weight="1"/>
 
@@ -196,6 +197,7 @@
 
 
                 <Button
+                    android:id="@+id/btn_done"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimaryDark"

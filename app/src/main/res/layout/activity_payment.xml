@@ -143,46 +143,22 @@
 
 
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <Spinner
+                        android:id="@+id/country"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        >
+                        android:layout_height="40dp"
+                        android:focusable="false"
+                        android:textSize="14sp"
 
-
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:focusable="false"
-                            android:textSize="14sp"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
-                            android:hint="Country" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:drawableStart="@drawable/cityicon1"
+                        android:drawablePadding="20dp"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:textColorHint="@color/black"
+                        android:hint="@string/country" />
 
 
 
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        >
-
-
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:focusable="false"
-                            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
-                            android:textSize="14sp"
-                            android:hint="State" />
-                    </com.google.android.material.textfield.TextInputLayout>
 
 
 

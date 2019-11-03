@@ -13,6 +13,7 @@ import com.octalabs.challetapp.models.ModelLogin.Login;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import okhttp3.MediaType;
@@ -100,6 +101,24 @@ public class Helper {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());
+    }
+
+
+    public static String getDate(String requiredDateStr, String comingDateFormatStr, String dateStr) {
+        try {
+            // Create a DateFormatter object for displaying date in specified format.
+            SimpleDateFormat formatter = new SimpleDateFormat(comingDateFormatStr);
+            SimpleDateFormat formatter1 = new SimpleDateFormat(requiredDateStr);
+
+            Date date = formatter.parse(dateStr);
+
+            assert date != null;
+            return formatter1.format(date);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 

@@ -156,7 +156,7 @@ public class RegisterActivity extends Activity {
         multipartBody.addFormDataPart("userName", mEdtusername.getText().toString());
         multipartBody.addFormDataPart("email", mEdtemail.getText().toString());
         multipartBody.addFormDataPart("password", mEdtpassword.getText().toString());
-        multipartBody.addFormDataPart("mobileNo",  mEdtmobileno.getText().toString());
+        multipartBody.addFormDataPart("mobileNo", mEdtmobileno.getText().toString());
         multipartBody.addFormDataPart("address", mEdtaddress.getText().toString());
         multipartBody.addFormDataPart("role", "end_user");
         multipartBody.addFormDataPart("countryId", countryID);
@@ -387,3 +387,6 @@ public class RegisterActivity extends Activity {
 
     }
 }
+
+
+
