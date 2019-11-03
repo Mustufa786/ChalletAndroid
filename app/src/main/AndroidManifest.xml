@@ -43,27 +43,42 @@
         <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!---->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".activities.ActivityLogin"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.RegisterActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.ActivityCart"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.PaymentActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.ActivityFilter"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.ActivityLogin"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.RegisterActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.ActivityCart"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.MainActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.PaymentActivity"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
