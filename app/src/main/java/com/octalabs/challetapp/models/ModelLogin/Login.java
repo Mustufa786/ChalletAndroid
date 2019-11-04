@@ -22,7 +22,7 @@ public class Login {
     private String password;
     @SerializedName("mobileNo")
     @Expose
-    private Integer mobileNo;
+    private String mobileNo;
     @SerializedName("address")
     @Expose
     private String address;
@@ -91,11 +91,11 @@ public class Login {
         this.password = password;
     }
 
-    public Integer getMobileNo() {
+    public String getMobileNo() {
         return mobileNo;
     }
 
-    public void setMobileNo(Integer mobileNo) {
+    public void setMobileNo(String mobileNo) {
         this.mobileNo = mobileNo;
     }
 

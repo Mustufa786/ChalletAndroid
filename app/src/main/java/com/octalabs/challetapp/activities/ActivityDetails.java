@@ -275,8 +275,9 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                     try {
                         hud.dismiss();
                         if (response.body() != null) {
-                            if (response.body().isSuccess == true) {
+                            if (response.body().isSuccess) {
                                 if (response.body().msg.equalsIgnoreCase("Review added successfully")) {
+                                    getDetails(getIntent().getStringExtra(Constants.CHALET_OR_MARRAIGE_ID));
                                     deleteDialog.dismiss();
                                 }
                             } else {
