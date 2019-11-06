@@ -11,7 +11,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="100dp"
         android:layout_weight="0.3"
-        android:src="@drawable/ic_logo" />
+        android:src="@drawable/logo_new" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             android:drawableStart="@drawable/ic_usernameicon"
             android:drawablePadding="20dp"
             android:ellipsize="end"
-            android:hint="@string/user_name"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:paddingStart="10dp"
