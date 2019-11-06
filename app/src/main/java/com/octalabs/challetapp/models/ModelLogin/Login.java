@@ -22,7 +22,7 @@ public class Login {
     private String password;
     @SerializedName("mobileNo")
     @Expose
-    private Integer mobileNo;
+    private String mobileNo;
     @SerializedName("address")
     @Expose
     private String address;
@@ -31,13 +31,13 @@ public class Login {
     private String role;
     @SerializedName("countryId")
     @Expose
-    private Object countryId;
+    private CountryId countryId;
     @SerializedName("stateId")
     @Expose
-    private Object stateId;
+    private StateId stateId;
     @SerializedName("cityId")
     @Expose
-    private Object cityId;
+    private CityId cityId;
     @SerializedName("createdAt")
     @Expose
     private String createdAt;
@@ -91,11 +91,11 @@ public class Login {
         this.password = password;
     }
 
-    public Integer getMobileNo() {
+    public String getMobileNo() {
         return mobileNo;
     }
 
-    public void setMobileNo(Integer mobileNo) {
+    public void setMobileNo(String mobileNo) {
         this.mobileNo = mobileNo;
     }
 
@@ -115,27 +115,27 @@ public class Login {
         this.role = role;
     }
 
-    public Object getCountryId() {
+    public CountryId getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(Object countryId) {
+    public void setCountryId(CountryId countryId) {
         this.countryId = countryId;
     }
 
-    public Object getStateId() {
+    public StateId getStateId() {
         return stateId;
     }
 
-    public void setStateId(Object stateId) {
+    public void setStateId(StateId stateId) {
         this.stateId = stateId;
     }
 
-    public Object getCityId() {
+    public CityId getCityId() {
         return cityId;
     }
 
-    public void setCityId(Object cityId) {
+    public void setCityId(CityId cityId) {
         this.cityId = cityId;
     }
 
