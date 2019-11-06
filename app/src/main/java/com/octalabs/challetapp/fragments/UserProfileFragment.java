@@ -72,22 +72,18 @@ public class UserProfileFragment extends Fragment {
     private void setData() {
 //    if(mData.get)
 
-        if(mData.getUserName() != null && !mData.getUserName().equalsIgnoreCase(""))
-        {
+        if (mData.getUserName() != null && !mData.getUserName().equalsIgnoreCase("")) {
             binding.userName.setText(mData.getUserName());
         }
-        if(mData.getEmail() != null && !mData.getEmail().equalsIgnoreCase(""))
-        {
+        if (mData.getEmail() != null && !mData.getEmail().equalsIgnoreCase("")) {
             binding.email.setText(mData.getEmail());
             binding.email.setEnabled(false);
         }
-        if(mData.getMobileNo() != null && !mData.getMobileNo().equalsIgnoreCase(""))
-        {
-            binding.userName.setText(mData.getUserName());
+        if (mData.getMobileNo() != null && !mData.getMobileNo().equalsIgnoreCase("")) {
+            binding.mobile.setText(mData.getMobileNo());
         }
-        if(mData.getUserName() != null && !mData.getUserName().equalsIgnoreCase(""))
-        {
-            binding.userName.setText(mData.getUserName());
+        if (mData.getAddress() != null && !mData.getAddress().equalsIgnoreCase("")) {
+            binding.address.setText(mData.getAddress());
         }
 
     }
