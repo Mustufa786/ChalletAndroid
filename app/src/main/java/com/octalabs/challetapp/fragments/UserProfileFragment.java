@@ -317,7 +317,6 @@ public class UserProfileFragment extends Fragment {
             if (index >= 0) {
                 binding.city.setSelection(index);
                 stateID = userCity.getId();
-                getCities(userCity.getId());
             }
         }
 
