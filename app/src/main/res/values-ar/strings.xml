@@ -59,5 +59,6 @@
     <string name="submit">تقديم</string>
     <string name="update">تحديث</string>
     <string name="confirm">تؤكد</string>
+    <string name="list">List</string>
 
 </resources>

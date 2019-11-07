@@ -63,6 +63,7 @@ public class UserProfileFragment extends Fragment {
         mData = new Gson().fromJson(getActivity().getSharedPreferences("main", Context.MODE_PRIVATE).getString(Constants.user_profile, ""), Login.class);
         hud = KProgressHUD.create(getContext()).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
 
+        getCountries();
         setData();
 
         return binding.getRoot();
@@ -314,7 +315,7 @@ public class UserProfileFragment extends Fragment {
             });
 
             if (index >= 0) {
-                binding.state.setSelection(index);
+                binding.city.setSelection(index);
                 stateID = userCity.getId();
                 getCities(userCity.getId());
             }

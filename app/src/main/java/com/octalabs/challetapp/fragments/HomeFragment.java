@@ -21,6 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -69,6 +70,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
 
+        initializeMap();
 
         Init(binding.getRoot());
         hud = KProgressHUD.create(getActivity()).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
@@ -79,15 +81,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
 
     private void initializeMap() {
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager()
+        SupportMapFragment myMAPF = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(this);
+        if (myMAPF != null) {
+            myMAPF.getMapAsync(this);
         }
 
 
     }
 
+
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//
+//        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+//        if(getActivity()!=null) {
+//            SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager()
+//                    .findFragmentById(R.id.map);
+//            if (mapFragment != null) {
+//                mapFragment.getMapAsync(this);
+//            }
+//        }
+//    }
 
     private void getAllChalets() {
         hud.show();
@@ -107,6 +123,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
                                 Marker m = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()))).icon(BitmapDescriptorFactory.fromBitmap(resizeBitmap(100, 150))));
                                 m.setTag(item);
                                 markersArray.add(m);
+                                if (i == 0) {
+                                    CameraUpdate update = CameraUpdateFactory.newLatLngZoom(
+                                            new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude())), 15);
+                                    mMap.animateCamera(update);
+                                }
+
                             }
                         }
                         adapterChalets.setMlist(arrayList);
@@ -186,6 +208,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
 
             case R.id.text_map_or_list:
                 changeMapOrList();
+                break;
 
         }
     }
@@ -197,16 +220,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
             binding.rvMarriageHall.setVisibility(View.VISIBLE);
             binding.getRoot().findViewById(R.id.map).setVisibility(View.GONE);
 
+
+
         } else {
             binding.textMapOrList.setText("Map");
             binding.imgMapOrList.setBackground(getActivity().getResources().getDrawable(R.drawable.mapicon));
             binding.rvMarriageHall.setVisibility(View.GONE);
             binding.getRoot().findViewById(R.id.map).setVisibility(View.VISIBLE);
 
+
         }
     }
 
-    public Bitmap resizeBitmap(int width, int height) {
+    private Bitmap resizeBitmap(int width, int height) {
 
         Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),
                 R.drawable.new_avatar);
@@ -225,9 +251,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
         this.mMap = googleMap;
 
 
-        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(
-                new LatLng(LocationLat, LocationLong), 15);
-        mMap.animateCamera(update);
     }
 }
 

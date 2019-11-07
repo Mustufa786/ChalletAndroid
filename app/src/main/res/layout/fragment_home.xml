@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
 
     >
 
 
-
-    <LinearLayout android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-
 
 
         <LinearLayout
@@ -109,7 +107,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="20dp"
-                    android:src="@drawable/mapicon" />
+                    android:background="@drawable/mapicon" />
 
                 <TextView
                     android:id="@+id/text_map_or_list"
@@ -118,7 +116,8 @@
                     android:layout_weight="1"
                     android:gravity="start|center"
                     android:paddingStart="10dp"
-                    android:text="@string/map" />
+                    android:paddingEnd="10dp"
+                    android:text="@string/list" />
 
             </LinearLayout>
 
@@ -138,16 +137,11 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
-
-            <fragment xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/map"
-                android:visibility="gone"
-
+            <fragment android:id="@+id/map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
-                tools:context="com.placement.employee.Activities.HomeActivity" />
+                android:visibility="gone" />
 
 
         </RelativeLayout>

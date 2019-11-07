@@ -59,5 +59,6 @@
     <string name="submit">Submit</string>
     <string name="update">Update</string>
     <string name="confirm">Confirm</string>
+    <string name="list">List</string>
 
 </resources>
