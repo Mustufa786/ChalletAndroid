@@ -50,8 +50,12 @@ public class Helper {
 
     public static String getToken(Context context) {
         Log.i("tag123", context.getSharedPreferences("main", MODE_PRIVATE).getString(Constants.user_profile, ""));
-
-        return new Gson().fromJson(context.getSharedPreferences("main", MODE_PRIVATE).getString(Constants.user_profile, ""), Login.class).getToken();
+        try {
+            return new Gson().fromJson(context.getSharedPreferences("main", MODE_PRIVATE).getString(Constants.user_profile, ""), Login.class).getToken();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
 //        return  "";
     }
 

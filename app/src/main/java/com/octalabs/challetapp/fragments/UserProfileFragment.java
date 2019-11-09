@@ -1,6 +1,10 @@
 package com.octalabs.challetapp.fragments;
 
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,39 +12,48 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
+import com.octalabs.challetapp.activities.MainActivity;
 import com.octalabs.challetapp.activities.RegisterActivity;
-import com.octalabs.challetapp.adapter.AdapterMarriageHall;
 import com.octalabs.challetapp.adapter.CustomSpinnerAdapter;
 import com.octalabs.challetapp.databinding.FragmentUserProfileBinding;
-import com.octalabs.challetapp.models.ModelChalet;
 import com.octalabs.challetapp.models.ModelCity.CityModel;
 import com.octalabs.challetapp.models.ModelCity.StateCity;
 import com.octalabs.challetapp.models.ModelCountry.Country;
 import com.octalabs.challetapp.models.ModelCountry.CountryModel;
 import com.octalabs.challetapp.models.ModelLogin.Login;
+import com.octalabs.challetapp.models.ModelRegister.RegisterModel;
 import com.octalabs.challetapp.models.ModelState.CountryState;
 import com.octalabs.challetapp.models.ModelState.StateModel;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
+import com.octalabs.challetapp.utils.FilePath;
+import com.octalabs.challetapp.utils.Helper;
 
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.octalabs.challetapp.utils.Helper.displayDialog;
 
 public class UserProfileFragment extends Fragment {
@@ -52,6 +65,7 @@ public class UserProfileFragment extends Fragment {
     private String countryID;
     private String stateID;
     private String cityID;
+    private String filePath;
 
 
     @Nullable
@@ -60,7 +74,7 @@ public class UserProfileFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_profile, container, false);
 
 
-        mData = new Gson().fromJson(getActivity().getSharedPreferences("main", Context.MODE_PRIVATE).getString(Constants.user_profile, ""), Login.class);
+        mData = new Gson().fromJson(getActivity().getSharedPreferences("main", MODE_PRIVATE).getString(Constants.user_profile, ""), Login.class);
         hud = KProgressHUD.create(getContext()).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
 
         getCountries();
@@ -87,6 +101,67 @@ public class UserProfileFragment extends Fragment {
             binding.address.setText(mData.getAddress());
         }
 
+        binding.layoutChangePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(android.content.Intent.ACTION_VIEW);
+                intent.setType("image/*");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivityForResult(intent, 190);
+            }
+        });
+
+        binding.btnProcess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (validation()) {
+                    UpdateProfile();
+                }
+            }
+        });
+
+    }
+
+    private boolean validation() {
+        if (binding.userName.getText().toString().equalsIgnoreCase("")) {
+            Toast.makeText(getActivity(), "Please insert Username", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (binding.email.getText().toString().equalsIgnoreCase("")) {
+            Toast.makeText(getActivity(), "Please insert Email", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (binding.mobile.getText().toString().equalsIgnoreCase("")) {
+            Toast.makeText(getActivity(), "Please insert Mobile Number", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (cityID.equalsIgnoreCase("")) {
+            Toast.makeText(getActivity(), "Please insert City", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (countryID.equalsIgnoreCase("")) {
+            Toast.makeText(getActivity(), "Please insert Country", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (stateID.equalsIgnoreCase("")) {
+            Toast.makeText(getActivity(), "Please insert State", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+        return true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 190) {
+            Uri filePaths = data.getData();
+            binding.profileImage.setImageURI(filePaths);
+            filePath = FilePath.getPath(getActivity(), filePaths);
+        }
     }
 
     private void getCountries() {
@@ -322,6 +397,80 @@ public class UserProfileFragment extends Fragment {
 
 
     }
+
+    private void UpdateProfile() {
+        hud.show();
+        MultipartBody.Builder multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        multipartBody.addFormDataPart("userName", binding.userName.getText().toString());
+        multipartBody.addFormDataPart("email", binding.email.getText().toString());
+        multipartBody.addFormDataPart("mobileNo", binding.mobile.getText().toString());
+        multipartBody.addFormDataPart("address", binding.address.getText().toString());
+        multipartBody.addFormDataPart("role", "end_user");
+        multipartBody.addFormDataPart("countryId", countryID);
+        multipartBody.addFormDataPart("stateId", stateID);
+        multipartBody.addFormDataPart("cityId", cityID);
+
+        if (filePath != null && !filePath.equalsIgnoreCase("")) {
+            File file = new File(filePath);
+            multipartBody.addFormDataPart("image", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+        }
+
+        RequestBody mBody = multipartBody.build();
+
+        Call<RegisterModel> call = RetrofitInstance.service.updateProfile(Helper.getJsonHeaderWithToken(getActivity()), mBody);
+        call.enqueue(new Callback<RegisterModel>() {
+            @Override
+            public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
+
+
+                try {
+                    hud.dismiss();
+                    if (response.body() != null) {
+                        RegisterModel model = response.body();
+                        if (model.getSuccess()) {
+                            Gson gson = new Gson();
+                            JSONObject object = new JSONObject(gson.toJson(model.getData(), Login.class));
+                            SharedPreferences mPref = getActivity().getSharedPreferences("main", MODE_PRIVATE);
+                            mPref.edit().putString(Constants.user_profile, object.toString()).apply();
+                            mPref.edit().putString(Constants.email_address, binding.email.getText().toString()).apply();
+                            mPref.edit().putBoolean(Constants.IS_USER_LOGGED_IN, true).apply();
+
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity())
+                                    .setTitle("Success")
+                                    .setMessage(model.getMessage())
+                                    .setCancelable(false)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.dismiss();
+                                            getActivity().finish();
+
+                                        }
+                                    });
+
+                            AlertDialog dialog = alertDialog.create();
+                            dialog.show();
+                            Log.i("tag", object.toString());
+                        } else {
+                            displayDialog("Alert", model.getMessage(), getActivity());
+                        }
+                    } else {
+                        displayDialog("Alert", "Invalid Username or Password", getActivity());
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RegisterModel> call, Throwable t) {
+                hud.dismiss();
+            }
+        });
+    }
+
 
 }
 

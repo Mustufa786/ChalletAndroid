@@ -49,12 +49,15 @@ public interface ApiInterface {
     @POST("review")
     Call<ApiResponce<ModelAddReview>> addReView(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);
 
-    @POST("review")
+    @POST("filter")
     Call<ApiResponce<ModelAddReview>> filter(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);
 
 
     @POST("user")
     Call<RegisterModel> register(@Body RequestBody body);
+
+    @POST("user")
+    Call<RegisterModel> updateProfile(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);
 
     @GET("country")
     Call<CountryModel> getAllCountries();
