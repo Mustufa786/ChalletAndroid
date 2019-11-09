@@ -60,5 +60,8 @@
     <string name="update">تحديث</string>
     <string name="confirm">تؤكد</string>
     <string name="list">List</string>
+    <string name="please_login_to_continue">Please Login To Continue</string>
+    <string name="login">Login</string>
+    <string name="check_in">Check In</string>
 
 </resources>

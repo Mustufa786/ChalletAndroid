@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.octalabs.challetapp.R;
@@ -22,9 +21,11 @@ import com.octalabs.challetapp.adapter.MyPagerAdapter;
 import com.octalabs.challetapp.custome.NonSwipeableViewPager;
 import com.octalabs.challetapp.fragments.FragmentBookingHistory;
 import com.octalabs.challetapp.fragments.FragmentMore;
-import com.octalabs.challetapp.fragments.FragmentSearchListing;
+import com.octalabs.challetapp.fragments.FragmentSearch;
 import com.octalabs.challetapp.fragments.HomeFragment;
+import com.octalabs.challetapp.fragments.LoginFragment;
 import com.octalabs.challetapp.fragments.UserProfileFragment;
+import com.octalabs.challetapp.utils.Constants;
 
 public class MainActivity extends AppCompatActivity {
     public static ActionBar getactionbar;
@@ -38,12 +39,14 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mMainViewPager.setCurrentItem(0);
+                    mMainViewPager.setCurrentItem(1);
+
                     setTextAction(getactionbar, getResources().getString(R.string.home));
                     return true;
                 case R.id.navigation_search:
-                    mMainViewPager.setCurrentItem(1);
+                    mMainViewPager.setCurrentItem(0);
                     setTextAction(getactionbar, getResources().getString(R.string.title_search));
+
                     return true;
                 case R.id.navigation_booking:
                     mMainViewPager.setCurrentItem(2);
@@ -67,18 +70,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActionBar actionbar = getSupportActionBar();
-        setTextAction(actionbar, getResources().getString(R.string.home));
+        setTextAction(actionbar, getResources().getString(R.string.title_search));
         getactionbar = actionbar;
         Init();
     }
 
     private void Init() {
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        mPagerAdapter.addFragmeent(new HomeFragment(), getResources().getString(R.string.home));
-        mPagerAdapter.addFragmeent(new FragmentSearchListing(), getResources().getString(R.string.title_search));
-        mPagerAdapter.addFragmeent(new FragmentBookingHistory(), getResources().getString(R.string.booking_history));
-        mPagerAdapter.addFragmeent(new UserProfileFragment(), getResources().getString(R.string.user_profile));
-        mPagerAdapter.addFragmeent(new FragmentMore(), getResources().getString(R.string.more));
+        mPagerAdapter.addFragmeent(new FragmentSearch(), getResources().getString(R.string.title_search));
+        if (getSharedPreferences("main", MODE_PRIVATE).getBoolean(Constants.IS_USER_LOGGED_IN, false)) {
+            mPagerAdapter.addFragmeent(new HomeFragment(), getResources().getString(R.string.home));
+            mPagerAdapter.addFragmeent(new FragmentBookingHistory(), getResources().getString(R.string.booking_history));
+            mPagerAdapter.addFragmeent(new UserProfileFragment(), getResources().getString(R.string.user_profile));
+            mPagerAdapter.addFragmeent(new FragmentMore(), getResources().getString(R.string.more));
+        }
+        else
+        {
+            mPagerAdapter.addFragmeent(new LoginFragment(), getResources().getString(R.string.login));
+            mPagerAdapter.addFragmeent(new LoginFragment(), getResources().getString(R.string.login));
+            mPagerAdapter.addFragmeent(new LoginFragment(), getResources().getString(R.string.login));
+            mPagerAdapter.addFragmeent(new LoginFragment(), getResources().getString(R.string.login));
+        }
+
 
         mMainViewPager = findViewById(R.id.main_pager);
         mMainViewPager.setAdapter(mPagerAdapter);

@@ -3,7 +3,7 @@ package com.octalabs.challetapp.models.ModelLocation;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-class SampleLocation {
+public class SampleLocation {
     @SerializedName("isActive")
     @Expose
     private Boolean isActive;

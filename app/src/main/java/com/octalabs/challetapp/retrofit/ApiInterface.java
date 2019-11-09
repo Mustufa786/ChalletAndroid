@@ -8,6 +8,7 @@ import com.octalabs.challetapp.models.ModelCheckout.ModelCheckout;
 import com.octalabs.challetapp.models.ModelCity.CityModel;
 import com.octalabs.challetapp.models.ModelCountry.CountryModel;
 import com.octalabs.challetapp.models.ModelDetails.ModelChaletsDetails;
+import com.octalabs.challetapp.models.ModelLocation.LocationModel;
 import com.octalabs.challetapp.models.ModelLogin.LoginModel;
 import com.octalabs.challetapp.models.ModelRegister.RegisterModel;
 import com.octalabs.challetapp.models.ModelRegisterResponce;
@@ -58,6 +59,10 @@ public interface ApiInterface {
     @GET("country")
     Call<CountryModel> getAllCountries();
 
+
+    @GET("location")
+    Call<LocationModel> getAllLocations();
+
     @GET("state/{id}")
     Call<StateModel> getAllStates(@Path("id") String id);
 
@@ -85,6 +90,9 @@ public interface ApiInterface {
     @POST("checkout")
     Call<ModelCheckout> postCheckout(@Body RequestBody body, @HeaderMap HashMap<String, String> hashMap);
 
+
+    @POST("Item/search")
+    Call<AllChaletsModel> searchResults(@Body RequestBody body , @HeaderMap HashMap<String , String> hashMap);
 
     @GET("checkout")
     Call<ModelBookingHistory> getBookingHistory(@HeaderMap HashMap<String, String> hashMap);

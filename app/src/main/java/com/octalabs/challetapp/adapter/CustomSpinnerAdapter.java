@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.models.ModelCity.StateCity;
 import com.octalabs.challetapp.models.ModelCountry.Country;
+import com.octalabs.challetapp.models.ModelLocation.SampleLocation;
 import com.octalabs.challetapp.models.ModelState.CountryState;
 
 import java.util.ArrayList;
@@ -69,6 +70,15 @@ public class CustomSpinnerAdapter extends ArrayAdapter<Object> {
             label.setText(model.getName());
 
         }
+
+
+        if (type.equalsIgnoreCase("locations")) {
+            SampleLocation model = (SampleLocation) objects.get(position);
+            TextView label = row.findViewById(R.id.text1);
+            label.setText(model.getName());
+
+        }
+
         return row;
     }
 }

@@ -46,13 +46,13 @@ public class SplashActivity extends Activity {
                     conf.setLocale(new Locale("ar"));
                     res.updateConfiguration(conf, dm);
                 }
-
-                if (Helper.isUserLoggedIn(SplashActivity.this)) {
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                } else {
-                    startActivity(new Intent(SplashActivity.this, ActivityLogin.class));
-
-                }
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//                if (Helper.isUserLoggedIn(SplashActivity.this)) {
+//
+//                } else {
+//                    startActivity(new Intent(SplashActivity.this, ActivityLogin.class));
+//
+//                }
 
                 finish();
 
