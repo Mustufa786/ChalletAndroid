@@ -62,7 +62,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
 
     double LocationLat = 0.0, LocationLong = 0.0;
 
-    FragmentHomeBinding binding;
+    private FragmentHomeBinding binding;
+    boolean isMapShowing;
 
     @Nullable
     @Override
@@ -71,6 +72,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
 
         initializeMap();
+
 
         Init(binding.getRoot());
         hud = KProgressHUD.create(getActivity()).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
@@ -184,7 +186,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
         adapterChalets = new AdapterChalets(getActivity(), new ArrayList<Chalet>());
         mRecyclerView.setAdapter(adapterChalets);
         binding.textMapOrList.setOnClickListener(this);
-
+        binding.getRoot().findViewById(R.id.map).setVisibility(View.GONE);
+        binding.rvMarriageHall.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -207,6 +210,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
                 break;
 
             case R.id.text_map_or_list:
+
                 changeMapOrList();
                 break;
 
@@ -214,17 +218,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
     }
 
     private void changeMapOrList() {
-        if (binding.textMapOrList.getText().toString().equalsIgnoreCase("Map")) {
-            binding.textMapOrList.setText("List");
-            binding.imgMapOrList.setBackground(getActivity().getResources().getDrawable(R.drawable.wishlisticon));
-            binding.rvMarriageHall.setVisibility(View.VISIBLE);
-            binding.getRoot().findViewById(R.id.map).setVisibility(View.GONE);
-
-
-
-        } else {
+        isMapShowing = !isMapShowing;
+        if (!isMapShowing) {
             binding.textMapOrList.setText("Map");
             binding.imgMapOrList.setBackground(getActivity().getResources().getDrawable(R.drawable.mapicon));
+            binding.rvMarriageHall.setVisibility(View.VISIBLE);
+            binding.getRoot().findViewById(R.id.map).setVisibility(View.GONE);
+        } else {
+            binding.textMapOrList.setText("List");
+            binding.imgMapOrList.setBackground(getActivity().getResources().getDrawable(R.drawable.wishlisticon));
             binding.rvMarriageHall.setVisibility(View.GONE);
             binding.getRoot().findViewById(R.id.map).setVisibility(View.VISIBLE);
 

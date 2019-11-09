@@ -2,6 +2,9 @@ package com.octalabs.challetapp.utils;
 
 public class Constants {
 
+    public static final String PAGE_TITLE = "PAGE_TITLE" ;
+    public static final String PAGE_URL = "PAGE_URL" ;
+
     public static String SELECTED_LANGUAGE = "SELECTED_LANGUAGE";
     public static String user_profile = "user_profile";
     public static String email_address = "email_address";

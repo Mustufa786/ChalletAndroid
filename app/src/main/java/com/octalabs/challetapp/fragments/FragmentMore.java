@@ -20,12 +20,13 @@ import com.octalabs.challetapp.activities.ActivityContactUs;
 import com.octalabs.challetapp.activities.ActivityLogin;
 import com.octalabs.challetapp.activities.ActivityWishList;
 import com.octalabs.challetapp.activities.ChangePasswordActivity;
+import com.octalabs.challetapp.activities.WebviewActivity;
 import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.CustomDialog;
 
 public class FragmentMore extends Fragment implements View.OnClickListener {
 
-    private TextView textChangePassword, textContactUs, textWishList, textChangeLanguage, textLogout;
+    private TextView textChangePassword, textContactUs, textWishList, textChangeLanguage, textLogout, textTermsAndConditions, textPrivatePolicy;
 
     @Nullable
     @Override
@@ -48,6 +49,11 @@ public class FragmentMore extends Fragment implements View.OnClickListener {
         textChangeLanguage.setOnClickListener(this);
         textLogout = v.findViewById(R.id.text_logout);
         textLogout.setOnClickListener(this);
+        textTermsAndConditions = v.findViewById(R.id.text_terms_conditions);
+        textTermsAndConditions.setOnClickListener(this);
+        textPrivatePolicy = v.findViewById(R.id.text_privacy_policy);
+        textPrivatePolicy.setOnClickListener(this);
+
     }
 
 
@@ -66,6 +72,23 @@ public class FragmentMore extends Fragment implements View.OnClickListener {
 
             case R.id.text_wish_list:
                 startActivity(new Intent(getContext(), ActivityWishList.class));
+                break;
+
+            case R.id.text_terms_conditions:
+                Intent intent = new Intent(getContext(), WebviewActivity.class);
+                intent.putExtra(Constants.PAGE_TITLE, "Terms And Conditions");
+//                intent.putExtra(Constants.PAGE_URL, "http://134.209.77.214:6000/termconditions");
+                intent.putExtra(Constants.PAGE_URL, "https://www.google.com");
+                startActivity(intent);
+                break;
+
+
+            case R.id.text_privacy_policy:
+                Intent intent1 = new Intent(getContext(), WebviewActivity.class);
+                intent1.putExtra(Constants.PAGE_TITLE, "Privacy Policy");
+//                intent1.putExtra(Constants.PAGE_URL, "http://134.209.77.214:6000/privacypolicy");
+                intent1.putExtra(Constants.PAGE_URL, "https://www.google.com");
+                startActivity(intent1);
                 break;
 
 

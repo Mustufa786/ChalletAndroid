@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.ActivityBookingHistoryDetails"></activity>
+        <activity android:name=".activities.WebviewActivity"></activity>
+        <activity android:name=".activities.ActivityBookingHistoryDetails" />
         <activity android:name=".activities.ActivityFillIntroThree" />
         <activity android:name=".activities.ActivityFillIntroTwo" />
 
@@ -49,31 +50,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.ActivityLogin"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.RegisterActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.ActivityCart"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.PaymentActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activities.ActivityFilter"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
