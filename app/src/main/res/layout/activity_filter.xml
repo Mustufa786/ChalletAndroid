@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:cardElevation="6dp"
+
         app:cardCornerRadius="20dp"
         app:cardUseCompatPadding="true">
 

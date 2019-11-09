@@ -39,7 +39,8 @@ public class ActivityFilter extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_filter);
+
+        //
         mbtnFilter = findViewById(R.id.btn_filter);
         hud = new KProgressHUD(this);
         setTextAction(getSupportActionBar(), getResources().getString(R.string.filter));
