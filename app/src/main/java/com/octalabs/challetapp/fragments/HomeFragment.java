@@ -29,6 +29,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.activities.ActivityFilter;
@@ -40,6 +42,7 @@ import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
 import com.octalabs.challetapp.models.ModelChalet;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
+import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.Helper;
 
 import java.util.ArrayList;
@@ -49,6 +52,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
 import static com.octalabs.challetapp.utils.Helper.displayDialog;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, OnMapReadyCallback {
@@ -59,8 +63,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
     private KProgressHUD hud;
     private AdapterMarriageHall adapterMarriageHall;
     private AdapterChalets adapterChalets;
-    private ArrayList<Marker> markersArray = new ArrayList<>();
     private GoogleMap mMap;
+    private final static int REQUEST_FILTER = 256;
 
     double LocationLat = 0.0, LocationLong = 0.0;
 
@@ -82,7 +86,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
         binding.btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), ActivityFilter.class));
+                startActivityForResult(new Intent(getActivity(), ActivityFilter.class), REQUEST_FILTER);
             }
         });
         return binding.getRoot();
@@ -131,7 +135,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
                             if (item.getLatitude() != null && item.getLongitude() != null && !item.getLatitude().equalsIgnoreCase("") && !item.getLongitude().equalsIgnoreCase("")) {
                                 Marker m = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()))));
                                 m.setTag(item);
-                                markersArray.add(m);
+
                                 if (i == 0) {
                                     CameraUpdate update = CameraUpdateFactory.newLatLngZoom(
                                             new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude())), 15);
@@ -260,6 +264,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
         this.mMap = googleMap;
 
 
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_FILTER) {
+                ArrayList<Chalet> mList = new Gson().fromJson(data.getExtras().getString(Constants.SEARCH_RESULT), new TypeToken<List<Chalet>>() {
+                }.getType());
+                adapterChalets.setMlist(mList);
+            }
+        }
     }
 }
 

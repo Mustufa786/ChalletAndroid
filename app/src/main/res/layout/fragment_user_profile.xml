@@ -20,7 +20,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
                 android:elevation="6dp"
-                android:src="@drawable/user_image_new"
+                android:src="@drawable/new_avatar"
                 app:civ_border_color="@color/colorPrimaryDark"
                 app:civ_border_width="2dp" />
 
