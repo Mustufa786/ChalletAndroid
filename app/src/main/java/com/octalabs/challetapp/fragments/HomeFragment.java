@@ -1,6 +1,7 @@
 package com.octalabs.challetapp.fragments;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
+import com.octalabs.challetapp.activities.ActivityFilter;
 import com.octalabs.challetapp.adapter.AdapterChalets;
 import com.octalabs.challetapp.adapter.AdapterMarriageHall;
 import com.octalabs.challetapp.adapter.MyPagerAdapter;
@@ -77,7 +79,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
         Init(binding.getRoot());
         hud = KProgressHUD.create(getActivity()).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
         getAllChalets();
-
+        binding.btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), ActivityFilter.class));
+            }
+        });
         return binding.getRoot();
     }
 

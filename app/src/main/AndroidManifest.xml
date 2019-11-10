@@ -72,7 +72,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.ActivityFilter"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+        </activity>
     </application>
 
 </manifest>
