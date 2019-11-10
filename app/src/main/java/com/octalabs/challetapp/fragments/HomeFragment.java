@@ -69,7 +69,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
     double LocationLat = 0.0, LocationLong = 0.0;
 
     private FragmentHomeBinding binding;
+    private ArrayList<Chalet> chaletArrayList;
+    private ArrayList<Chalet> marraigeHallList;
     private boolean isMapShowing;
+    private boolean isChaletTab = true;
 
     @Nullable
     @Override
@@ -104,20 +107,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
     }
 
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//
-//        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-//        if(getActivity()!=null) {
-//            SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager()
-//                    .findFragmentById(R.id.map);
-//            if (mapFragment != null) {
-//                mapFragment.getMapAsync(this);
-//            }
-//        }
-//    }
-
     private void getAllChalets() {
         hud.show();
         Call<AllChaletsModel> call = RetrofitInstance.service.getAllChalets(Helper.getJsonHeaderWithToken(getContext()));
@@ -129,7 +118,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
                     AllChaletsModel model = response.body();
                     if (model.getSuccess()) {
                         getAllMarrigeHalls();
-                        ArrayList arrayList = new ArrayList<>(model.getData());
+                        chaletArrayList = new ArrayList<>(model.getData());
                         for (int i = 0; i < model.getData().size(); i++) {
                             Chalet item = model.getData().get(i);
                             if (item.getLatitude() != null && item.getLongitude() != null && !item.getLatitude().equalsIgnoreCase("") && !item.getLongitude().equalsIgnoreCase("")) {
@@ -144,7 +133,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
 
                             }
                         }
-                        adapterChalets.setMlist(arrayList);
+                        adapterChalets.setMlist(chaletArrayList);
 
                     } else {
                         displayDialog("Alert", model.getMessage(), getContext());
@@ -170,8 +159,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
                     hud.dismiss();
                     AllChaletsModel model = response.body();
                     if (model.getSuccess()) {
-                        ArrayList arrayList = new ArrayList<>(model.getData());
-                        adapterMarriageHall.setMlist(arrayList);
+                        marraigeHallList = new ArrayList<>(model.getData());
+                        adapterMarriageHall.setMlist(marraigeHallList);
 
                     } else {
                         displayDialog("Alert", model.getMessage(), getContext());
@@ -210,6 +199,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
                 mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
                 mBtnMarriageall.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
                 mRecyclerView.setAdapter(adapterChalets);
+                isChaletTab = true;
+                if (chaletArrayList != null && this.mMap != null) {
+                    mMap.clear();
+                    for (int i = 0; i < chaletArrayList.size(); i++) {
+                        Chalet item = chaletArrayList.get(i);
+                        if (item.getLatitude() != null && item.getLongitude() != null && !item.getLatitude().equalsIgnoreCase("") && !item.getLongitude().equalsIgnoreCase("")) {
+                            Marker m = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()))));
+                            m.setTag(item);
+
+                            if (i == 0) {
+                                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(
+                                        new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude())), 15);
+                                mMap.animateCamera(update);
+                            }
+
+                        }
+                    }
+                }
                 break;
 
             case R.id.btn_marriage_hall:
@@ -218,6 +225,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
                 mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
                 mBtnMarriageall.setTextColor(getActivity().getResources().getColor(R.color.white));
                 mRecyclerView.setAdapter(adapterMarriageHall);
+                isChaletTab = false;
+                if (marraigeHallList != null && this.mMap != null) {
+                    mMap.clear();
+                    for (int i = 0; i < marraigeHallList.size(); i++) {
+                        Chalet item = marraigeHallList.get(i);
+                        if (item.getLatitude() != null && item.getLongitude() != null && !item.getLatitude().equalsIgnoreCase("") && !item.getLongitude().equalsIgnoreCase("")) {
+                            Marker m = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()))));
+                            m.setTag(item);
+
+                            if (i == 0) {
+                                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(
+                                        new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude())), 15);
+                                mMap.animateCamera(update);
+                            }
+
+                        }
+                    }
+                }
                 break;
 
             case R.id.text_map_or_list:
@@ -230,6 +255,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
 
     private void changeMapOrList() {
         isMapShowing = !isMapShowing;
+
         if (!isMapShowing) {
             binding.textMapOrList.setText("Map");
             binding.imgMapOrList.setBackground(getActivity().getResources().getDrawable(R.drawable.mapicon));
@@ -241,8 +267,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
             binding.rvMarriageHall.setVisibility(View.GONE);
             binding.getRoot().findViewById(R.id.map).setVisibility(View.VISIBLE);
 
-
         }
+
+
     }
 
     private Bitmap resizeBitmap(int width, int height) {
