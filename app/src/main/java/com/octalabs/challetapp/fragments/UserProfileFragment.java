@@ -72,8 +72,6 @@ public class UserProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_profile, container, false);
-
-
         mData = new Gson().fromJson(getActivity().getSharedPreferences("main", MODE_PRIVATE).getString(Constants.user_profile, ""), Login.class);
         hud = KProgressHUD.create(getContext()).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
 
@@ -105,10 +103,9 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.setAction(android.content.Intent.ACTION_VIEW);
                 intent.setType("image/*");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivityForResult(intent, 190);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 190);
             }
         });
 
@@ -158,9 +155,12 @@ public class UserProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 190) {
-            Uri filePaths = data.getData();
-            binding.profileImage.setImageURI(filePaths);
-            filePath = FilePath.getPath(getActivity(), filePaths);
+            Uri filePaths = null;
+            if (data != null) {
+                filePaths = data.getData();
+                binding.profileImage.setImageURI(filePaths);
+                filePath = FilePath.getPath(getActivity(), filePaths);
+            }
         }
     }
 
