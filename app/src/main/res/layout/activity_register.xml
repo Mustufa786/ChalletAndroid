@@ -134,6 +134,7 @@
                     android:drawableStart="@drawable/addressicon"
                     android:drawablePadding="20dp"
                     android:hint="@string/address"
+                    android:focusable="false"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:ellipsize="end"

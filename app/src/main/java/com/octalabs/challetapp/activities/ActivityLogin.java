@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -37,6 +38,7 @@ public class ActivityLogin extends Activity {
     private Button mBtnSignIN;
     EditText inputEmail, inputPassowd;
     KProgressHUD hud;
+    ImageView imgClose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,13 @@ public class ActivityLogin extends Activity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ActivityLogin.this, RegisterActivity.class));
+            }
+        });
+        imgClose = findViewById(R.id.img_close);
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 

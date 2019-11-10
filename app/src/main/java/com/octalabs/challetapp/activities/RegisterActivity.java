@@ -57,6 +57,8 @@ public class RegisterActivity extends Activity {
     private String stateID;
     private String cityID;
     KProgressHUD hud;
+    private int REQUEST_LOCATION = 234;
+    String latitude , longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,14 @@ public class RegisterActivity extends Activity {
                 if (validation()) {
                     Register();
                 }
+            }
+        });
+
+        mEdtaddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegisterActivity.this , LocationSelectionActivity.class);
+                startActivityForResult(intent , REQUEST_LOCATION);
             }
         });
 
@@ -145,6 +155,10 @@ public class RegisterActivity extends Activity {
                 && data != null && data.getData() != null) {
             Uri filePaths = data.getData();
             filePath = FilePath.getPath(RegisterActivity.this, filePaths);
+        }
+        else if (resultCode == RESULT_OK && requestCode == REQUEST_LOCATION)
+        {
+
         }
 
     }
@@ -404,6 +418,8 @@ public class RegisterActivity extends Activity {
 
 
     }
+
+
 }
 
 

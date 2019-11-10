@@ -1,5 +1,6 @@
 package com.octalabs.challetapp.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.app.Dialog;
 import android.graphics.Color;
@@ -41,6 +43,7 @@ import com.octalabs.challetapp.databinding.ActivityDetailsBinding;
 import com.octalabs.challetapp.models.ModelAddReview;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
+import com.octalabs.challetapp.models.ModelDetails.AmenityId;
 import com.octalabs.challetapp.models.ModelDetails.ChaletDetails;
 import com.octalabs.challetapp.models.ModelChangePassword;
 import com.octalabs.challetapp.models.ModelDetails.ModelChaletsDetails;
@@ -87,6 +90,11 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
     private RatingBar mRatingBar;
     private String bookingItemID;
     private AlertDialog deleteDialog;
+    boolean isUserLoggedIn;
+    private int ADD_REVIEW_REQUEST = 123;
+    private int ADD_TO_CART_REQUEST = 124;
+    private int ADD_TO_WISHLIST_REQUEST = 125;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +106,10 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                 .findFragmentById(R.id.map);
 
         init();
+        isUserLoggedIn = sharedPreferences.getBoolean(Constants.IS_USER_LOGGED_IN, false);
 
         getDetails(getIntent().getStringExtra(Constants.CHALET_OR_MARRAIGE_ID));
+
 
     }
 
@@ -202,36 +212,59 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layout_add_to_wishlist:
-                addToWishList();
+                if (isUserLoggedIn) {
+                    addToWishList();
+
+                } else {
+                    Intent intent = new Intent(ActivityDetails.this, ActivityLogin.class);
+                    startActivityForResult(intent, ADD_TO_WISHLIST_REQUEST);
+                }
                 break;
 
             case R.id.btn_add_to_cart:
-                addToLocalCart();
+                if (isUserLoggedIn) {
+                    addToLocalCart();
+                } else {
+                    Intent intent = new Intent(ActivityDetails.this, ActivityLogin.class);
+                    startActivityForResult(intent, ADD_TO_CART_REQUEST);
+                }
+
                 break;
 
             case R.id.layout_add_review:
-                LayoutInflater factory = LayoutInflater.from(this);
-                final View deleteDialogView = factory.inflate(R.layout.dialog_review, null);
-                deleteDialog = new AlertDialog.Builder(this).create();
-                deleteDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                deleteDialog.setView(deleteDialogView);
-                deleteDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.transparent));
-                final EditText mEdtComment = deleteDialogView.findViewById(R.id.comment);
-//                final EditText mUserName = deleteDialogView.findViewById(R.id.user_name);
+                if (isUserLoggedIn) {
+                    openReviewDialogBox();
+                } else {
+                    Intent intent = new Intent(ActivityDetails.this, ActivityLogin.class);
+                    startActivityForResult(intent, ADD_REVIEW_REQUEST);
+                }
 
-                Button mBtnAddReview = deleteDialogView.findViewById(R.id.btn_add_review);
-                deleteDialog.setCancelable(true);
-                mBtnAddReview.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (!mEdtComment.getText().toString().equalsIgnoreCase("") && !bookingItemID.equalsIgnoreCase("")) {
-                            addReview(deleteDialog, mEdtComment.getText().toString(), bookingItemID);
-                        }
-                    }
-                });
-                deleteDialog.show();
+
                 break;
         }
+    }
+
+    private void openReviewDialogBox() {
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View deleteDialogView = factory.inflate(R.layout.dialog_review, null);
+        deleteDialog = new AlertDialog.Builder(this).create();
+        deleteDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        deleteDialog.setView(deleteDialogView);
+        deleteDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.transparent));
+        final EditText mEdtComment = deleteDialogView.findViewById(R.id.comment);
+//                final EditText mUserName = deleteDialogView.findViewById(R.id.user_name);
+
+        Button mBtnAddReview = deleteDialogView.findViewById(R.id.btn_add_review);
+        deleteDialog.setCancelable(true);
+        mBtnAddReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!mEdtComment.getText().toString().equalsIgnoreCase("") && !bookingItemID.equalsIgnoreCase("")) {
+                    addReview(deleteDialog, mEdtComment.getText().toString(), bookingItemID);
+                }
+            }
+        });
+        deleteDialog.show();
     }
 
     private void addToLocalCart() {
@@ -349,7 +382,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onBackPressed() {
-        if (deleteDialog != null &&  deleteDialog.isShowing()) {
+        if (deleteDialog != null && deleteDialog.isShowing()) {
             deleteDialog.dismiss();
             return;
         }
@@ -361,6 +394,22 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
         googleMap.addMarker(new MarkerOptions().position(latLng));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
         googleMap.getUiSettings().setAllGesturesEnabled(false);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ADD_REVIEW_REQUEST) {
+                openReviewDialogBox();
+            } else if (requestCode == ADD_TO_CART_REQUEST) {
+                addToLocalCart();
+            } else if (requestCode == ADD_TO_WISHLIST_REQUEST) {
+                addToWishList();
+            }
+
+        }
     }
 }
 
