@@ -49,8 +49,9 @@ public interface ApiInterface {
     @POST("review")
     Call<ApiResponce<ModelAddReview>> addReView(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);
 
-    @POST("filter")
-    Call<ApiResponce<ModelAddReview>> filter(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);
+
+    @POST("item/filter")
+    Call<ApiResponce<ModelAddReview>> filter(/*@HeaderMap HashMap<String, String> hashMap, */@Body RequestBody body);
 
 
     @POST("user")

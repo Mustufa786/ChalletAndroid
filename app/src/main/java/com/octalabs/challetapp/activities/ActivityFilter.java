@@ -25,6 +25,7 @@ import com.octalabs.challetapp.retrofit.ApiResponce;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Helper;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -54,45 +55,67 @@ public class ActivityFilter extends AppCompatActivity implements OnItemClicked<A
         binding.btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String ament[] = new String[mSelectedAmenities.size()];
-                String[] bookingType = new String[2];
-                String[] Chaletfor = new String[3];
-                String[] ChaletorHall = new String[2];
+                String[] bookingType = new String[0];
+                String[] Chaletfor = new String[0];
+                String[] ChaletorHall =new String[0];
 
                 for (int i = 0; i < mSelectedAmenities.size(); i++) {
                     ament[i] = mSelectedAmenities.get(i);
                 }
 
                 if (binding.chkChalet.isChecked() && binding.chkHall.isChecked()) {
+                    ChaletorHall = new String[2];
                     ChaletorHall[0] = "Chalet";
                     ChaletorHall[1] = "Marriage Hall";
                 } else if (binding.chkChalet.isChecked()) {
+                    ChaletorHall = new String[1];
                     ChaletorHall[0] = "Chalet";
                 } else if (binding.chkHall.isChecked()) {
+                    ChaletorHall = new String[1];
                     ChaletorHall[0] = "Marriage Hall";
                 }
 
                 if (binding.chkCheckBooking.isChecked() && binding.chkInstantBooking.isChecked()) {
+                    bookingType = new String[2];
                     bookingType[0] = "Instant";
                     bookingType[1] = "Check Availablity";
                 } else if (binding.chkInstantBooking.isChecked()) {
+                    bookingType = new String[1];
                     bookingType[0] = "Instant";
                 } else if (binding.chkCheckBooking.isChecked()) {
+                    bookingType = new String[1];
                     bookingType[0] = "Check Availablity";
                 }
 
-                if (binding.chkForFamily.isChecked() && binding.chkForSingle.isChecked()&& binding.chkForOccasion.isChecked()) {
+                if (binding.chkForFamily.isChecked() && binding.chkForSingle.isChecked() && binding.chkForOccasion.isChecked()) {
+                    Chaletfor = new String[3];
                     Chaletfor[0] = "Singles";
                     Chaletfor[1] = "Families";
                     Chaletfor[2] = "Occasions";
+                } else if (binding.chkForFamily.isChecked() && binding.chkForSingle.isChecked() /*&& binding.chkForOccasion.isChecked()*/) {
+                    Chaletfor = new String[2];
+                    Chaletfor[0] = "Singles";
+                    Chaletfor[1] = "Families";
+                } else if (/*binding.chkForFamily.isChecked() && */binding.chkForSingle.isChecked() && binding.chkForOccasion.isChecked()) {
+                    Chaletfor = new String[2];
+                    Chaletfor[0] = "Singles";
+                    Chaletfor[1] = "Occasions";
+                } else if (binding.chkForFamily.isChecked() /*&& binding.chkForSingle.isChecked()*/ && binding.chkForOccasion.isChecked()) {
+                    Chaletfor = new String[2];
+                    Chaletfor[0] = "Families";
+                    Chaletfor[1] = "Occasions";
                 } else if (binding.chkForSingle.isChecked()) {
+                    Chaletfor = new String[1];
                     Chaletfor[0] = "Singles";
                 } else if (binding.chkForFamily.isChecked()) {
+                    Chaletfor = new String[1];
                     Chaletfor[0] = "Families";
                 } else if (binding.chkForOccasion.isChecked()) {
+                    Chaletfor = new String[1];
                     Chaletfor[0] = "Occasions";
                 }
-
 
                 filter(String.valueOf(binding.chaletRating.getRating()), binding.tvMin.getText().toString(), binding.tvMax.getText().toString(), ament, bookingType, Chaletfor, ChaletorHall);
             }
@@ -137,18 +160,35 @@ public class ActivityFilter extends AppCompatActivity implements OnItemClicked<A
 
     private void filter(String rating, String priceFrom, String priceTo, String[] amenity, String[] bookingType, String[] for1, String[] type) {
         try {
+            JSONArray amentiy = new JSONArray();
+            JSONArray forwho = new JSONArray();
+            JSONArray bookingtype = new JSONArray();
+            JSONArray typearray = new JSONArray();
+
+            for (int i = 0; i < amenity.length; i++) {
+                amentiy.put(amenity[i]);
+            }
+            for (int i = 0; i < for1.length; i++) {
+                forwho.put(for1[i]);
+            }
+            for (int i = 0; i < bookingType.length; i++) {
+                bookingtype.put(bookingType[i]);
+            }
+            for (int i = 0; i < type.length; i++) {
+                typearray.put(type[i]);
+            }
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("rating", rating);
             jsonObject.put("priceFrom", priceFrom);
             jsonObject.put("priceTo", priceTo);
-            jsonObject.put("amenity", amenity);
-            jsonObject.put("bookingType", bookingType);
-            jsonObject.put("for", for1);
-            jsonObject.put("type", type);
+            jsonObject.put("amenity", amentiy);
+            jsonObject.put("bookingType", bookingtype);
+            jsonObject.put("for", forwho);
+            jsonObject.put("type", typearray);
             final RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
 
-            Call<ApiResponce<ModelAddReview>> call = RetrofitInstance.service.filter(Helper.getJsonHeaderWithToken(this), requestBody);
+            Call<ApiResponce<ModelAddReview>> call = RetrofitInstance.service.filter(/*Helper.getJsonHeaderWithToken(this),*/ requestBody);
 
 
             hud.show();

@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mMainViewPager.setCurrentItem(1);
-
                     setTextAction(getactionbar, getResources().getString(R.string.home));
                     return true;
                 case R.id.navigation_search:
