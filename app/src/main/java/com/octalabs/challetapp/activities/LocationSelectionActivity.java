@@ -73,6 +73,8 @@ public class LocationSelectionActivity extends AppCompatActivity implements OnMa
         setContentView(R.layout.activity_location_selection);
 
         setTextAction(Objects.requireNonNull(getSupportActionBar()), "WishList");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         if (Build.VERSION.SDK_INT >= 23) {
             checkForPhoneStatePermissionLocationAccess();
@@ -95,7 +97,6 @@ public class LocationSelectionActivity extends AppCompatActivity implements OnMa
         currentLocationText = (TextView) findViewById(R.id.current_location_text);
         currentLocationText.setEnabled(false);
 
-        doneBtn = findViewById(R.id.current_location_text);
         doneBtn.setVisibility(View.VISIBLE);
         initializeMap();
         onClickListeners();
@@ -113,34 +114,36 @@ public class LocationSelectionActivity extends AppCompatActivity implements OnMa
 
         LinearLayout childLayout = new LinearLayout(this);
         LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         childLayout.setLayoutParams(linearParams);
 
         TextView mType = new TextView(this);
-        TextView mValue = new TextView(this);
+        doneBtn = new TextView(this);
 
         mType.setLayoutParams(new TableLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
-        mValue.setLayoutParams(new TableLayout.LayoutParams(
+        doneBtn.setLayoutParams(new TableLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
 
-        mType.setTextSize(17);
-        mType.setPadding(5, 3, 0, 3);
-        mType.setTypeface(Typeface.DEFAULT_BOLD);
-        mType.setGravity(Gravity.LEFT | Gravity.CENTER);
+        mType.setTextSize(16);
+        mType.setPadding(0, 0, 0, 0);
+        mType.setTextColor(getResources().getColor(R.color.white));
+        mType.setGravity(Gravity.START | Gravity.CENTER);
 
-        mValue.setTextSize(16);
-        mValue.setPadding(5, 3, 0, 3);
-        mValue.setTypeface(null, Typeface.ITALIC);
-        mValue.setGravity(Gravity.LEFT | Gravity.CENTER);
+        doneBtn.setTextSize(16);
 
-        mType.setText("111");
-        mValue.setText("111");
+        mType.setTextColor(getResources().getColor(R.color.white));
+        doneBtn.setTextColor(getResources().getColor(R.color.white));
 
-        childLayout.addView(mValue, 0);
+        doneBtn.setGravity(Gravity.END | Gravity.CENTER);
+
+        mType.setText(title);
+        doneBtn.setText("DONE");
+
+        childLayout.addView(doneBtn, 0);
         childLayout.addView(mType, 0);
 
         actionbar.setCustomView(childLayout);
@@ -453,7 +456,7 @@ public class LocationSelectionActivity extends AppCompatActivity implements OnMa
                 }
                 mFusedLocationTracker.startLocationUpdates();
             }
-        }, 1500);
+        }, 500);
 
     }
 
@@ -472,7 +475,7 @@ public class LocationSelectionActivity extends AppCompatActivity implements OnMa
                     15.5f,
                     mMap.getCameraPosition().tilt, //use old tilt
                     mMap.getCameraPosition().bearing); //use old bearing
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCamPos), 2000, null);
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(newCamPos), 1000, null);
             isFirst = false;
         }
     }
