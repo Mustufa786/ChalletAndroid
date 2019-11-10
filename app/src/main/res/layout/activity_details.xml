@@ -104,7 +104,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="Description"
+                android:text="@string/description"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp" />
 
@@ -115,7 +115,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="Lowest Price today"
+                android:text="@string/lowest_price_today"
                 android:textSize="13sp" />
 
             <LinearLayout
@@ -131,7 +131,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    android:text="Price for 1 night"
+                    android:text="@string/price_for_1_night"
                     android:textSize="13sp" />
 
 
@@ -162,7 +162,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="Amenities"
+                android:text="@string/amenities"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp" />
 
@@ -201,8 +201,8 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
-                        android:gravity="left"
-                        android:text="Check Out"
+                        android:gravity="start"
+                        android:text="@string/check_out"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="20sp" />
 
@@ -241,8 +241,8 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
-                        android:gravity="left"
-                        android:text="Check In"
+                        android:gravity="start"
+                        android:text="@string/check_in"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="20sp" />
 
@@ -284,7 +284,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="Reviews"
+                android:text="@string/reviews"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp" />
 
@@ -320,7 +320,7 @@
                     android:layout_gravity="center"
                     android:drawableStart="@drawable/ic_message"
                     android:drawablePadding="10dp"
-                    android:text="Write Review"
+                    android:text="@string/write_review"
                     android:textColor="@color/white" />
 
 
@@ -342,7 +342,7 @@
                     android:layout_gravity="center"
                     android:drawableStart="@drawable/ic_favorite"
                     android:drawablePadding="10dp"
-                    android:text="Add wishlist"
+                    android:text="@string/add_to_wishlist"
                     android:textColor="@color/colorPrimaryDark" />
 
 
@@ -399,7 +399,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/colorPrimaryDark"
                 android:gravity="center"
-                android:text="Add to Cart"
+                android:text="@string/add_to_cart"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />

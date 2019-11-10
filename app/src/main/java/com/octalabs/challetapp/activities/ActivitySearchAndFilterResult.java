@@ -52,6 +52,15 @@ public class ActivitySearchAndFilterResult extends AppCompatActivity implements 
         initializeMap();
 
 
+
+        mBinding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
         mBinding.getRoot().findViewById(R.id.map).setVisibility(View.GONE);
         mBinding.recyclerView.setVisibility(View.VISIBLE);
         mList = new Gson().fromJson(getIntent().getExtras().getString("searchList"), new TypeToken<List<Chalet>>() {
@@ -102,7 +111,7 @@ public class ActivitySearchAndFilterResult extends AppCompatActivity implements 
     private void changeMapOrList() {
         isMapShowing = !isMapShowing;
         if (!isMapShowing) {
-            mBinding.imgMapList.setBackground(getResources().getDrawable(R.drawable.mapicon));
+            mBinding.imgMapList.setBackground(getResources().getDrawable(R.drawable.mapicon_new));
             mBinding.recyclerView.setVisibility(View.VISIBLE);
             mBinding.getRoot().findViewById(R.id.map).setVisibility(View.GONE);
         } else {
@@ -138,7 +147,8 @@ public class ActivitySearchAndFilterResult extends AppCompatActivity implements 
         for (int i = 0; i < mList.size(); i++) {
             Chalet item = mList.get(i);
             if (item.getLatitude() != null && item.getLongitude() != null && !item.getLatitude().equalsIgnoreCase("") && !item.getLongitude().equalsIgnoreCase("")) {
-                Marker m = googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()))).icon(BitmapDescriptorFactory.fromBitmap(resizeBitmap(100, 150))));
+                Marker m = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()))));
+
                 m.setTag(item);
                 if (i == 0) {
                     CameraUpdate update = CameraUpdateFactory.newLatLngZoom(

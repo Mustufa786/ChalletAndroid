@@ -222,6 +222,13 @@ public class UserProfileFragment extends Fragment {
     private void setData() {
 //    if(mData.get)
 
+
+        if(mData.getPicture() != null && !mData.getPicture().equalsIgnoreCase(""))
+        {
+            Picasso.get().load(RetrofitInstance.BASE_USER_PIC_URL + mData.getPicture()).into(binding.profileImage);
+
+        }
+
         if (mData.getUserName() != null && !mData.getUserName().equalsIgnoreCase("")) {
             binding.userName.setText(mData.getUserName());
         }
@@ -429,12 +436,12 @@ public class UserProfileFragment extends Fragment {
         });
 
 
-        if (mData.getStateId() != null) {
+        if (mData.getCityId() != null) {
 
 
             CountryState userState = new CountryState();
-            userState.setId(mData.getStateId().getId());
-            userState.setName(mData.getStateId().getName());
+            userState.setId(mData.getCityId().getStateId());
+//            userState.setName(mData.getStateId().getName());
 
             int index = Collections.binarySearch(stateArray, userState, new Comparator<CountryState>() {
                 @Override
@@ -543,7 +550,7 @@ public class UserProfileFragment extends Fragment {
 
         RequestBody mBody = multipartBody.build();
 
-        Call<RegisterModel> call = RetrofitInstance.service.updateProfile(Helper.getJsonHeaderWithToken(getActivity()), mBody);
+        Call<RegisterModel> call = RetrofitInstance.service.updateProfile(Helper.getTokenHeader(Helper.getToken(getContext())), mBody);
         call.enqueue(new Callback<RegisterModel>() {
             @Override
             public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
@@ -553,6 +560,7 @@ public class UserProfileFragment extends Fragment {
                         RegisterModel model = response.body();
                         if (model.getSuccess()) {
                             Gson gson = new Gson();
+                            Log.i("on response", "onResponse: " + gson.toJson(model.getData() , Login.class));
                             JSONObject object = new JSONObject(gson.toJson(model.getData(), Login.class));
                             SharedPreferences mPref = getActivity().getSharedPreferences("main", MODE_PRIVATE);
                             mPref.edit().putString(Constants.user_profile, object.toString()).apply();
@@ -567,7 +575,6 @@ public class UserProfileFragment extends Fragment {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
                                             dialogInterface.dismiss();
-                                            getActivity().finish();
 
                                         }
                                     });

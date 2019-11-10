@@ -25,7 +25,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Rating"
+                    android:text="@string/rating"
                     android:textColor="@color/black" />
 
 
@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Price Range"
+                    android:text="@string/price_range"
                     android:textColor="@color/black" />
 
                 <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
@@ -60,8 +60,8 @@
                     app:bar_highlight_color="#E07416"
                     app:corner_radius="10"
                     app:data_type="_integer"
-                    app:max_value="1000000"
-                    app:min_value="0"
+                    app:max_value="300000"
+                    app:min_value="10000"
                     app:steps="10" />
 
                 <LinearLayout
@@ -98,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Amenities"
+                    android:text="@string/amenities"
                     android:textColor="@color/black" />
 
                 <!--  <CheckBox
@@ -137,21 +137,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Booking Type"
+                    android:text="@string/booking_type"
                     android:textColor="@color/black" />
 
                 <CheckBox
                     android:id="@+id/chk_instant_booking"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Instant Booking"
+                    android:text="@string/instant_booking"
                     android:textStyle="bold" />
 
                 <CheckBox
                     android:id="@+id/chk_check_booking"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Check Availability"
+                    android:text="@string/check_availability"
                     android:textStyle="bold" />
 
 
@@ -166,7 +166,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Chalet For"
+                    android:text="@string/chalet_for"
                     android:textColor="@color/black" />
 
                 <CheckBox
@@ -202,7 +202,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Property Type"
+                    android:text="@string/property_type"
                     android:textColor="@color/black" />
 
                 <CheckBox

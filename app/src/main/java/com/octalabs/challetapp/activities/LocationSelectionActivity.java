@@ -75,7 +75,7 @@ public class LocationSelectionActivity extends AppCompatActivity implements OnMa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_selection);
 
-        setTextAction(Objects.requireNonNull(getSupportActionBar()), "WishList");
+        setTextAction(Objects.requireNonNull(getSupportActionBar()), "Location");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -339,7 +339,7 @@ public class LocationSelectionActivity extends AppCompatActivity implements OnMa
             displayAlert("Alert", "Shake the Map A Little so the location name start showing in the search bar");
             return false;
         }
-        displayAlert("Alert", "Please select pickup location by tapping on the map and ");
+        displayAlert("Alert", "Please select your location by tapping on the map");
         return false;
     }
 

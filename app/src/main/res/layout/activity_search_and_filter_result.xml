@@ -20,14 +20,14 @@
             android:layout_height="60dp">
 
             <RelativeLayout
-                android:id="@+id/openDrawer"
+                android:id="@+id/btn_back"
                 android:layout_width="50dp"
                 android:layout_height="match_parent">
 
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:background="@drawable/ic_arrow_back" />
             </RelativeLayout>
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="15dp"
-                android:text="Search Results"
+                android:text="@string/search_results"
                 android:textColor="@color/white"/>
 
             <LinearLayout
@@ -62,15 +62,14 @@
                     android:background="@drawable/filtericon"/>
 
 
-
                 <ImageView
                     android:id="@+id/img_map_list"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="26dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="15dp"
-                    android:backgroundTint="@color/white"
-                    android:background="@drawable/mapicon"/>
+                    android:background="@drawable/mapicon_new"
+                    android:backgroundTint="@color/white" />
 
 
 

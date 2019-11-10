@@ -55,7 +55,7 @@ public class ActivityFilter extends AppCompatActivity implements OnItemClicked<A
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filter);
-        hud = new KProgressHUD(this);
+        hud = new KProgressHUD(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
         mAmenities = new ArrayList<>();
         setTextAction(getSupportActionBar(), getResources().getString(R.string.filter));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -142,12 +142,12 @@ public class ActivityFilter extends AppCompatActivity implements OnItemClicked<A
     }
 
     private void getamenities() {
-
-
+        hud.show();
         Call<ModelAmenety> call = RetrofitInstance.service.getAllAmeneites(Helper.getJsonHeader());
         call.enqueue(new Callback<ModelAmenety>() {
             @Override
             public void onResponse(Call<ModelAmenety> call, Response<ModelAmenety> response) {
+                hud.dismiss();
                 if (response.body() != null) {
                     ModelAmenety modelAmenety = response.body();
                     if (modelAmenety.getSuccess()) {
@@ -161,7 +161,7 @@ public class ActivityFilter extends AppCompatActivity implements OnItemClicked<A
 
             @Override
             public void onFailure(Call<ModelAmenety> call, Throwable t) {
-
+                hud.dismiss();
             }
         });
 

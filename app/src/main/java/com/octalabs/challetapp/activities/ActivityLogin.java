@@ -116,7 +116,7 @@ public class ActivityLogin extends Activity {
                                 mPref.edit().putString(Constants.password, inputEmail.getText().toString()).apply();
                                 mPref.edit().putBoolean(Constants.IS_USER_LOGGED_IN, true).apply();
                                 startActivity(new Intent(ActivityLogin.this, MainActivity.class));
-                                finish();
+                                finishAffinity();
                                 Log.i("tag", object.toString());
                             } else {
                                 displayDialog("Alert", model.getMessage(), ActivityLogin.this);

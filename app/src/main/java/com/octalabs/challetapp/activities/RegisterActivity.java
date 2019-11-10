@@ -58,7 +58,7 @@ public class RegisterActivity extends Activity {
     private String cityID;
     KProgressHUD hud;
     private int REQUEST_LOCATION = 234;
-    String latitude , longitude;
+    String latitude, longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +91,8 @@ public class RegisterActivity extends Activity {
         mEdtaddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegisterActivity.this , LocationSelectionActivity.class);
-                startActivityForResult(intent , REQUEST_LOCATION);
+                Intent intent = new Intent(RegisterActivity.this, LocationSelectionActivity.class);
+                startActivityForResult(intent, REQUEST_LOCATION);
             }
         });
 
@@ -155,9 +155,10 @@ public class RegisterActivity extends Activity {
                 && data != null && data.getData() != null) {
             Uri filePaths = data.getData();
             filePath = FilePath.getPath(RegisterActivity.this, filePaths);
-        }
-        else if (resultCode == RESULT_OK && requestCode == REQUEST_LOCATION)
-        {
+        } else if (resultCode == RESULT_OK && requestCode == REQUEST_LOCATION) {
+            latitude = data.getExtras().getString(Constants.SELECTED_LATITUE);
+            longitude = data.getExtras().getString(Constants.SELECTED_LONGITUDE);
+            mEdtaddress.setText(data.getExtras().getString(Constants.SELECTED_LOCATION_TITLE));
 
         }
 
@@ -178,6 +179,9 @@ public class RegisterActivity extends Activity {
         multipartBody.addFormDataPart("countryId", countryID);
         multipartBody.addFormDataPart("stateId", stateID);
         multipartBody.addFormDataPart("cityId", cityID);
+        multipartBody.addFormDataPart("latitude", latitude);
+        multipartBody.addFormDataPart("longitude", longitude);
+
 
         if (filePath != null && !filePath.equalsIgnoreCase("")) {
             File file = new File(filePath);
@@ -216,7 +220,7 @@ public class RegisterActivity extends Activity {
                                         public void onClick(DialogInterface dialogInterface, int i) {
                                             dialogInterface.dismiss();
                                             startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                                            finish();
+                                            finishAffinity();
 
                                         }
                                     });

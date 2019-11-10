@@ -129,7 +129,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
                         for (int i = 0; i < model.getData().size(); i++) {
                             Chalet item = model.getData().get(i);
                             if (item.getLatitude() != null && item.getLongitude() != null && !item.getLatitude().equalsIgnoreCase("") && !item.getLongitude().equalsIgnoreCase("")) {
-                                Marker m = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()))).icon(BitmapDescriptorFactory.fromBitmap(resizeBitmap(100, 150))));
+                                Marker m = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()))));
                                 m.setTag(item);
                                 markersArray.add(m);
                                 if (i == 0) {
@@ -233,7 +233,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
             binding.getRoot().findViewById(R.id.map).setVisibility(View.GONE);
         } else {
             binding.textMapOrList.setText("List");
-            binding.imgMapOrList.setBackground(getActivity().getResources().getDrawable(R.drawable.wishlisticon));
+            binding.imgMapOrList.setBackground(getActivity().getResources().getDrawable(R.drawable.listicon));
             binding.rvMarriageHall.setVisibility(View.GONE);
             binding.getRoot().findViewById(R.id.map).setVisibility(View.VISIBLE);
 

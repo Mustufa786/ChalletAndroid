@@ -63,8 +63,27 @@
     <string name="update">تحديث</string>
     <string name="confirm">تؤكد</string>
     <string name="list">List</string>
-    <string name="please_login_to_continue">Please Login To Continue</string>
-    <string name="login">Login</string>
-    <string name="check_in">Check In</string>
+    <string name="please_login_to_continue">الرجاء تسجيل الدخول للمتابعة</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="check_in">الدخول</string>
+    <string name="search">بحث</string>
+    <string name="search_results">نتائج البحث</string>
+    <string name="description">الوصف</string>
+    <string name="lowest_price_today">أدنى سعر اليوم</string>
+    <string name="price_for_1_night">سعر ليلة واحدة</string>
+    <string name="amenities">وسائل الراحة</string>
+    <string name="reviews">استعراض</string>
+
+    <string name="write_review"> كتابة تعليق</string>
+    <string name="add_to_wishlist">اضافة الى المفضلة</string>
+    <string name="add_to_cart">	اضافة الى السلة</string>
+    <string name="rating">التقييم</string>
+    <string name="price_range">الميزانية</string>
+    <string name="booking_type">نوع الحجز</string>
+    <string name="instant_booking">Instant Booking</string>
+
+    <string name="check_availability">Check Availability</string>
+    <string name="chalet_for">الشالية لـ </string>
+    <string name="property_type">انواع الادوات</string>
 
 </resources>

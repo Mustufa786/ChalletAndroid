@@ -51,6 +51,18 @@ public class Login {
     @Expose
     private String token;
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    @SerializedName("picture")
+    @Expose
+    private String picture;
+
     public Boolean getIsActive() {
         return isActive;
     }

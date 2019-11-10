@@ -2,6 +2,7 @@ package com.octalabs.challetapp.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -27,6 +28,7 @@ import com.octalabs.challetapp.fragments.HomeFragment;
 import com.octalabs.challetapp.fragments.LoginFragment;
 import com.octalabs.challetapp.fragments.UserProfileFragment;
 import com.octalabs.challetapp.utils.Constants;
+import com.octalabs.challetapp.utils.CustomDialog;
 
 public class MainActivity extends AppCompatActivity {
     public static ActionBar getactionbar;
@@ -128,6 +130,12 @@ public class MainActivity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.ADD) {
             startActivity(new Intent(this, ActivityCart.class));
+        }
+        else  if (item.getItemId() == R.id.options) {
+            CustomDialog cd = new CustomDialog(MainActivity.this);
+            cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            cd.show();
+
         }
         return false;
     }

@@ -68,4 +68,21 @@
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
             AIzaSyDlbGK8T0OhEr8DEZPs9nT_Shg_Mw65y5k
     </string>
+    <string name="search">Search</string>
+    <string name="search_results">Search Results</string>
+    <string name="description">Description</string>
+    <string name="lowest_price_today">Lowest Price today</string>
+    <string name="price_for_1_night">Price for 1 night</string>
+    <string name="amenities">Amenities</string>
+    <string name="reviews">Reviews</string>
+    <string name="write_review">Write Review</string>
+    <string name="add_to_wishlist">Add to wishlist</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="rating">Rating</string>
+    <string name="price_range">Price Range</string>
+    <string name="booking_type">Booking Type</string>
+    <string name="instant_booking">Instant Booking</string>
+    <string name="check_availability">Check Availability</string>
+    <string name="chalet_for">Chalet For</string>
+    <string name="property_type">Property Type</string>
 </resources>

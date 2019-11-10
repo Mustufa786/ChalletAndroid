@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimaryDark"
                     android:layout_margin="20dp"
-                    android:text="Search"
+                    android:text="@string/search"
                     android:layout_gravity="bottom"
 
                     android:textColor="@color/white"
