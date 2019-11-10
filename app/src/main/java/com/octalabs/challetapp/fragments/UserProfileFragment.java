@@ -103,10 +103,9 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.setAction(android.content.Intent.ACTION_VIEW);
                 intent.setType("image/*");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivityForResult(intent, 190);
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 190);
             }
         });
 
@@ -156,9 +155,12 @@ public class UserProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 190) {
-            Uri filePaths = data.getData();
-            binding.profileImage.setImageURI(filePaths);
-            filePath = FilePath.getPath(getActivity(), filePaths);
+            Uri filePaths = null;
+            if (data != null) {
+                filePaths = data.getData();
+                binding.profileImage.setImageURI(filePaths);
+                filePath = FilePath.getPath(getActivity(), filePaths);
+            }
         }
     }
 
