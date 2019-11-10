@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
     double LocationLat = 0.0, LocationLong = 0.0;
 
     private FragmentHomeBinding binding;
-    boolean isMapShowing;
+    private boolean isMapShowing;
 
     @Nullable
     @Override
@@ -244,7 +244,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
     private Bitmap resizeBitmap(int width, int height) {
 
         Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),
-                R.drawable.new_avatar);
+                R.drawable.locationpointer);
         return Bitmap.createScaledBitmap(imageBitmap, width, height, false);
 //        return imageBitmap;
     }

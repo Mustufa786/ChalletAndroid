@@ -194,7 +194,11 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
 
             case R.id.btn_search:
-                getSearchData();
+                if (!mLocationId.equalsIgnoreCase("0")) {
+                    getSearchData();
+                } else {
+                    Toast.makeText(getContext(), "Select Atleast One Location To Continue", Toast.LENGTH_SHORT).show();
+                }
 
                 break;
 

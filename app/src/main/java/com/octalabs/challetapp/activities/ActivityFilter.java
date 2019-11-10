@@ -1,5 +1,6 @@
 package com.octalabs.challetapp.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -14,15 +16,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
+import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.RVOnItemClicks.OnItemClicked;
 import com.octalabs.challetapp.adapter.AdapterAmenities;
 import com.octalabs.challetapp.databinding.ActivityFilterBinding;
 import com.octalabs.challetapp.models.ModelAddReview;
+import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
+import com.octalabs.challetapp.models.ModelAmeneties.Amenity;
+import com.octalabs.challetapp.models.ModelAmeneties.ModelAmenety;
 import com.octalabs.challetapp.models.ModelDetails.AmenityId;
 import com.octalabs.challetapp.retrofit.ApiResponce;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
+import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.Helper;
 
 import org.json.JSONArray;
@@ -37,11 +44,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ActivityFilter extends AppCompatActivity implements OnItemClicked<AmenityId> {
+public class ActivityFilter extends AppCompatActivity implements OnItemClicked<Amenity> {
 
     ActivityFilterBinding binding;
     private KProgressHUD hud;
-    ArrayList<AmenityId> mAmenities;
+    ArrayList<Amenity> mAmenities;
     ArrayList<String> mSelectedAmenities;
 
     @Override
@@ -51,6 +58,9 @@ public class ActivityFilter extends AppCompatActivity implements OnItemClicked<A
         hud = new KProgressHUD(this);
         mAmenities = new ArrayList<>();
         setTextAction(getSupportActionBar(), getResources().getString(R.string.filter));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         getamenities();
         binding.btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +69,7 @@ public class ActivityFilter extends AppCompatActivity implements OnItemClicked<A
                 String ament[] = new String[mSelectedAmenities.size()];
                 String[] bookingType = new String[0];
                 String[] Chaletfor = new String[0];
-                String[] ChaletorHall =new String[0];
+                String[] ChaletorHall = new String[0];
 
                 for (int i = 0; i < mSelectedAmenities.size(); i++) {
                     ament[i] = mSelectedAmenities.get(i);
@@ -132,17 +142,32 @@ public class ActivityFilter extends AppCompatActivity implements OnItemClicked<A
     }
 
     private void getamenities() {
-        AmenityId amenityId = new AmenityId();
-        amenityId.setId("5db97e186a6d4e634d9a110e");
-        amenityId.setTitle("Swimming Pool");
-        AmenityId amenityId1 = new AmenityId();
-        amenityId1.setId("5db97e2f6a6d4e634d9a110f");
-        amenityId1.setTitle("Baby Toys");
-        mAmenities.add(amenityId);
-        mAmenities.add(amenityId1);
+
+
+        Call<ModelAmenety> call = RetrofitInstance.service.getAllAmeneites(Helper.getJsonHeader());
+        call.enqueue(new Callback<ModelAmenety>() {
+            @Override
+            public void onResponse(Call<ModelAmenety> call, Response<ModelAmenety> response) {
+                if (response.body() != null) {
+                    ModelAmenety modelAmenety = response.body();
+                    if (modelAmenety.getSuccess()) {
+                        mAmenities = new ArrayList<>(modelAmenety.getData());
+                        AdapterAmenities adapterAmenities = new AdapterAmenities(ActivityFilter.this, mAmenities, ActivityFilter.this);
+                        binding.rvAmenities.setAdapter(adapterAmenities);
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelAmenety> call, Throwable t) {
+
+            }
+        });
+
+
         mSelectedAmenities = new ArrayList<>();
-        AdapterAmenities adapterAmenities = new AdapterAmenities(this, mAmenities, this);
-        binding.rvAmenities.setAdapter(adapterAmenities);
+
 
     }
 
@@ -188,25 +213,30 @@ public class ActivityFilter extends AppCompatActivity implements OnItemClicked<A
             jsonObject.put("type", typearray);
             final RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
 
-            Call<ApiResponce<ModelAddReview>> call = RetrofitInstance.service.filter(/*Helper.getJsonHeaderWithToken(this),*/ requestBody);
+            Call<AllChaletsModel> call = RetrofitInstance.service.filter(Helper.getJsonHeader(), requestBody);
 
 
             hud.show();
-            call.enqueue(new Callback<ApiResponce<ModelAddReview>>() {
+            call.enqueue(new Callback<AllChaletsModel>() {
                 @Override
-                public void onResponse(Call<ApiResponce<ModelAddReview>> call, Response<ApiResponce<ModelAddReview>> response) {
+                public void onResponse(Call<AllChaletsModel> call, Response<AllChaletsModel> response) {
                     try {
                         hud.dismiss();
                         if (response.body() != null) {
-                            if (response.body().isSuccess) {
-                                if (response.body().msg.equalsIgnoreCase("Review added successfully")) {
-
+                            AllChaletsModel model = response.body();
+                            if (model.getSuccess()) {
+                                if (model.getData().size() > 0) {
+                                    Intent intent = new Intent();
+                                    intent.putExtra(Constants.SEARCH_RESULT, new Gson().toJson(model.getData()));
+                                    setResult(RESULT_OK, intent);
+                                    ActivityFilter.this.finish();
+                                } else {
+                                    Toast.makeText(ActivityFilter.this, "No Filter Result Found", Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
-                            } else {
-
                             }
                         } else {
-
+                            Helper.displayDialog("Alert", response.errorBody().string(), ActivityFilter.this);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -214,7 +244,7 @@ public class ActivityFilter extends AppCompatActivity implements OnItemClicked<A
                 }
 
                 @Override
-                public void onFailure(Call<ApiResponce<ModelAddReview>> call, Throwable t) {
+                public void onFailure(Call<AllChaletsModel> call, Throwable t) {
                     t.printStackTrace();
                     hud.dismiss();
                 }
@@ -237,14 +267,15 @@ public class ActivityFilter extends AppCompatActivity implements OnItemClicked<A
         return false;
     }
 
+
     @Override
-    public void onClick(int pos, AmenityId obj) {
+    public void onClick(int pos, Amenity obj) {
 
     }
 
     @Override
-    public void onClick(boolean checked, int pos, AmenityId obj) {
-        if (checked) {
+    public void onClick(boolean isChecked, int pos, Amenity obj) {
+        if (isChecked) {
             mSelectedAmenities.add(obj.getId());
         } else {
             mSelectedAmenities.remove(obj.getId());

@@ -98,7 +98,7 @@
             android:background="@drawable/ic_rectangle_rounded"
             android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/sign_up"
-            android:visibility="gone"
+            android:visibility="visible"
             android:textColor="@color/white" />
 
     </LinearLayout>

@@ -1,10 +1,17 @@
 package com.octalabs.challetapp.fragments;
 
+import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,10 +45,15 @@ import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.FilePath;
 import com.octalabs.challetapp.utils.Helper;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -49,6 +61,13 @@ import java.util.Comparator;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import pl.aprilapps.easyphotopicker.ChooserType;
+import pl.aprilapps.easyphotopicker.DefaultCallback;
+import pl.aprilapps.easyphotopicker.EasyImage;
+import pl.aprilapps.easyphotopicker.MediaFile;
+import pl.aprilapps.easyphotopicker.MediaSource;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,7 +85,10 @@ public class UserProfileFragment extends Fragment {
     private String stateID;
     private String cityID;
     private String filePath;
+    private static final int RC_CAMERA_AND_STORAGE = 1234;
 
+    EasyImage easyImage;
+    File fileTemp;
 
     @Nullable
     @Override
@@ -74,13 +96,128 @@ public class UserProfileFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_profile, container, false);
         mData = new Gson().fromJson(getActivity().getSharedPreferences("main", MODE_PRIVATE).getString(Constants.user_profile, ""), Login.class);
         hud = KProgressHUD.create(getContext()).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
-
+        easyImage = new EasyImage.Builder(getContext())
+                .setCopyImagesToPublicGalleryFolder(true)
+                .setFolderName("Challet")
+                .allowMultiple(false)
+                .setChooserType(ChooserType.CAMERA_AND_GALLERY)
+                .build();
         getCountries();
         setData();
 
         return binding.getRoot();
 
     }
+
+    @AfterPermissionGranted(RC_CAMERA_AND_STORAGE)
+    private void checkPermissionsAndExecute() {
+        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(getContext(), perms)) {
+            captureImageFromGallery();
+        } else {
+            methodRequiresTwoPermission();
+        }
+    }
+
+    @AfterPermissionGranted(RC_CAMERA_AND_STORAGE)
+    private void methodRequiresTwoPermission() {
+        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(getContext(), perms)) {
+            captureImageFromGallery();
+
+        } else {
+            EasyPermissions.requestPermissions(this, "Bill 4 Tax would like to access Camera and Gallery For uploading profile image",
+                    RC_CAMERA_AND_STORAGE, perms);
+        }
+    }
+
+    private void captureImageFromGallery() {
+        easyImage.openGallery(this);
+    }
+
+
+    public void onActivityResultHandle(int requestCode, int resultCode, Intent data) {
+        easyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new DefaultCallback() {
+            @Override
+            public void onMediaFilesPicked(MediaFile[] imageFiles, MediaSource source) {
+
+                ArrayList<File> filesList = new ArrayList<>();
+                if (imageFiles == null || imageFiles.length == 0) {
+                    return;
+                }
+                for (int i = 0; i < imageFiles.length; i++) {
+                    fileTemp = imageFiles[0].getFile();
+                    Bitmap bitmap = BitmapFactory.decodeFile(fileTemp.getPath());
+                    try {
+                        bitmap = rotateImageIfRequired(getContext(), bitmap, Uri.fromFile(fileTemp));
+
+                        OutputStream fOut = null;
+                        fOut = new FileOutputStream(fileTemp);
+
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut); // saving the Bitmap to a file compressed as a JPEG with 85% compression rate
+                        fOut.flush(); // Not really required
+                        fOut.close();
+                        filesList.add(fileTemp);
+                        Picasso.get().load(fileTemp).into(binding.profileImage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+//                onPhotosReturned(filesList);
+            }
+
+            @Override
+            public void onImagePickerError(@NonNull Throwable error, @NonNull MediaSource source) {
+                //Some error handling
+                error.printStackTrace();
+            }
+
+            @Override
+            public void onCanceled(@NonNull MediaSource source) {
+                //Not necessary to remove any files manually anymore
+            }
+        });
+    }
+
+    private Bitmap rotateImage(Bitmap img, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+        img.recycle();
+        return rotatedImg;
+    }
+
+    private Bitmap rotateImageIfRequired(Context context, Bitmap img, Uri selectedImage) throws IOException {
+        InputStream input = context.getContentResolver().openInputStream(selectedImage);
+        ExifInterface ei;
+        if (Build.VERSION.SDK_INT > 23)
+            ei = new ExifInterface(input);
+        else
+            ei = new ExifInterface(selectedImage.getPath());
+
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return rotateImage(img, 90);
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return rotateImage(img, 180);
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return rotateImage(img, 270);
+            default:
+                return img;
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
 
     private void setData() {
 //    if(mData.get)
@@ -102,10 +239,11 @@ public class UserProfileFragment extends Fragment {
         binding.layoutChangePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), 190);
+
+
+                checkPermissionsAndExecute();
+
+
             }
         });
 
@@ -119,6 +257,7 @@ public class UserProfileFragment extends Fragment {
         });
 
     }
+
 
     private boolean validation() {
         if (binding.userName.getText().toString().equalsIgnoreCase("")) {
@@ -151,18 +290,6 @@ public class UserProfileFragment extends Fragment {
         return true;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 190) {
-            Uri filePaths = null;
-            if (data != null) {
-                filePaths = data.getData();
-                binding.profileImage.setImageURI(filePaths);
-                filePath = FilePath.getPath(getActivity(), filePaths);
-            }
-        }
-    }
 
     private void getCountries() {
         hud.show();
@@ -410,9 +537,8 @@ public class UserProfileFragment extends Fragment {
         multipartBody.addFormDataPart("stateId", stateID);
         multipartBody.addFormDataPart("cityId", cityID);
 
-        if (filePath != null && !filePath.equalsIgnoreCase("")) {
-            File file = new File(filePath);
-            multipartBody.addFormDataPart("image", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+        if (fileTemp != null) {
+            multipartBody.addFormDataPart("image", fileTemp.getName(), RequestBody.create(MediaType.parse("image/*"), fileTemp));
         }
 
         RequestBody mBody = multipartBody.build();
@@ -421,8 +547,6 @@ public class UserProfileFragment extends Fragment {
         call.enqueue(new Callback<RegisterModel>() {
             @Override
             public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
-
-
                 try {
                     hud.dismiss();
                     if (response.body() != null) {
@@ -455,7 +579,7 @@ public class UserProfileFragment extends Fragment {
                             displayDialog("Alert", model.getMessage(), getActivity());
                         }
                     } else {
-                        displayDialog("Alert", "Invalid Username or Password", getActivity());
+                        displayDialog("Alert", response.errorBody().string(), getActivity());
                     }
 
                 } catch (Exception e) {
@@ -473,4 +597,5 @@ public class UserProfileFragment extends Fragment {
 
 
 }
+
 

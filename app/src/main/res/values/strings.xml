@@ -64,4 +64,8 @@
     <string name="login">Login</string>
     <string name="check_in">Check In</string>
 
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+            AIzaSyDlbGK8T0OhEr8DEZPs9nT_Shg_Mw65y5k
+    </string>
 </resources>

@@ -54,9 +54,9 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
         holder.textChaletName.setText(item.getName());
         holder.textLocation.setText(item.getLocation());
         holder.textPrice.setText(item.getPricePerNight() + " Riyal");
-//        if (item.getRating() > 0) {
-//            holder.ratingBar.setNumStars(item.getRating());
-//        }
+        if (item.getRating() > 0) {
+            holder.ratingBar.setNumStars(item.getRating());
+        }
 
     }
 

@@ -1,24 +1,27 @@
 <resources tools:ignore="ExtraTranslation" xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Challet</string>
     <string name="user_name">اسم المستخدم</string>
-    <string name="password">كلمه السر</string>
-    <string name="forgot_password"><u>هل نسيت كلمة المرور</u></string>
+    <string name="password">كلمة المرور</string>
+    <string name="forgot_password"><u>هل نسيت كلمة السر؟</u></string>
     <string name="sign_in">تسجيل الدخول</string>
-    <string name="sign_up">سجل</string>
+    <string name="sign_up">التسجيل</string>
+
+
+
     <string name="email">البريد الإلكتروني</string>
     <string name="con_password">تأكيد كلمة المرور</string>
     <string name="phone">هاتف</string>
     <string name="city">مدينة</string>
     <string name="address">عنوان</string>
 
-    <string name="cardholder_s_name">اسم حامل البطاقة</string>
+    <string name="cardholder_s_name">الاسم في البطاقة</string>
     <string name="card_number">رقم البطاقة</string>
-    <string name="expiry_date">تاريخ الانتهاء</string>
-    <string name="ccv">CCV</string>
-    <string name="billing_address">عنوان وصول الفواتير</string>
+    <string name="expirydate"> الانتهاء</string>
+    <string name="ccv">رمز CCV</string>
+    <string name="billing_address">	عنوان الفاتورة</string>
     <string name="city_new">مدينة</string>
 
-    <string name="postal_code">الرمز البريدي</string>
+    <string name="postal_code">	الرمز البريدي</string>
 
     <string name="home">الصفحة الرئيسية</string>
     <string name="title_search">بحث</string>
@@ -27,7 +30,7 @@
     <string name="title_more">أكثر</string>
     <string name="chalet">الشاليه</string>
     <string name="sort">فرز</string>
-    <string name="booking_history">تاريخ الحجز</string>
+    <string name="booking_history">الحجوزات السابقة</string>
     <string name="marriage_hall">قاعة الزواج</string>
     <string name="filter">منقي</string>
     <string name="map">خريطة</string>
@@ -35,28 +38,28 @@
     <string name="cart">عربة التسوق</string>
     <string name="payment">دفع</string>
     <string name="confirm_payment" > تأكيد الدفع  </string>
-    <string name="country">بلد</string>
-    <string name="state">حالة</string>
+    <string name="country">المنطقة</string>
+    <string name="state">المدينة</string>
     <string name="thank_you">شكرا</string>
     <string name="last_name">الكنية</string>
     <string name="first_name">الاسم الاول</string>
     <string name="mobile_no">رقم الموبايل</string>
     <string name="user_profile">ملف تعريفي للمستخدم</string>
     <string name="more">أكثر</string>
-    <string name="old_password">كلمة سر قديمة</string>
-    <string name="new_password">كلمة سر جديدة</string>
+    <string name="old_password">كلمة المرور القديمة</string>
+    <string name="new_password">كلمة المرور الجديدة</string>
     <string name="confirm_password">تأكيد كلمة المرور</string>
     <string name="message">رسالة</string>
     <string name="change_password">تغيير كلمة المرور</string>
-    <string name="contact_us">اتصل بنا</string>
-    <string name="enter_your_message_here">أدخل رسالتك هنا</string>
-    <string name="title">عنوان</string>
+    <string name="contact_us">تواصل معنا</string>
+    <string name="enter_your_message_here">	ادخل الرسالة</string>
+    <string name="title">العنوان</string>
     <string name="select_language">اختار اللغة</string>
     <string name="wishlist">قائمة الرغبات</string>
     <string name="privacy_policy">سياسة خاصة</string>
     <string name="terms_amp_conditions">البنود و الظروف</string>
     <string name="logout">تسجيل خروج</string>
-    <string name="submit">تقديم</string>
+    <string name="submit">تنفيذ</string>
     <string name="update">تحديث</string>
     <string name="confirm">تؤكد</string>
     <string name="list">List</string>

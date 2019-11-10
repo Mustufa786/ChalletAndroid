@@ -140,7 +140,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
     private void getDetails(String id) {
         hud.show();
-        Call<ModelChaletsDetails> call = RetrofitInstance.service.getChaletsMarraigeDetails(id, Helper.getJsonHeaderWithToken(ActivityDetails.this));
+        Call<ModelChaletsDetails> call = RetrofitInstance.service.getChaletsMarraigeDetails(id, Helper.getJsonHeader());
         call.enqueue(new Callback<ModelChaletsDetails>() {
             @Override
             public void onResponse(Call<ModelChaletsDetails> call, Response<ModelChaletsDetails> response) {
@@ -222,13 +222,13 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.btn_add_to_cart:
-                if (isUserLoggedIn) {
-                    addToLocalCart();
-                } else {
-                    Intent intent = new Intent(ActivityDetails.this, ActivityLogin.class);
-                    startActivityForResult(intent, ADD_TO_CART_REQUEST);
-                }
-
+//                if (isUserLoggedIn) {
+//
+//                } else {
+//                    Intent intent = new Intent(ActivityDetails.this, ActivityLogin.class);
+//                    startActivityForResult(intent, ADD_TO_CART_REQUEST);
+//                }
+                addToLocalCart();
                 break;
 
             case R.id.layout_add_review:

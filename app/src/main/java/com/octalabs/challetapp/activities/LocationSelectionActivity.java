@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -45,6 +46,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
+import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.FusedLocationTracker;
 
 import java.util.List;
@@ -66,6 +68,7 @@ public class LocationSelectionActivity extends AppCompatActivity implements OnMa
     TextView currentLocationText;
     boolean isCompanyAddress;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 123;
+    private static final int ALLOW_OPEN_LOCATION = 124;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -320,6 +323,11 @@ public class LocationSelectionActivity extends AppCompatActivity implements OnMa
             } else if (requestCode == RESULT_CANCELED) {
 
             }
+        } else if (requestCode == ALLOW_OPEN_LOCATION) {
+            if (resultCode == RESULT_OK) {
+                createLocationService();
+
+            }
         }
     }
 
@@ -361,9 +369,9 @@ public class LocationSelectionActivity extends AppCompatActivity implements OnMa
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent();
-                            intent.putExtra("selectedlat", String.valueOf(myLat));
-                            intent.putExtra("locationtitle", currentLocationText.getText().toString());
-                            intent.putExtra("selectedlong", String.valueOf(myLng));
+                            intent.putExtra(Constants.SELECTED_LATITUE, String.valueOf(myLat));
+                            intent.putExtra(Constants.SELECTED_LOCATION_TITLE, currentLocationText.getText().toString());
+                            intent.putExtra(Constants.SELECTED_LONGITUDE, String.valueOf(myLng));
                             setResult(RESULT_OK, intent);
                             LocationSelectionActivity.this.finish();
 
@@ -462,7 +470,7 @@ public class LocationSelectionActivity extends AppCompatActivity implements OnMa
 
     private void buildAlertMessageNoGps() {
         Toast.makeText(this, "Please enable GPS", Toast.LENGTH_SHORT).show();
-        startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), MY_PERMISSIONS_REQUEST_LOCATION);
+        startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), ALLOW_OPEN_LOCATION);
     }
 
 
@@ -485,5 +493,16 @@ public class LocationSelectionActivity extends AppCompatActivity implements OnMa
         super.onDestroy();
         if (mFusedLocationTracker != null)
             mFusedLocationTracker.stopLocationUpdates();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return false;
     }
 }

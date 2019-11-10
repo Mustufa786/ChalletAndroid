@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.RVOnItemClicks.OnItemClicked;
+import com.octalabs.challetapp.models.ModelAmeneties.Amenity;
 import com.octalabs.challetapp.models.ModelDetails.AmenityId;
 
 import java.util.ArrayList;
@@ -19,10 +20,10 @@ public class AdapterAmenities extends RecyclerView.Adapter<AdapterAmenities.MyVi
 
 
     private final Activity activityFilter;
-    private final ArrayList<AmenityId> mAmenities;
-    private OnItemClicked<AmenityId> click;
+    private final ArrayList<Amenity> mAmenities;
+    private OnItemClicked<Amenity> click;
 
-    public AdapterAmenities(Activity activityFilter, ArrayList<AmenityId> mAmenities, OnItemClicked<AmenityId> click) {
+    public AdapterAmenities(Activity activityFilter, ArrayList<Amenity> mAmenities, OnItemClicked<Amenity> click) {
         this.activityFilter = activityFilter;
         this.mAmenities = mAmenities;
         this.click = click;

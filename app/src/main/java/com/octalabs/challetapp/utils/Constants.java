@@ -4,6 +4,10 @@ public class Constants {
 
     public static final String PAGE_TITLE = "PAGE_TITLE" ;
     public static final String PAGE_URL = "PAGE_URL" ;
+    public static final String SELECTED_LATITUE = "SELECTED_LATITUE";
+    public static final String SELECTED_LOCATION_TITLE = "SELECTED_LOCATION_TITLE" ;
+    public static final String SELECTED_LONGITUDE = "SELECTED_LONGITUDE" ;
+    public static final String SEARCH_RESULT = "SEARCH_RESULT";
 
     public static String SELECTED_LANGUAGE = "SELECTED_LANGUAGE";
     public static String user_profile = "user_profile";

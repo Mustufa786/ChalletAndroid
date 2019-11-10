@@ -24,6 +24,7 @@ import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
 import com.octalabs.challetapp.models.ModelCart;
 import com.octalabs.challetapp.models.ModelDetails.ChaletDetails;
 import com.octalabs.challetapp.utils.Constants;
+import com.octalabs.challetapp.utils.Helper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,11 +60,18 @@ public class ActivityCart extends AppCompatActivity {
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkoutList.size() > 0) {
-                    startActivity(new Intent(ActivityCart.this, PaymentActivity.class));
+                if (Helper.isUserLoggedIn(ActivityCart.this)) {
+                    if (checkoutList.size() > 0) {
+                        startActivity(new Intent(ActivityCart.this, PaymentActivity.class));
+                    } else {
+                        Toast.makeText(ActivityCart.this, "No Items Found In the Cart", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(ActivityCart.this, "No Items Found In the Cart", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ActivityCart.this, ActivityLogin.class);
+                    startActivity(intent);
                 }
+
+
             }
         });
     }

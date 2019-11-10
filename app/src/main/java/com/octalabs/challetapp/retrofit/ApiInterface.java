@@ -2,6 +2,7 @@ package com.octalabs.challetapp.retrofit;
 
 import com.octalabs.challetapp.models.ModelAddReview;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
+import com.octalabs.challetapp.models.ModelAmeneties.ModelAmenety;
 import com.octalabs.challetapp.models.ModelBookingHistory.ModelBookingHistory;
 import com.octalabs.challetapp.models.ModelChangePassword;
 import com.octalabs.challetapp.models.ModelCheckout.ModelCheckout;
@@ -51,13 +52,13 @@ public interface ApiInterface {
 
 
     @POST("item/filter")
-    Call<ApiResponce<ModelAddReview>> filter(/*@HeaderMap HashMap<String, String> hashMap, */@Body RequestBody body);
+    Call<AllChaletsModel> filter(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);
 
 
     @POST("user")
     Call<RegisterModel> register(@Body RequestBody body);
 
-    @POST("user")
+    @PUT("user")
     Call<RegisterModel> updateProfile(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);
 
     @GET("country")
@@ -90,6 +91,11 @@ public interface ApiInterface {
 
     @GET("wishlist")
     Call<ModelWishlist> getWishList(@HeaderMap HashMap<String, String> hashMap);
+
+
+
+    @GET("amenity")
+    Call<ModelAmenety> getAllAmeneites(@HeaderMap HashMap<String, String> hashMap);
 
     @POST("checkout")
     Call<ModelCheckout> postCheckout(@Body RequestBody body, @HeaderMap HashMap<String, String> hashMap);
