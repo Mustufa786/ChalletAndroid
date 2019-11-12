@@ -165,8 +165,10 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                         mCheckIn.setText(model.getData().getCheckIn() + "");
                         mCheckOut.setText(model.getData().getCheckOut() + "");
                         mName.setText(model.getData().getName() + "");
-                        mRatingBar.setRating(model.getData().getRating());
                         mTvRating.setText(model.getData().getRating() + "");
+                        if (model.getData().getRating() > 0)
+                            mBinding.chaletRating.setRating(model.getData().getRating() + 0f);
+
                         bookingItemID = model.getData().getId();
                         setTextAction(Objects.requireNonNull(getSupportActionBar()), model.getData().getName() + "");
                         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -314,7 +316,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                                     addRating(deleteDialog, bookingItemId);
                                 }
                             } else {
-
+                                deleteDialog.dismiss();
                             }
                         } else {
                             deleteDialog.dismiss();
@@ -358,7 +360,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                         hud.dismiss();
                         if (response.body() != null) {
                             if (response.body().isSuccess) {
-                                if (response.body().msg.equalsIgnoreCase("Review added successfully")) {
+                                if (response.body().msg.equalsIgnoreCase("Rating added successfully")) {
                                     getDetails(getIntent().getStringExtra(Constants.CHALET_OR_MARRAIGE_ID));
                                     deleteDialog.dismiss();
                                 }

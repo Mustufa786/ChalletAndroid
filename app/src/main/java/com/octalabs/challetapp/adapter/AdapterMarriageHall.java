@@ -57,7 +57,7 @@ public class AdapterMarriageHall extends RecyclerView.Adapter<AdapterMarriageHal
         holder.textLocation.setText(item.getLocation());
         holder.textPrice.setText(item.getPricePerNight() + " Riyal");
         if (item.getRating() > 0) {
-            holder.ratingBar.setNumStars(item.getRating());
+            holder.ratingBar.setRating(item.getRating());
         }
 
 
