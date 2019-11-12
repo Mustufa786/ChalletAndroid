@@ -65,7 +65,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
     private FragmentSearchListingBinding mBinding;
     private KProgressHUD hud;
-    String mLocationId = "";
+    private String mLocationId = "";
+    private String checkInStr, checkoutStr;
 
     @Nullable
     @Override
@@ -77,6 +78,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         mBinding.checkOut.setOnClickListener(this);
         mBinding.btnSearch.setOnClickListener(this);
         getAllLocations();
+        checkInStr = "";
+        checkoutStr = "";
 
 
         return mBinding.getRoot();
@@ -142,7 +145,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 mBinding.checkIn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // TODO Auto-generated method stub
                         Calendar mcurrentTime = Calendar.getInstance();
                         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                         int minute = mcurrentTime.get(Calendar.MINUTE);
@@ -150,10 +152,13 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                         mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                                mBinding.checkIn.setText(selectedHour + ":" + selectedMinute);
+                                checkInStr = selectedHour + ":" + selectedMinute + ":00";
+                                String timeStr = ((selectedHour > 12) ? selectedHour % 12 : selectedHour) + ":" + (selectedMinute < 10 ? ("0" + selectedMinute) : selectedMinute) + " " + ((selectedHour >= 12) ? "PM" : "AM");
+                                mBinding.checkIn.setText(timeStr);
+
                             }
-                        }, hour, minute, false);//Yes 24 hour time
-                        mTimePicker.setTitle("Select Check In Time");
+                        }, hour, minute, false);
+                        mTimePicker.setTitle("Select Time");
                         mTimePicker.show();
 
                     }
@@ -172,7 +177,9 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                         mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                                mBinding.checkIn.setText(selectedHour + ":" + selectedMinute);
+                                checkoutStr = selectedHour + ":" + selectedMinute + "00";
+                                String timeStr = ((selectedHour > 12) ? selectedHour % 12 : selectedHour) + ":" + (selectedMinute < 10 ? ("0" + selectedMinute) : selectedMinute) + " " + ((selectedHour >= 12) ? "PM" : "AM");
+                                mBinding.checkOut.setText(timeStr);
                             }
                         }, hour, minute, false);//Yes 24 hour time
                         mTimePicker.setTitle("Select Check Out Time");
@@ -201,8 +208,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("locationId", mLocationId);
-            jsonObject.put("checkIn", "");
-            jsonObject.put("checkOut", "");
+            jsonObject.put("checkIn", checkInStr);
+            jsonObject.put("checkOut", checkoutStr);
             RequestBody body = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
             hud.show();
 
