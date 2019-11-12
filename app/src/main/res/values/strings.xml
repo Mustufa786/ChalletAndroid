@@ -85,4 +85,5 @@
     <string name="check_availability">Check Availability</string>
     <string name="chalet_for">Chalet For</string>
     <string name="property_type">Property Type</string>
+    <string name="comment">Comment...</string>
 </resources>

@@ -252,6 +252,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
         deleteDialog.setView(deleteDialogView);
         deleteDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.transparent));
         final EditText mEdtComment = deleteDialogView.findViewById(R.id.comment);
+        final RatingBar mRatingBar = deleteDialogView.findViewById(R.id.review_rating);
 //                final EditText mUserName = deleteDialogView.findViewById(R.id.user_name);
 
         Button mBtnAddReview = deleteDialogView.findViewById(R.id.btn_add_review);
@@ -290,7 +291,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    private void addReview(final AlertDialog deleteDialog, String comment, String bookingItemId) {
+    private void addReview(final AlertDialog deleteDialog, String comment, final String bookingItemId) {
         try {
 
             JSONObject jsonObject = new JSONObject();
@@ -299,6 +300,54 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
             final RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
 
             Call<ApiResponce<ModelAddReview>> call = RetrofitInstance.service.addReView(Helper.getJsonHeaderWithToken(this), requestBody);
+
+
+            hud.show();
+            call.enqueue(new Callback<ApiResponce<ModelAddReview>>() {
+                @Override
+                public void onResponse(Call<ApiResponce<ModelAddReview>> call, Response<ApiResponce<ModelAddReview>> response) {
+                    try {
+                        hud.dismiss();
+                        if (response.body() != null) {
+                            if (response.body().isSuccess) {
+                                if (response.body().msg.equalsIgnoreCase("Review added successfully")) {
+                                    addRating(deleteDialog, bookingItemId);
+                                }
+                            } else {
+
+                            }
+                        } else {
+                            deleteDialog.dismiss();
+                        }
+                    } catch (Exception e) {
+                        deleteDialog.dismiss();
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ApiResponce<ModelAddReview>> call, Throwable t) {
+                    t.printStackTrace();
+                    hud.dismiss();
+                    deleteDialog.dismiss();
+                }
+            });
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void addRating(final AlertDialog deleteDialog, String bookingItemId) {
+        try {
+            final RatingBar mRatingBar = deleteDialog.findViewById(R.id.review_rating);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("rating", mRatingBar.getRating() + "");
+            jsonObject.put("bookingItemId", bookingItemId);
+            final RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
+
+            Call<ApiResponce<ModelAddReview>> call = RetrofitInstance.service.addRating(Helper.getJsonHeaderWithToken(this), requestBody);
 
 
             hud.show();

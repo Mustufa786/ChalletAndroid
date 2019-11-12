@@ -50,6 +50,9 @@ public interface ApiInterface {
     @POST("review")
     Call<ApiResponce<ModelAddReview>> addReView(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);
 
+    @POST("item/rating")
+    Call<ApiResponce<ModelAddReview>> addRating(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);
+
 
     @POST("item/filter")
     Call<AllChaletsModel> filter(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);
@@ -93,7 +96,6 @@ public interface ApiInterface {
     Call<ModelWishlist> getWishList(@HeaderMap HashMap<String, String> hashMap);
 
 
-
     @GET("amenity")
     Call<ModelAmenety> getAllAmeneites(@HeaderMap HashMap<String, String> hashMap);
 
@@ -102,7 +104,7 @@ public interface ApiInterface {
 
 
     @POST("Item/search")
-    Call<AllChaletsModel> searchResults(@Body RequestBody body , @HeaderMap HashMap<String , String> hashMap);
+    Call<AllChaletsModel> searchResults(@Body RequestBody body, @HeaderMap HashMap<String, String> hashMap);
 
     @GET("checkout")
     Call<ModelBookingHistory> getBookingHistory(@HeaderMap HashMap<String, String> hashMap);
