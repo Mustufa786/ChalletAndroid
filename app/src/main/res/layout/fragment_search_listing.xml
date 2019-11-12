@@ -1,131 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    >
-
-    <LinearLayout     android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
-        <androidx.cardview.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view"
             android:layout_width="match_parent"
-            android:layout_margin="10dp"
-            card_view:cardElevation="5dp"
-            android:elevation="10dp"
-
             android:layout_height="match_parent"
-            card_view:cardCornerRadius="4dp">
+            android:layout_margin="10dp"
+            android:elevation="10dp"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="5dp">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-                android:padding="15dp"
-                android:orientation="vertical">
-
-
+                android:orientation="vertical"
+                android:padding="15dp">
 
                 <Spinner
                     android:id="@+id/location"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:focusable="false"
-                    android:textSize="14sp"
                     android:layout_marginTop="10dp"
-
                     android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:focusable="false"
+                    android:hint="@string/country"
                     android:textColorHint="@color/black"
-                    android:hint="@string/country" />
+                    android:textSize="14sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:background="#000"
-                    android:alpha="0.5"></View>
-
+                    android:alpha="0.5"
+                    android:background="#000"></View>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    >
-
-
+                    android:layout_marginEnd="10dp">
 
                     <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="10dp"
-                        android:focusable="false"
                         android:id="@+id/check_in"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/ic_date_range_black_24dp"
-
+                        android:focusable="false"
+                        android:hint="@string/check_in"
+                        android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:textSize="14sp"
-                        android:hint="@string/check_in" />
+                        android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-
-
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    >
-
-
+                    android:layout_marginEnd="10dp">
 
                     <EditText
+                        android:id="@+id/check_out"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="10dp"
-                        android:focusable="false"
-                        android:id="@+id/check_out"
                         android:drawableEnd="@drawable/ic_date_range_black_24dp"
-
+                        android:focusable="false"
+                        android:hint="@string/check_out"
+                        android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:textSize="14sp"
-                        android:hint="@string/check_out" />
+                        android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-
 
                 <Button
                     android:id="@+id/btn_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimaryDark"
-                    android:layout_margin="20dp"
-                    android:text="@string/search"
                     android:layout_gravity="bottom"
-
-                    android:textColor="@color/white"
+                    android:layout_margin="20dp"
                     android:background="@drawable/rounded_btn_new"
-                    />
-
-
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:text="@string/search"
+                    android:textColor="@color/white" />
             </LinearLayout>
-
-
-
         </androidx.cardview.widget.CardView>
-
     </LinearLayout>
-
-
 </layout>
 

@@ -1,31 +1,26 @@
 package com.octalabs.challetapp.fragments;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -40,12 +35,13 @@ import com.octalabs.challetapp.adapter.MyPagerAdapter;
 import com.octalabs.challetapp.databinding.FragmentHomeBinding;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
-import com.octalabs.challetapp.models.ModelChalet;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.Helper;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -67,6 +63,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
     private final static int REQUEST_FILTER = 256;
 
     double LocationLat = 0.0, LocationLong = 0.0;
+    boolean isAscendingOrder = true;
 
     private FragmentHomeBinding binding;
     private ArrayList<Chalet> chaletArrayList;
@@ -92,6 +89,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
                 startActivityForResult(new Intent(getActivity(), ActivityFilter.class), REQUEST_FILTER);
             }
         });
+
+
         return binding.getRoot();
     }
 
@@ -188,61 +187,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
         binding.textMapOrList.setOnClickListener(this);
         binding.getRoot().findViewById(R.id.map).setVisibility(View.GONE);
         binding.rvMarriageHall.setVisibility(View.VISIBLE);
+        binding.btnSort.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_chalet:
-                mBtnchalet.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
-                mBtnchalet.setTextColor(getActivity().getResources().getColor(R.color.white));
-                mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
-                mBtnMarriageall.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
-                mRecyclerView.setAdapter(adapterChalets);
-                isChaletTab = true;
-                if (chaletArrayList != null && this.mMap != null) {
-                    mMap.clear();
-                    for (int i = 0; i < chaletArrayList.size(); i++) {
-                        Chalet item = chaletArrayList.get(i);
-                        if (item.getLatitude() != null && item.getLongitude() != null && !item.getLatitude().equalsIgnoreCase("") && !item.getLongitude().equalsIgnoreCase("")) {
-                            Marker m = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()))));
-                            m.setTag(item);
+                showChalletTab();
 
-                            if (i == 0) {
-                                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(
-                                        new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude())), 15);
-                                mMap.animateCamera(update);
-                            }
-
-                        }
-                    }
-                }
                 break;
 
             case R.id.btn_marriage_hall:
-                mBtnchalet.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
-                mBtnchalet.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
-                mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
-                mBtnMarriageall.setTextColor(getActivity().getResources().getColor(R.color.white));
-                mRecyclerView.setAdapter(adapterMarriageHall);
-                isChaletTab = false;
-                if (marraigeHallList != null && this.mMap != null) {
-                    mMap.clear();
-                    for (int i = 0; i < marraigeHallList.size(); i++) {
-                        Chalet item = marraigeHallList.get(i);
-                        if (item.getLatitude() != null && item.getLongitude() != null && !item.getLatitude().equalsIgnoreCase("") && !item.getLongitude().equalsIgnoreCase("")) {
-                            Marker m = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()))));
-                            m.setTag(item);
+                showMarraigeTab();
 
-                            if (i == 0) {
-                                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(
-                                        new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude())), 15);
-                                mMap.animateCamera(update);
-                            }
-
-                        }
-                    }
-                }
                 break;
 
             case R.id.text_map_or_list:
@@ -250,7 +208,121 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
                 changeMapOrList();
                 break;
 
+            case R.id.btn_sort:
+                sortData();
+                break;
+
+            default:
+                break;
+
         }
+    }
+
+    private void showMarraigeTab() {
+        mBtnchalet.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
+        mBtnchalet.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+        mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+        mBtnMarriageall.setTextColor(getActivity().getResources().getColor(R.color.white));
+        Collections.sort(marraigeHallList, new Comparator<Chalet>() {
+            @Override
+            public int compare(Chalet datum, Chalet t1) {
+                return datum.getId().compareToIgnoreCase(t1.getId());
+            }
+        });
+        mRecyclerView.setAdapter(adapterMarriageHall);
+        isChaletTab = false;
+        isAscendingOrder = true;
+        if (marraigeHallList != null && this.mMap != null) {
+            mMap.clear();
+            for (int i = 0; i < marraigeHallList.size(); i++) {
+                Chalet item = marraigeHallList.get(i);
+                if (item.getLatitude() != null && item.getLongitude() != null && !item.getLatitude().equalsIgnoreCase("") && !item.getLongitude().equalsIgnoreCase("")) {
+                    Marker m = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()))));
+                    m.setTag(item);
+
+                    if (i == 0) {
+                        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(
+                                new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude())), 15);
+                        mMap.animateCamera(update);
+                    }
+
+                }
+            }
+        }
+    }
+
+    private void showChalletTab() {
+        mBtnchalet.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+        mBtnchalet.setTextColor(getActivity().getResources().getColor(R.color.white));
+        mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
+        mBtnMarriageall.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+        Collections.sort(chaletArrayList, new Comparator<Chalet>() {
+            @Override
+            public int compare(Chalet datum, Chalet t1) {
+                return datum.getId().compareToIgnoreCase(t1.getId());
+            }
+        });
+        mRecyclerView.setAdapter(adapterChalets);
+        isChaletTab = true;
+        isAscendingOrder = true;
+        if (chaletArrayList != null && this.mMap != null) {
+            mMap.clear();
+            for (int i = 0; i < chaletArrayList.size(); i++) {
+                Chalet item = chaletArrayList.get(i);
+                if (item.getLatitude() != null && item.getLongitude() != null && !item.getLatitude().equalsIgnoreCase("") && !item.getLongitude().equalsIgnoreCase("")) {
+                    Marker m = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()))));
+                    m.setTag(item);
+
+                    if (i == 0) {
+                        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(
+                                new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude())), 15);
+                        mMap.animateCamera(update);
+                    }
+
+                }
+            }
+        }
+    }
+
+    private void sortData() {
+        if (Helper.hasInternetConnection(getActivity())) {
+            isAscendingOrder = !isAscendingOrder;
+
+        } else {
+            Toast.makeText(getActivity(), "Check your internet connection for filter", Toast.LENGTH_SHORT).show();
+            return;
+
+        }
+        if (isChaletTab) {
+            Collections.sort(chaletArrayList, new Comparator<Chalet>() {
+                @Override
+                public int compare(Chalet datum, Chalet t1) {
+                    return datum.getId().compareToIgnoreCase(t1.getId());
+                }
+            });
+
+            if (isAscendingOrder) {
+                adapterChalets.setMlist(chaletArrayList);
+            } else {
+                Collections.reverse(chaletArrayList);
+                adapterChalets.setMlist(chaletArrayList);
+            }
+        } else {
+            Collections.sort(marraigeHallList, new Comparator<Chalet>() {
+                @Override
+                public int compare(Chalet datum, Chalet t1) {
+                    return datum.getId().compareToIgnoreCase(t1.getId());
+                }
+            });
+
+            if (isAscendingOrder) {
+                adapterMarriageHall.setMlist(marraigeHallList);
+            } else {
+                Collections.reverse(marraigeHallList);
+                adapterMarriageHall.setMlist(marraigeHallList);
+            }
+        }
+
     }
 
     private void changeMapOrList() {

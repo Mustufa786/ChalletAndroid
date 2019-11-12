@@ -1,6 +1,7 @@
 package com.octalabs.challetapp.fragments;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -140,26 +142,20 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 mBinding.checkIn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Calendar calendar = Calendar.getInstance();
-
-                        DatePickerDialog mDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                        // TODO Auto-generated method stub
+                        Calendar mcurrentTime = Calendar.getInstance();
+                        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                        int minute = mcurrentTime.get(Calendar.MINUTE);
+                        TimePickerDialog mTimePicker;
+                        mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                             @Override
-                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                try {
-                                    i1++;
-                                    String dateTempStr = i + "-" + i1 + "-" + i2;
-                                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-                                    Date expiryDate = format.parse(dateTempStr);
-
-                                    SimpleDateFormat mFormat = new SimpleDateFormat("dd-MM-yyyy");
-                                    mBinding.checkIn.setText(mFormat.format(expiryDate));
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                                mBinding.checkIn.setText(selectedHour + ":" + selectedMinute);
                             }
-                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                        mDialog.show();
+                        }, hour, minute, false);//Yes 24 hour time
+                        mTimePicker.setTitle("Select Check In Time");
+                        mTimePicker.show();
+
                     }
                 });
                 break;
@@ -168,26 +164,20 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 mBinding.checkOut.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Calendar calendar = Calendar.getInstance();
-
-                        DatePickerDialog mDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                        // TODO Auto-generated method stub
+                        Calendar mcurrentTime = Calendar.getInstance();
+                        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                        int minute = mcurrentTime.get(Calendar.MINUTE);
+                        TimePickerDialog mTimePicker;
+                        mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
                             @Override
-                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                try {
-                                    i1++;
-                                    String dateTempStr = i + "-" + i1 + "-" + i2;
-                                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-                                    Date expiryDate = format.parse(dateTempStr);
-
-                                    SimpleDateFormat mFormat = new SimpleDateFormat("dd-MM-yyyy");
-                                    mBinding.checkOut.setText(mFormat.format(expiryDate));
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                                mBinding.checkIn.setText(selectedHour + ":" + selectedMinute);
                             }
-                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                        mDialog.show();
+                        }, hour, minute, false);//Yes 24 hour time
+                        mTimePicker.setTitle("Select Check Out Time");
+                        mTimePicker.show();
+
                     }
                 });
                 break;
