@@ -9,6 +9,15 @@ public class Chalet {
     @SerializedName("picture")
     @Expose
     private List<String> picture = null;
+    @SerializedName("type")
+    @Expose
+    private List<String> type = null;
+    @SerializedName("for")
+    @Expose
+    private List<String> _for = null;
+    @SerializedName("bookingType")
+    @Expose
+    private List<String> bookingType = null;
     @SerializedName("rating")
     @Expose
     private Integer rating;
@@ -24,45 +33,36 @@ public class Chalet {
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("name")
-    @Expose
-    private String name;
     @SerializedName("description")
     @Expose
     private String description;
-    @SerializedName("location")
-    @Expose
-    private String location;
-    @SerializedName("type")
-    @Expose
-    private String type;
-    @SerializedName("for")
-    @Expose
-    private String _for;
-    @SerializedName("bookingType")
-    @Expose
-    private String bookingType;
     @SerializedName("latitude")
     @Expose
     private String latitude;
     @SerializedName("longitude")
     @Expose
     private String longitude;
+    @SerializedName("location")
+    @Expose
+    private String location;
+    @SerializedName("name")
+    @Expose
+    private String name;
     @SerializedName("checkIn")
     @Expose
     private String checkIn;
     @SerializedName("checkOut")
     @Expose
     private String checkOut;
-    @SerializedName("countryId")
+    @SerializedName("locationId")
     @Expose
-    private String countryId;
-    @SerializedName("stateId")
+    private String locationId;
+    @SerializedName("createdAt")
     @Expose
-    private String stateId;
-    @SerializedName("cityId")
+    private String createdAt;
+    @SerializedName("updatedAt")
     @Expose
-    private String cityId;
+    private String updatedAt;
     @SerializedName("__v")
     @Expose
     private Integer v;
@@ -73,6 +73,30 @@ public class Chalet {
 
     public void setPicture(List<String> picture) {
         this.picture = picture;
+    }
+
+    public List<String> getType() {
+        return type;
+    }
+
+    public void setType(List<String> type) {
+        this.type = type;
+    }
+
+    public List<String> getFor() {
+        return _for;
+    }
+
+    public void setFor(List<String> _for) {
+        this._for = _for;
+    }
+
+    public List<String> getBookingType() {
+        return bookingType;
+    }
+
+    public void setBookingType(List<String> bookingType) {
+        this.bookingType = bookingType;
     }
 
     public Integer getRating() {
@@ -115,52 +139,12 @@ public class Chalet {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getFor() {
-        return _for;
-    }
-
-    public void setFor(String _for) {
-        this._for = _for;
-    }
-
-    public String getBookingType() {
-        return bookingType;
-    }
-
-    public void setBookingType(String bookingType) {
-        this.bookingType = bookingType;
     }
 
     public String getLatitude() {
@@ -179,6 +163,22 @@ public class Chalet {
         this.longitude = longitude;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getCheckIn() {
         return checkIn;
     }
@@ -195,28 +195,28 @@ public class Chalet {
         this.checkOut = checkOut;
     }
 
-    public String getCountryId() {
-        return countryId;
+    public String getLocationId() {
+        return locationId;
     }
 
-    public void setCountryId(String countryId) {
-        this.countryId = countryId;
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
     }
 
-    public String getStateId() {
-        return stateId;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setStateId(String stateId) {
-        this.stateId = stateId;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public String getCityId() {
-        return cityId;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setCityId(String cityId) {
-        this.cityId = cityId;
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Integer getV() {

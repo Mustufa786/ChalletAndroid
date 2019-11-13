@@ -13,10 +13,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitInstance {
 
-    public static final String BASE_URL = "http://134.209.77.214:6000/api/";
-    public static final String BASE_USER_PIC_URL = "http://134.209.77.214:6000/picture/";
-    public static final String BASE_IMG_AMENTY_URL = "http://134.209.77.214:6000/amenity/";
-    public static final String BASE_IMG_CHALET_URL = "http://134.209.77.214:6000/item/";
+    public static final String BASE_URL = "http://134.209.77.214:6001/api/";
+    public static final String BASE_USER_PIC_URL = "http://134.209.77.214:6001/picture/";
+    public static final String BASE_IMG_AMENTY_URL = "http://134.209.77.214:6001/amenity/";
+    public static final String BASE_IMG_CHALET_URL = "http://134.209.77.214:6001/item/";
 
 
 
@@ -43,29 +43,4 @@ public class RetrofitInstance {
         service = retrofit.create(ApiInterface.class);
     }
 
-//    private static Retrofit retrofit = null;
-//
-//    public static Retrofit getClient() {
-//
-//        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-//        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-//
-//
-//        CookieManager cookieManager = new CookieManager();
-//        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-//        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-//                .readTimeout(40, TimeUnit.SECONDS)
-//                .cookieJar(new JavaNetCookieJar(cookieManager))
-//                .addInterceptor(logging)
-//                .connectTimeout(30, TimeUnit.SECONDS).build();
-//
-//        if (retrofit == null) {
-//            retrofit = new Retrofit.Builder()
-//                    .baseUrl(BASE_URL)
-//                    .addConverterFactory(ScalarsConverterFactory.create())
-//                    .client(okHttpClient)
-//                    .build();
-//        }
-//        return retrofit;
-//    }
 }

@@ -44,6 +44,8 @@
                 android:id="@+id/text_location"
                 android:gravity="center_vertical"
                 android:text="Sample Location"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
