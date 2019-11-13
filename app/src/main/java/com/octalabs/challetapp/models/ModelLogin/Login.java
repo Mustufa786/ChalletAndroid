@@ -38,6 +38,17 @@ public class Login {
     @SerializedName("cityId")
     @Expose
     private CityId cityId;
+
+    @SerializedName("countryId")
+    @Expose
+    private String countryIdNew;
+    @SerializedName("stateId")
+    @Expose
+    private String stateIdNew;
+    @SerializedName("cityId")
+    @Expose
+    private String cityIdNew;
+
     @SerializedName("createdAt")
     @Expose
     private String createdAt;
@@ -183,4 +194,23 @@ public class Login {
         this.token = token;
     }
 
+    public String getCountryIdNew() {
+        return countryIdNew;
+    }
+
+    public String getStateIdNew() {
+        return stateIdNew;
+    }
+
+    public void setStateIdNew(String stateIdNew) {
+        this.stateIdNew = stateIdNew;
+    }
+
+    public String getCityIdNew() {
+        return cityIdNew;
+    }
+
+    public void setCityIdNew(String cityIdNew) {
+        this.cityIdNew = cityIdNew;
+    }
 }

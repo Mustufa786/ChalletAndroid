@@ -19,6 +19,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -205,7 +206,9 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     }
 
     private void getSearchData() {
+
         try {
+
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("locationId", mLocationId);
             jsonObject.put("checkIn", checkInStr);
