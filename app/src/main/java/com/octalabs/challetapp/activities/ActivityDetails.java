@@ -263,7 +263,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View view) {
                 if (!mEdtComment.getText().toString().equalsIgnoreCase("") && !bookingItemID.equalsIgnoreCase("")) {
-                    addReview(deleteDialog, mEdtComment.getText().toString(), bookingItemID);
+                    addReview(deleteDialog,mBinding.chaletRating.getRating(), mEdtComment.getText().toString(), bookingItemID);
                 }
             }
         });
@@ -293,12 +293,13 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    private void addReview(final AlertDialog deleteDialog, String comment, final String bookingItemId) {
+    private void addReview(final AlertDialog deleteDialog, float rating, String comment, final String bookingItemId) {
         try {
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("comment", comment);
             jsonObject.put("bookingItemId", bookingItemId);
+            jsonObject.put("rating", rating);
             final RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
 
             Call<ApiResponce<ModelAddReview>> call = RetrofitInstance.service.addReView(Helper.getJsonHeaderWithToken(this), requestBody);
@@ -313,7 +314,9 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                         if (response.body() != null) {
                             if (response.body().isSuccess) {
                                 if (response.body().msg.equalsIgnoreCase("Review added successfully")) {
-                                    addRating(deleteDialog, bookingItemId);
+                                    getDetails(getIntent().getStringExtra(Constants.CHALET_OR_MARRAIGE_ID));
+                                    deleteDialog.dismiss();
+//                                    addRating(deleteDialog, bookingItemId);
                                 }
                             } else {
                                 deleteDialog.dismiss();
@@ -361,8 +364,8 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                         if (response.body() != null) {
                             if (response.body().isSuccess) {
                                 if (response.body().msg.equalsIgnoreCase("Rating added successfully")) {
-                                    getDetails(getIntent().getStringExtra(Constants.CHALET_OR_MARRAIGE_ID));
-                                    deleteDialog.dismiss();
+//                                    getDetails(getIntent().getStringExtra(Constants.CHALET_OR_MARRAIGE_ID));
+//                                    deleteDialog.dismiss();
                                 }
                             } else {
 
