@@ -20,6 +20,7 @@ import com.octalabs.challetapp.models.ModelBookingHistory.BookingHistoryItem;
 import com.octalabs.challetapp.models.ModelChalet;
 import com.octalabs.challetapp.models.ModelWishlist.Datum;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
+import com.octalabs.challetapp.utils.Helper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -58,7 +59,8 @@ public class AdapterBookingHistory extends RecyclerView.Adapter<AdapterBookingHi
         holder.textOdrerNum.setText(String.valueOf(position + 1));
         holder.textOrderTitle.setText("Order : " + position + 1 + "");
         holder.textNumOfItems.setText("No of items : " + item.getBookingItemIds().size() + "");
-
+        holder.textBookingDate.setText(Helper.getDate(Long.parseLong(item.getCreatedAt()), "dd-MMM-yyyy"))
+        ;
 
     }
 
@@ -82,7 +84,7 @@ public class AdapterBookingHistory extends RecyclerView.Adapter<AdapterBookingHi
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(activity, ActivityBookingHistoryDetails.class);
-                    intent.putExtra(BOOKING_HISTORY_DETAILS, new Gson().toJson(mlist.get(getAdapterPosition()).getBookingItemIds()) );
+                    intent.putExtra(BOOKING_HISTORY_DETAILS, new Gson().toJson(mlist.get(getAdapterPosition()).getBookingItemIds()));
                     activity.startActivity(intent);
                 }
             });

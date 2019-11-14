@@ -62,6 +62,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -87,7 +88,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
     private TextView mCheckIn, mCheckOut, mPrice, mAddress, mName, mTvRating;
     SupportMapFragment mapFragment;
     private LatLng latLng;
-    private RatingBar mRatingBar;
+    private MaterialRatingBar mRatingBar;
     private String bookingItemID;
     private AlertDialog deleteDialog;
     boolean isUserLoggedIn;
@@ -158,12 +159,16 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
                         AdapterDetailReviews adapterReview = new AdapterDetailReviews(ActivityDetails.this, model.getData().getReviews());
                         mRvReview.setAdapter(adapterReview);
-                        latLng = new LatLng(valueOf(model.getData().getLatitude()), valueOf(model.getData().getLongitude()));
+                        if (model.getData().getLatitude() != null && !model.getData().getLatitude().equalsIgnoreCase(""))  {
+                            latLng = new LatLng(valueOf(model.getData().getLatitude()), valueOf(model.getData().getLongitude()));
+
+                        }
                         mapFragment.getMapAsync(ActivityDetails.this);
                         mPrice.setText(model.getData().getPricePerNight() + " Riyal");
                         mAddress.setText(model.getData().getLocation() + "");
-                        mCheckIn.setText(model.getData().getCheckIn() + "");
-                        mCheckOut.setText(model.getData().getCheckOut() + "");
+
+                        mCheckIn.setText(Helper.parseDateToddMMyyyy("2019-01-01 " + model.getData().getCheckIn() + ""));
+                        mCheckOut.setText(Helper.parseDateToddMMyyyy("2019-01-01 " + model.getData().getCheckOut() + ""));
                         mName.setText(model.getData().getName() + "");
                         mTvRating.setText(model.getData().getRating() + "");
                         if (model.getData().getRating() > 0)
@@ -254,7 +259,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
         deleteDialog.setView(deleteDialogView);
         deleteDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.transparent));
         final EditText mEdtComment = deleteDialogView.findViewById(R.id.comment);
-        final RatingBar mRatingBar = deleteDialogView.findViewById(R.id.review_rating);
+        final MaterialRatingBar mRatingBar = deleteDialogView.findViewById(R.id.review_rating);
 //                final EditText mUserName = deleteDialogView.findViewById(R.id.user_name);
 
         Button mBtnAddReview = deleteDialogView.findViewById(R.id.btn_add_review);
@@ -263,7 +268,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View view) {
                 if (!mEdtComment.getText().toString().equalsIgnoreCase("") && !bookingItemID.equalsIgnoreCase("")) {
-                    addReview(deleteDialog,mBinding.chaletRating.getRating(), mEdtComment.getText().toString(), bookingItemID);
+                    addReview(deleteDialog, mRatingBar.getRating(), mEdtComment.getText().toString(), bookingItemID);
                 }
             }
         });
@@ -299,7 +304,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("comment", comment);
             jsonObject.put("bookingItemId", bookingItemId);
-            jsonObject.put("rating", rating);
+            jsonObject.put("rating", rating + "");
             final RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
 
             Call<ApiResponce<ModelAddReview>> call = RetrofitInstance.service.addReView(Helper.getJsonHeaderWithToken(this), requestBody);
@@ -445,9 +450,12 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        googleMap.addMarker(new MarkerOptions().position(latLng));
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-        googleMap.getUiSettings().setAllGesturesEnabled(false);
+        if (latLng != null) {
+            googleMap.addMarker(new MarkerOptions().position(latLng));
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+            googleMap.getUiSettings().setAllGesturesEnabled(false);
+
+        }
     }
 
 

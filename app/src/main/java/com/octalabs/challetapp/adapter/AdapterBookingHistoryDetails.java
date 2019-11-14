@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -19,6 +20,8 @@ import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 import static com.octalabs.challetapp.utils.Constants.CHALET_OR_MARRAIGE_ID;
 
@@ -56,6 +59,18 @@ public class AdapterBookingHistoryDetails extends RecyclerView.Adapter<AdapterBo
         if (item.getRating() > 0) {
             holder.ratingBar.setNumStars(item.getRating());
         }
+        if (item.getFor() != null) {
+            if (item.getFor().contains("Singles")) {
+                holder.btnSingles.setVisibility(View.VISIBLE);
+            }
+            if (item.getFor().contains("Families")) {
+                holder.btnFamilies.setVisibility(View.VISIBLE);
+            }
+            if (item.getFor().contains("Ocassions")) {
+
+                holder.btnOcassions.setVisibility(View.VISIBLE);
+            }
+        }
 
     }
 
@@ -67,8 +82,10 @@ public class AdapterBookingHistoryDetails extends RecyclerView.Adapter<AdapterBo
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView textChaletName, textLocation, textPrice;
-        RatingBar ratingBar;
         ImageView imgChalet;
+        TextView btnSingles, btnFamilies, btnOcassions;
+        MaterialRatingBar ratingBar;
+        Button btnCheckAvailibilty;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,6 +94,11 @@ public class AdapterBookingHistoryDetails extends RecyclerView.Adapter<AdapterBo
             textPrice = itemView.findViewById(R.id.text_price);
             ratingBar = itemView.findViewById(R.id.rating);
             imgChalet = itemView.findViewById(R.id.img_chalet);
+            btnSingles = itemView.findViewById(R.id.btn_single);
+            btnFamilies = itemView.findViewById(R.id.btn_families);
+            btnOcassions = itemView.findViewById(R.id.btn_ocassion);
+            btnCheckAvailibilty = itemView.findViewById(R.id.btn_check_availibilty);
+            btnCheckAvailibilty.setVisibility(View.GONE);
 
         }
     }

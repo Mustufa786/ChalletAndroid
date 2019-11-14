@@ -42,15 +42,16 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <RatingBar
+
+                <me.zhanghai.android.materialratingbar.MaterialRatingBar
                     android:id="@+id/chalet_rating"
-                    style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:stepSize="0.1" />
+                    android:stepSize="0.01"
+                    style="@style/Widget.MaterialRatingBar.RatingBar.Small" />
+
+
+
 
                 <TextView
                     android:id="@+id/tv_rating"
@@ -166,13 +167,20 @@
                 android:textSize="20sp" />
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_amenities"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:nestedScrollingEnabled="false"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_amenities"
+                    android:layout_width="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+            </RelativeLayout>
+
 
             <View
                 android:layout_width="match_parent"
@@ -222,6 +230,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
+                        android:visibility="gone"
+
                         android:text="Date : 12/11/2019"
                         android:textSize="13sp" />
 
@@ -263,6 +273,8 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:text="Date : 12/11/2019"
+                        android:visibility="gone"
+
                         android:textSize="13sp" />
 
                 </LinearLayout>

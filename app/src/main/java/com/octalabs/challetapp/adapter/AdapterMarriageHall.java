@@ -21,6 +21,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
+
 import static com.octalabs.challetapp.utils.Constants.CHALET_OR_MARRAIGE_ID;
 
 public class AdapterMarriageHall extends RecyclerView.Adapter<AdapterMarriageHall.MyViewHolder> {
@@ -60,6 +62,18 @@ public class AdapterMarriageHall extends RecyclerView.Adapter<AdapterMarriageHal
             holder.ratingBar.setRating(item.getRating());
         }
 
+        if (item.getFor() != null) {
+            if (item.getFor().contains("Singles")) {
+                holder.btnSingles.setVisibility(View.VISIBLE);
+            }
+            if (item.getFor().contains("Families")) {
+                holder.btnFamilies.setVisibility(View.VISIBLE);
+            }
+            if (item.getFor().contains("Ocassions")) {
+
+                holder.btnOcassions.setVisibility(View.VISIBLE);
+            }
+        }
 
     }
 
@@ -71,7 +85,9 @@ public class AdapterMarriageHall extends RecyclerView.Adapter<AdapterMarriageHal
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView textChaletName, textLocation, textPrice;
-        RatingBar ratingBar;
+        MaterialRatingBar ratingBar;
+        TextView btnSingles, btnFamilies, btnOcassions;
+
         ImageView imgChalet;
 
         MyViewHolder(@NonNull View itemView) {
@@ -80,6 +96,9 @@ public class AdapterMarriageHall extends RecyclerView.Adapter<AdapterMarriageHal
             textLocation = itemView.findViewById(R.id.text_location);
             textPrice = itemView.findViewById(R.id.text_price);
             ratingBar = itemView.findViewById(R.id.rating);
+            btnSingles = itemView.findViewById(R.id.btn_single);
+            btnFamilies = itemView.findViewById(R.id.btn_families);
+            btnOcassions = itemView.findViewById(R.id.btn_ocassion);
             imgChalet = itemView.findViewById(R.id.img_chalet);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

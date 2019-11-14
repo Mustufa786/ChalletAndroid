@@ -11,6 +11,7 @@ import android.util.Patterns;
 import com.google.gson.Gson;
 import com.octalabs.challetapp.models.ModelLogin.Login;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -135,4 +136,24 @@ public class Helper {
 
     }
 
+
+    public static String parseDateToddMMyyyy(String time) {
+        try {
+            String inputPattern = "yyyy-MM-dd HH:mm";
+            String outputPattern = "hh:mm a";
+            SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+            SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+            Date date = null;
+            String str = null;
+
+
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+            return str;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

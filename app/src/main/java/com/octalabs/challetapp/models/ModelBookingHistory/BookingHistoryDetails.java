@@ -37,13 +37,14 @@ public class BookingHistoryDetails {
     private String location;
     @SerializedName("type")
     @Expose
-    private String type;
+    private List<String> type = null;
     @SerializedName("for")
     @Expose
-    private String _for;
+    private List<String> _for = null;
     @SerializedName("bookingType")
     @Expose
-    private String bookingType;
+    private List<String> bookingType = null;
+
     @SerializedName("latitude")
     @Expose
     private String latitude;
@@ -141,29 +142,30 @@ public class BookingHistoryDetails {
         this.location = location;
     }
 
-    public String getType() {
+    public List<String> getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(List<String> type) {
         this.type = type;
     }
 
-    public String getFor() {
+    public List<String> getFor() {
         return _for;
     }
 
-    public void setFor(String _for) {
+    public void setFor(List<String> _for) {
         this._for = _for;
     }
 
-    public String getBookingType() {
+    public List<String> getBookingType() {
         return bookingType;
     }
 
-    public void setBookingType(String bookingType) {
+    public void setBookingType(List<String> bookingType) {
         this.bookingType = bookingType;
     }
+
 
     public String getLatitude() {
         return latitude;

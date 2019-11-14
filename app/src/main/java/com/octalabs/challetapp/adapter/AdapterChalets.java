@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -19,6 +20,8 @@ import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 import static com.octalabs.challetapp.utils.Constants.CHALET_OR_MARRAIGE_ID;
 
@@ -55,9 +58,21 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
         holder.textLocation.setText(item.getLocation());
         holder.textPrice.setText(item.getPricePerNight() + " Riyal");
         if (item.getRating() > 0) {
-            holder.ratingBar.setRating( item.getRating());
+            holder.ratingBar.setRating(item.getRating() + 0f);
         }
 
+        if (item.getFor() != null) {
+            if (item.getFor().contains("Singles")) {
+                holder.btnSingles.setVisibility(View.VISIBLE);
+            }
+            if (item.getFor().contains("Families")) {
+                holder.btnFamilies.setVisibility(View.VISIBLE);
+            }
+            if (item.getFor().contains("Ocassions")) {
+
+                holder.btnOcassions.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override
@@ -68,8 +83,9 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView textChaletName, textLocation, textPrice;
-        RatingBar ratingBar;
         ImageView imgChalet;
+        MaterialRatingBar ratingBar;
+        TextView btnSingles, btnFamilies, btnOcassions;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,6 +93,10 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
             textLocation = itemView.findViewById(R.id.text_location);
             textPrice = itemView.findViewById(R.id.text_price);
             ratingBar = itemView.findViewById(R.id.rating);
+            btnSingles = itemView.findViewById(R.id.btn_single);
+            btnFamilies = itemView.findViewById(R.id.btn_families);
+            btnOcassions = itemView.findViewById(R.id.btn_ocassion);
+
 
             imgChalet = itemView.findViewById(R.id.img_chalet);
             itemView.setOnClickListener(new View.OnClickListener() {

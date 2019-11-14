@@ -53,7 +53,6 @@ import static com.octalabs.challetapp.utils.Helper.displayDialog;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, OnMapReadyCallback {
 
-    private MyPagerAdapter myPagerAdapter;
     private Button mBtnchalet, mBtnMarriageall;
     private RecyclerView mRecyclerView;
     private KProgressHUD hud;

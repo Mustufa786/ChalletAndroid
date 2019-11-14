@@ -27,6 +27,7 @@ import com.octalabs.challetapp.fragments.FragmentSearch;
 import com.octalabs.challetapp.fragments.HomeFragment;
 import com.octalabs.challetapp.fragments.LoginFragment;
 import com.octalabs.challetapp.fragments.UserProfileFragment;
+import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.CustomDialog;
 
@@ -85,9 +86,7 @@ public class MainActivity extends AppCompatActivity {
             mPagerAdapter.addFragmeent(new FragmentBookingHistory(), getResources().getString(R.string.booking_history));
             mPagerAdapter.addFragmeent(new UserProfileFragment(), getResources().getString(R.string.user_profile));
             mPagerAdapter.addFragmeent(new FragmentMore(), getResources().getString(R.string.more));
-        }
-        else
-        {
+        } else {
             mPagerAdapter.addFragmeent(new LoginFragment(), getResources().getString(R.string.login));
             mPagerAdapter.addFragmeent(new LoginFragment(), getResources().getString(R.string.login));
             mPagerAdapter.addFragmeent(new LoginFragment(), getResources().getString(R.string.login));
@@ -130,8 +129,7 @@ public class MainActivity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.ADD) {
             startActivity(new Intent(this, ActivityCart.class));
-        }
-        else  if (item.getItemId() == R.id.options) {
+        } else if (item.getItemId() == R.id.options) {
             CustomDialog cd = new CustomDialog(MainActivity.this);
             cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             cd.show();
@@ -143,9 +141,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(mMainViewPager.getCurrentItem() == 3) {
-            ((UserProfileFragment)mPagerAdapter.getItem(3)).onActivityResultHandle(requestCode, resultCode, data);
+        if (mMainViewPager.getCurrentItem() == 3) {
+            ((UserProfileFragment) mPagerAdapter.getItem(3)).onActivityResultHandle(requestCode, resultCode, data);
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (RetrofitInstance.service == null) {
+            RetrofitInstance.createRetrofitInstance();
+        }
+    }
 }

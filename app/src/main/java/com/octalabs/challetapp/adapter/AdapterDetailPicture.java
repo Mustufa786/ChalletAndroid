@@ -35,7 +35,7 @@ public class AdapterDetailPicture extends RecyclerView.Adapter<AdapterDetailPict
 
     @Override
     public void onBindViewHolder(@NonNull AdapterDetailPicture.ViewHolder holder, int position) {
-        Picasso.get().load(RetrofitInstance.BASE_IMG_CHALET_URL + mlist.get(position)).into(holder.mImg);
+        Picasso.get().load(RetrofitInstance.BASE_IMG_CHALET_URL + mlist.get(position)).resize(120 , 120).into(holder.mImg);
     }
 
     @Override

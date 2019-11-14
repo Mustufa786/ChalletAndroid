@@ -29,23 +29,23 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/text_chalet_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Chalet Name"
-                android:id="@+id/text_chalet_name"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/text_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_location"
                 android:drawablePadding="10dp"
-                android:id="@+id/text_location"
-                android:gravity="center_vertical"
-                android:text="Sample Location"
-                android:maxLines="2"
                 android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:text="Sample Location"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
@@ -55,14 +55,13 @@
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
-                <RatingBar
+                <me.zhanghai.android.materialratingbar.MaterialRatingBar
                     android:id="@+id/rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    android:isIndicator="true" />
+                    android:stepSize="0.01"
+                    style="@style/Widget.MaterialRatingBar.RatingBar.Small" />
+
 
             </LinearLayout>
 
@@ -72,26 +71,51 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
-                <Button
-                    android:layout_width="70dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/board_shap"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:text="Families"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="10sp" />
-
-                <Button
-                    android:layout_width="70dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="10dp"
+                <TextView
+                    android:id="@+id/btn_single"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/board_shap"
                     android:backgroundTint="@color/colorPrimary"
                     android:text="Singles"
+                    android:visibility="visible"
+                    android:padding="5dp"
+
+
                     android:textAllCaps="false"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="10sp" />
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:id="@+id/btn_families"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/board_shap"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="Families"
+                    android:padding="5dp"
+
+                    android:visibility="visible"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="8sp" />
+
+
+                <TextView
+                    android:id="@+id/btn_ocassion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:padding="5dp"
+
+                    android:visibility="visible"
+                    android:background="@drawable/board_shap"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="Ocassions"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="8sp" />
 
             </LinearLayout>
 
@@ -112,6 +136,7 @@
                     android:textSize="12sp" />
 
                 <Button
+                    android:id="@+id/btn_check_availibilty"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:background="@color/colorPrimaryDark"

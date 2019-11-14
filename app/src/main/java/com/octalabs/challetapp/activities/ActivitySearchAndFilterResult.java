@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -66,11 +67,6 @@ public class ActivitySearchAndFilterResult extends AppCompatActivity implements 
         mList = new Gson().fromJson(getIntent().getExtras().getString("searchList"), new TypeToken<List<Chalet>>() {
         }.getType());
 
-
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        adapterChalets = new AdapterChalets(this, mList);
-        recyclerView.setAdapter(adapterChalets);
-
         mBinding.imgFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,6 +90,16 @@ public class ActivitySearchAndFilterResult extends AppCompatActivity implements 
             }
         });
 
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        adapterChalets = new AdapterChalets(this, mList);
+        recyclerView.setAdapter(adapterChalets);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                adapterChalets.setMlist(mList);
+
+            }
+        } , 1000);
 
     }
 
