@@ -20,6 +20,7 @@ public class Constants {
     public static String PAYMENT_DETAILS = "PAYMENT_DETAILS";
     public static String CHALET_OR_MARRAIGE_ID = "CHALET_OR_MARRAIGE_ID";
     public static String BOOKING_HISTORY_DETAILS = "BOOKING_HISTORY_DETAILS";
+    public static String NUM_OF_BOOKING_DAYS = "NUM_OF_BOOKING_DAYS";
 
 
 

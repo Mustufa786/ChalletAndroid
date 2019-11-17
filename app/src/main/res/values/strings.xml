@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Challet</string>
+    <string name="app_name">Farhty</string>
     <string name="user_name">User Name</string>
     <string name="password">Password</string>
     <string name="forgot_password"><u>Forgot Password</u></string>
@@ -86,4 +86,5 @@
     <string name="chalet_for">Chalet For</string>
     <string name="property_type">Property Type</string>
     <string name="comment">Comment...</string>
+    <string name="select_date">Select Date</string>
 </resources>

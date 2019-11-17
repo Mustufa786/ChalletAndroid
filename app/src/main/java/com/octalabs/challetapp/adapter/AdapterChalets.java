@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.activities.ActivityDetails;
+import com.octalabs.challetapp.activities.ActivitySearchAndFilterResult;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
 import com.octalabs.challetapp.models.ModelChalet;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
@@ -24,10 +25,18 @@ import java.util.ArrayList;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 import static com.octalabs.challetapp.utils.Constants.CHALET_OR_MARRAIGE_ID;
+import static com.octalabs.challetapp.utils.Constants.NUM_OF_BOOKING_DAYS;
 
 public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHolder> {
 
     private final Activity activity;
+    private int numOfBookingDays = 1;
+
+    public AdapterChalets(Activity activitySearchAndFilterResult, ArrayList<Chalet> mList, int numOfBookingDays) {
+        this.activity = activitySearchAndFilterResult;
+        this.mlist = mList;
+        this.numOfBookingDays = numOfBookingDays;
+    }
 
     public void setMlist(ArrayList<Chalet> mlist) {
         this.mlist = mlist;
@@ -56,10 +65,12 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
         }
         holder.textChaletName.setText(item.getName());
         holder.textLocation.setText(item.getLocation());
-        holder.textPrice.setText(item.getPricePerNight() + " Riyal");
+        int totalPrice = item.getPricePerNight() * numOfBookingDays;
+        holder.textPrice.setText("Booking For " + numOfBookingDays + " Days : " + totalPrice + " Riyal");
         if (item.getRating() > 0) {
             holder.ratingBar.setRating(item.getRating() + 0f);
         }
+
 
         if (item.getFor() != null) {
             if (item.getFor().contains("Singles")) {
@@ -104,6 +115,7 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
                 public void onClick(View view) {
                     Intent intent = new Intent(activity, ActivityDetails.class);
                     intent.putExtra(CHALET_OR_MARRAIGE_ID, mlist.get(getAdapterPosition()).getId());
+                    intent.putExtra(NUM_OF_BOOKING_DAYS, numOfBookingDays);
 
                     activity.startActivity(intent);
                 }

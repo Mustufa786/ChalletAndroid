@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
@@ -28,6 +29,7 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
 
 
+        Fresco.initialize(this);
         RetrofitInstance.createRetrofitInstance();
 
         new Handler().postDelayed(new Runnable() {

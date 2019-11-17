@@ -85,7 +85,7 @@ public class UserProfileFragment extends Fragment {
     private String stateID;
     private String cityID;
     private String filePath;
-    private static final int RC_CAMERA_AND_STORAGE = 1234;
+        private static final int RC_CAMERA_AND_STORAGE = 1234;
 
     EasyImage easyImage;
     File fileTemp;

@@ -86,5 +86,6 @@
     <string name="chalet_for">الشالية لـ </string>
     <string name="property_type">انواع الادوات</string>
     <string name="comment">تعليق…</string>
+    <string name="select_date">Select Date</string>
 
 </resources>

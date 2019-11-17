@@ -12,6 +12,7 @@ import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
 import com.squareup.picasso.Picasso;
+import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +35,23 @@ public class AdapterDetailPicture extends RecyclerView.Adapter<AdapterDetailPict
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterDetailPicture.ViewHolder holder, int position) {
-        Picasso.get().load(RetrofitInstance.BASE_IMG_CHALET_URL + mlist.get(position)).resize(120 , 120).into(holder.mImg);
+    public void onBindViewHolder(@NonNull AdapterDetailPicture.ViewHolder holder, final int position) {
+        Picasso.get().load(RetrofitInstance.BASE_IMG_CHALET_URL + mlist.get(position)).resize(120, 120).into(holder.mImg);
+
+        holder.mImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<String> urls = new ArrayList<>();
+                for (int i = 0; i < mlist.size(); i++) {
+                    urls.add(RetrofitInstance.BASE_IMG_CHALET_URL + mlist.get(i));
+                }
+
+                new ImageViewer.Builder(activity, urls)
+                        .setStartPosition(position)
+                        .setBackgroundColorRes(R.color.black)
+                        .show();
+            }
+        });
     }
 
     @Override
@@ -49,6 +65,7 @@ public class AdapterDetailPicture extends RecyclerView.Adapter<AdapterDetailPict
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mImg = itemView.findViewById(R.id.img_detail_picture);
+
 
         }
     }

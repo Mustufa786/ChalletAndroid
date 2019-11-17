@@ -8,8 +8,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,8 +20,8 @@
                 android:id="@+id/rv_details"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:orientation="horizontal"
                 android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <LinearLayout
@@ -45,12 +45,10 @@
 
                 <me.zhanghai.android.materialratingbar.MaterialRatingBar
                     android:id="@+id/chalet_rating"
+                    style="@style/Widget.MaterialRatingBar.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:stepSize="0.01"
-                    style="@style/Widget.MaterialRatingBar.RatingBar.Small" />
-
-
+                    android:stepSize="0.01" />
 
 
                 <TextView
@@ -74,7 +72,7 @@
                 android:id="@+id/map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"/>
+                android:layout_height="200dp" />
 
             <TextView
                 android:id="@+id/chalet_address"
@@ -170,11 +168,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_amenities"
                     android:layout_width="match_parent"
-                    android:nestedScrollingEnabled="false"
                     android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -196,6 +195,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/layout_check_out"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -221,23 +221,14 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:text="@string/time"
+                        android:text="@string/select_date"
                         android:textSize="13sp" />
 
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:visibility="gone"
-
-                        android:text="Date : 12/11/2019"
-                        android:textSize="13sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_check_in"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -263,19 +254,9 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:text="@string/time"
+                        android:text="@string/select_date"
                         android:textSize="13sp" />
 
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="Date : 12/11/2019"
-                        android:visibility="gone"
-
-                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -302,8 +283,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_detail_review"
                 android:layout_width="match_parent"
-                android:nestedScrollingEnabled="false"
                 android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -369,35 +350,50 @@
 
 
                 <ImageView
+                    android:id="@+id/img_facebook"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/facebookicon" />
+                    android:src="@drawable/facebookicon"
+
+                    android:visibility="gone" />
 
                 <ImageView
+                    android:id="@+id/img_whats_app"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/whatsappicon" />
+                    android:src="@drawable/whatsappicon"
+
+                    android:visibility="gone" />
 
                 <ImageView
+                    android:id="@+id/img_sms_icon"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/smsicon" />
+                    android:src="@drawable/smsicon"
+
+                    android:visibility="gone" />
 
                 <ImageView
+                    android:id="@+id/img_twitter_icon"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/twittericon" />
+                    android:src="@drawable/twittericon"
+
+                    android:visibility="gone" />
 
 
                 <ImageView
+                    android:id="@+id/img_email_icon"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/emailicon" />
+                    android:src="@drawable/emailicon"
+
+                    android:visibility="gone" />
 
 
             </LinearLayout>

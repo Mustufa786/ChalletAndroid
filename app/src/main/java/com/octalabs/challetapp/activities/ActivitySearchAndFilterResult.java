@@ -43,15 +43,18 @@ public class ActivitySearchAndFilterResult extends AppCompatActivity implements 
     ActivitySearchAndFilterResultBinding mBinding;
     private final static int REQUEST_FILTER = 256;
     private boolean isMapShowing;
+    int numOfBookingDays = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_search_and_filter_result);
 
+        if (getIntent().getExtras().containsKey("numOfDays")) {
+            numOfBookingDays = getIntent().getExtras().getInt("numOfDays");
+        }
 
         initializeMap();
-
 
 
         mBinding.btnBack.setOnClickListener(new View.OnClickListener() {
@@ -91,15 +94,10 @@ public class ActivitySearchAndFilterResult extends AppCompatActivity implements 
         });
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        adapterChalets = new AdapterChalets(this, mList);
+        adapterChalets = new AdapterChalets(this, mList , numOfBookingDays);
         recyclerView.setAdapter(adapterChalets);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                adapterChalets.setMlist(mList);
 
-            }
-        } , 1000);
+
 
     }
 

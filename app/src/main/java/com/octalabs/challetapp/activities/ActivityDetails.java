@@ -7,18 +7,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.app.Dialog;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -51,21 +59,27 @@ import com.octalabs.challetapp.models.ModelLogin.LoginModel;
 import com.octalabs.challetapp.retrofit.ApiResponce;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
+import com.octalabs.challetapp.utils.FusedLocationTracker;
 import com.octalabs.challetapp.utils.Helper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -73,8 +87,9 @@ import retrofit2.Response;
 import static com.octalabs.challetapp.utils.Helper.displayDialog;
 import static java.lang.Double.valueOf;
 
-public class ActivityDetails extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
+public class ActivityDetails extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback, FusedLocationTracker.IOnUpdateListener {
 
+    private static final int ALLOW_OPEN_LOCATION = 222;
     KProgressHUD hud;
 
     ActivityDetailsBinding mBinding;
@@ -95,7 +110,12 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
     private int ADD_REVIEW_REQUEST = 123;
     private int ADD_TO_CART_REQUEST = 124;
     private int ADD_TO_WISHLIST_REQUEST = 125;
-
+    FusedLocationTracker mFusedLocationTracker;
+    private static final int RC_LOCATION_PERMISSION = 12345;
+    ProgressDialog mProgressDialog;
+    Calendar myCalendar;
+    boolean isCheckInDate;
+    long myDateCheckIn, myDateCheckOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +157,22 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
         mRatingBar = findViewById(R.id.chalet_rating);
 
 
+        mBinding.layoutCheckIn.setOnClickListener(this);
+        mBinding.layoutCheckOut.setOnClickListener(this);
+
+
+        myCalendar = Calendar.getInstance();
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        myDateCheckIn = myCalendar.getTimeInMillis();
+        mBinding.timeCheckIn.setText(sdf.format(myCalendar.getTime()));
+
+
+        myCalendar.add(Calendar.DAY_OF_MONTH, 1);
+        myDateCheckOut = myCalendar.getTimeInMillis();
+        mBinding.timeCheckOut.setText(sdf.format(myCalendar.getTime()));
+
+
     }
 
     private void getDetails(String id) {
@@ -159,7 +195,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
                         AdapterDetailReviews adapterReview = new AdapterDetailReviews(ActivityDetails.this, model.getData().getReviews());
                         mRvReview.setAdapter(adapterReview);
-                        if (model.getData().getLatitude() != null && !model.getData().getLatitude().equalsIgnoreCase(""))  {
+                        if (model.getData().getLatitude() != null && !model.getData().getLatitude().equalsIgnoreCase("")) {
                             latLng = new LatLng(valueOf(model.getData().getLatitude()), valueOf(model.getData().getLongitude()));
 
                         }
@@ -178,6 +214,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                         setTextAction(Objects.requireNonNull(getSupportActionBar()), model.getData().getName() + "");
                         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
                     } else {
                         displayDialog("Alert", model.getMessage(), ActivityDetails.this);
                     }
@@ -248,8 +285,61 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
 
                 break;
+
+
+            case R.id.layout_check_in:
+                isCheckInDate = true;
+                myCalendar = Calendar.getInstance();
+                myCalendar.add(Calendar.DAY_OF_MONTH, 1);
+                new DatePickerDialog(ActivityDetails.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                break;
+
+
+            case R.id.layout_check_out:
+                isCheckInDate = false;
+                myCalendar = Calendar.getInstance();
+                new DatePickerDialog(ActivityDetails.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                break;
         }
     }
+
+
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            // TODO Auto-generated method stub
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+            updateLabel();
+        }
+
+    };
+
+    private void updateLabel() {
+
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        if (isCheckInDate) {
+            mBinding.timeCheckIn.setText(sdf.format(myCalendar.getTime()));
+            myDateCheckIn = myCalendar.getTimeInMillis();
+
+        } else {
+            mBinding.timeCheckOut.setText(sdf.format(myCalendar.getTime()));
+            myDateCheckOut = myCalendar.getTimeInMillis();
+
+        }
+
+    }
+
 
     private void openReviewDialogBox() {
         LayoutInflater factory = LayoutInflater.from(this);
@@ -455,6 +545,18 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
             googleMap.getUiSettings().setAllGesturesEnabled(false);
 
+            googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    if (chaletDetails.getLatitude() != null && chaletDetails.getLongitude() != null) {
+                        checkPermissionsAndExecute();
+                    } else {
+                        Toast.makeText(ActivityDetails.this, "Location Not Available For The Item", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+
         }
     }
 
@@ -469,8 +571,79 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                 addToLocalCart();
             } else if (requestCode == ADD_TO_WISHLIST_REQUEST) {
                 addToWishList();
+            } else if (requestCode == ALLOW_OPEN_LOCATION) {
+                if (resultCode == RESULT_OK) {
+                    captureUserLocation();
+                }
             }
 
+        }
+    }
+
+
+    @AfterPermissionGranted(RC_LOCATION_PERMISSION)
+    private void checkPermissionsAndExecute() {
+        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(ActivityDetails.this, perms)) {
+            captureUserLocation();
+        } else {
+            methodRequiresTwoPermission();
+        }
+    }
+
+    private void buildAlertMessageNoGps() {
+        Toast.makeText(this, "Please enable GPS", Toast.LENGTH_SHORT).show();
+        startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), ALLOW_OPEN_LOCATION);
+    }
+
+    private void captureUserLocation() {
+
+        final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!Objects.requireNonNull(manager).isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+            return;
+        }
+
+
+        mProgressDialog = new ProgressDialog(ActivityDetails.this);
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setTitle("Farhty");
+        mProgressDialog.setMessage("Please wait while we are working on fetching your location");
+        mProgressDialog.show();
+        Handler h = new Handler();
+        h.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mFusedLocationTracker == null) {
+                    mFusedLocationTracker = new FusedLocationTracker(ActivityDetails.this, ActivityDetails.this);
+                }
+                mFusedLocationTracker.startLocationUpdates();
+            }
+        }, 500);
+
+    }
+
+    @AfterPermissionGranted(RC_LOCATION_PERMISSION)
+    private void methodRequiresTwoPermission() {
+        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(ActivityDetails.this, perms)) {
+            captureUserLocation();
+
+        } else {
+            EasyPermissions.requestPermissions(this, "Farhty would like to get your location to show directions on google map",
+                    RC_LOCATION_PERMISSION, perms);
+        }
+    }
+
+    @Override
+    public void onLocationUpdate(Location location) {
+        mFusedLocationTracker.stopLocationUpdates();
+        if (mProgressDialog.isShowing() && mProgressDialog != null) {
+            mProgressDialog.dismiss();
+            String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f", location.getLatitude(), location.getLongitude(), Double.parseDouble(chaletDetails.getLatitude()), Double.parseDouble(chaletDetails.getLongitude()));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+            intent.setPackage("com.google.android.apps.maps");
+            startActivity(intent);
         }
     }
 }

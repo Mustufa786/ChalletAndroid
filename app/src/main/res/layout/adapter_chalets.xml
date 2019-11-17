@@ -133,7 +133,7 @@
                     android:layout_weight="1"
                     android:text="600 Riyal"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
 
                 <Button
                     android:id="@+id/btn_check_availibilty"

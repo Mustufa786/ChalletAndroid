@@ -71,8 +71,29 @@ public class ChaletDetails {
     private Integer v;
     @SerializedName("reviews")
     @Expose
-
     private List<Review> reviews = null;
+    @SerializedName("whatsapp")
+    @Expose
+    private String whatsapp;
+
+
+    @SerializedName("facebook")
+    @Expose
+    private String facebook;
+
+
+    @SerializedName("twitter")
+    @Expose
+    private String twitter;
+
+
+    @SerializedName("email")
+    @Expose
+    private String email;
+
+    public ChaletDetails() {
+    }
+
 
     public String getId() {
         return id;
@@ -242,4 +263,35 @@ public class ChaletDetails {
         this.reviews = reviews;
     }
 
+    public String getWhatsapp() {
+        return whatsapp;
+    }
+
+    public void setWhatsapp(String whatsapp) {
+        this.whatsapp = whatsapp;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
