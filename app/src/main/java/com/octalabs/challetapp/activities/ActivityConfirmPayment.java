@@ -160,8 +160,8 @@ public class ActivityConfirmPayment extends AppCompatActivity {
             for (int i = 0; i < checkoutList.size(); i++) {
                 bookingIdStr += bookingIdStr + checkoutList.get(i).getId() + ",";
                 JSONObject dateObject = new JSONObject();
-                dateObject.put("bookingFrom", "2019-10-16T07:56:37.861Z");
-                dateObject.put("bookingTo", "2019-10-16T07:56:37.861Z");
+                dateObject.put("bookingFrom", checkoutList.get(i).getCheckIn());
+                dateObject.put("bookingTo", checkoutList.get(i).getCheckOut());
                 dateObject.put("bookingItemId", checkoutList.get(i).getId());
                 jsonArray.put(dateObject);
 

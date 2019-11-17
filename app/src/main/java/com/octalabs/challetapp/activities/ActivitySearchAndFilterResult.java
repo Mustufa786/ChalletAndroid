@@ -25,7 +25,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.adapter.AdapterChalets;
+import com.octalabs.challetapp.adapter.AdapterSearchResults;
 import com.octalabs.challetapp.databinding.ActivitySearchAndFilterResultBinding;
+import com.octalabs.challetapp.fragments.FragmentSearch;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
 import com.octalabs.challetapp.models.ModelDetails.ChaletDetails;
 import com.octalabs.challetapp.utils.Constants;
@@ -34,25 +36,24 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.octalabs.challetapp.utils.Constants.CHALET_OR_MARRAIGE_ID;
+import static com.octalabs.challetapp.utils.Constants.NUM_OF_BOOKING_DAYS;
+
 public class ActivitySearchAndFilterResult extends AppCompatActivity implements OnMapReadyCallback {
 
     ArrayList<Chalet> mList;
     private GoogleMap mMap;
-    AdapterChalets adapterChalets;
+    AdapterSearchResults adapterChalets;
 
     ActivitySearchAndFilterResultBinding mBinding;
     private final static int REQUEST_FILTER = 256;
     private boolean isMapShowing;
-    int numOfBookingDays = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_search_and_filter_result);
 
-        if (getIntent().getExtras().containsKey("numOfDays")) {
-            numOfBookingDays = getIntent().getExtras().getInt("numOfDays");
-        }
 
         initializeMap();
 
@@ -94,9 +95,15 @@ public class ActivitySearchAndFilterResult extends AppCompatActivity implements 
         });
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        adapterChalets = new AdapterChalets(this, mList , numOfBookingDays);
+        adapterChalets = new AdapterSearchResults(this, mList, FragmentSearch.noOfDays, new AdapterSearchResults.onItemClickListener() {
+            @Override
+            public void onItemClicked(String id) {
+                Intent intent = new Intent(ActivitySearchAndFilterResult.this, ActivityDetails.class);
+                intent.putExtra(CHALET_OR_MARRAIGE_ID, id);
+                startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(adapterChalets);
-
 
 
     }

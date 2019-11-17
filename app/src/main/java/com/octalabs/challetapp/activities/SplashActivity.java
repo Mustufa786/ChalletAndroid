@@ -2,6 +2,7 @@ package com.octalabs.challetapp.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +32,17 @@ public class SplashActivity extends Activity {
 
         Fresco.initialize(this);
         RetrofitInstance.createRetrofitInstance();
+
+        SharedPreferences settings = getSharedPreferences("main", MODE_PRIVATE);
+        boolean firstRun = settings.getBoolean("firstRun", false);
+        if (!firstRun) {
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("firstRun", true);
+            if (settings.contains(Constants.user_profile)) {
+                editor.remove(Constants.user_profile);
+            }
+            editor.apply();
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override

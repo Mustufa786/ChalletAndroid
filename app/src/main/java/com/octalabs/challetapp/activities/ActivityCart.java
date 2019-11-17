@@ -50,7 +50,7 @@ public class ActivityCart extends AppCompatActivity {
         }.getType());
 
 
-        AdapterCart adapterCart = new AdapterCart(this, checkoutList);
+        AdapterCart adapterCart = new AdapterCart(this, checkoutList );
         mRvCart.setAdapter(adapterCart);
         setTextAction(getSupportActionBar(), getResources().getString(R.string.cart));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

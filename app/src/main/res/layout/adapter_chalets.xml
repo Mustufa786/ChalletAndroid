@@ -32,6 +32,7 @@
                 android:id="@+id/text_chalet_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="start"
                 android:text="Chalet Name"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
@@ -43,7 +44,7 @@
                 android:drawableStart="@drawable/ic_location"
                 android:drawablePadding="10dp"
                 android:ellipsize="end"
-                android:gravity="center_vertical"
+                android:gravity="start|center_vertical"
                 android:maxLines="2"
                 android:text="Sample Location"
                 android:textColor="@color/black"
@@ -53,13 +54,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:gravity="start"
                 android:orientation="horizontal">
 
                 <me.zhanghai.android.materialratingbar.MaterialRatingBar
                     android:id="@+id/rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:stepSize="0.01"
+                    android:stepSize="0.1"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:max="5"
+                    app:mrb_indeterminateTint="@color/colorPrimary"
+                    app:mrb_progressTint="@color/colorPrimary"
                     style="@style/Widget.MaterialRatingBar.RatingBar.Small" />
 
 
@@ -135,19 +142,22 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="10sp" />
 
-                <Button
-                    android:id="@+id/btn_check_availibilty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:background="@color/colorPrimaryDark"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:text="Check Availability"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="10sp" />
+
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_check_availibilty"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@color/colorPrimaryDark"
+                android:paddingStart="10dp"
+                android:layout_marginTop="5dp"
+                android:paddingEnd="10dp"
+                android:text="Check Availability"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
 
         </LinearLayout>
 

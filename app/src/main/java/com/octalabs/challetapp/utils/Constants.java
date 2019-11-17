@@ -21,6 +21,12 @@ public class Constants {
     public static String CHALET_OR_MARRAIGE_ID = "CHALET_OR_MARRAIGE_ID";
     public static String BOOKING_HISTORY_DETAILS = "BOOKING_HISTORY_DETAILS";
     public static String NUM_OF_BOOKING_DAYS = "NUM_OF_BOOKING_DAYS";
+    public static String CHECK_IN_DATE_TIME_STAMP = "CHECK_IN_DATE_TIME_STAMP";
+    public static String CHECK_OUT_DATE_TIME_STAMP = "CHECK_OUT_DATE_TIME_STAMP";
+
+    public static String CHECK_IN_DATE_STRING = "CHECK_IN_DATE_STRING";
+    public static String CHECK_OUT_DATE_STRING = "CHECK_OUT_DATE_STRING";
+
 
 
 

@@ -48,6 +48,7 @@ import com.octalabs.challetapp.adapter.AdapterDetailPicture;
 import com.octalabs.challetapp.adapter.AdapterDetailReviews;
 import com.octalabs.challetapp.adapter.AdapterDetailsAmenities;
 import com.octalabs.challetapp.databinding.ActivityDetailsBinding;
+import com.octalabs.challetapp.fragments.FragmentSearch;
 import com.octalabs.challetapp.models.ModelAddReview;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
@@ -116,6 +117,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
     Calendar myCalendar;
     boolean isCheckInDate;
     long myDateCheckIn, myDateCheckOut;
+    private Integer numOfBookingDays = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,16 +163,28 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
         mBinding.layoutCheckOut.setOnClickListener(this);
 
 
-        myCalendar = Calendar.getInstance();
-        String myFormat = "yyyy-MM-dd"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        myDateCheckIn = myCalendar.getTimeInMillis();
-        mBinding.timeCheckIn.setText(sdf.format(myCalendar.getTime()));
+        if (FragmentSearch.checkInDateStr != null) {
+            mBinding.timeCheckIn.setText(FragmentSearch.checkInDateStr);
+            mBinding.timeCheckOut.setText(FragmentSearch.checkOutDateStr);
+            myDateCheckIn = FragmentSearch.checkInStr;
+            myDateCheckOut = FragmentSearch.checkoutStr;
+            numOfBookingDays = FragmentSearch.noOfDays;
+            mBinding.textPrice.setText("Price for " + numOfBookingDays + " night");
 
 
-        myCalendar.add(Calendar.DAY_OF_MONTH, 1);
-        myDateCheckOut = myCalendar.getTimeInMillis();
-        mBinding.timeCheckOut.setText(sdf.format(myCalendar.getTime()));
+        } else {
+            myCalendar = Calendar.getInstance();
+            String myFormat = "dd-MMM-yyyy"; //In which you need put here
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+            myDateCheckIn = myCalendar.getTimeInMillis();
+            mBinding.timeCheckIn.setText(sdf.format(myCalendar.getTime()));
+
+
+            myCalendar.add(Calendar.DAY_OF_MONTH, 1);
+            myDateCheckOut = myCalendar.getTimeInMillis();
+            mBinding.timeCheckOut.setText(sdf.format(myCalendar.getTime()));
+
+        }
 
 
     }
@@ -200,11 +214,10 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
                         }
                         mapFragment.getMapAsync(ActivityDetails.this);
-                        mPrice.setText(model.getData().getPricePerNight() + " Riyal");
+                        int totalPrice = model.getData().getPricePerNight() * numOfBookingDays;
+                        mPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
                         mAddress.setText(model.getData().getLocation() + "");
 
-                        mCheckIn.setText(Helper.parseDateToddMMyyyy("2019-01-01 " + model.getData().getCheckIn() + ""));
-                        mCheckOut.setText(Helper.parseDateToddMMyyyy("2019-01-01 " + model.getData().getCheckOut() + ""));
                         mName.setText(model.getData().getName() + "");
                         mTvRating.setText(model.getData().getRating() + "");
                         if (model.getData().getRating() > 0)
@@ -215,6 +228,22 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+
+                        if (model.getData().getWhatsapp() != null) {
+                            mBinding.imgWhatsApp.setVisibility(View.VISIBLE);
+                            mBinding.imgSmsIcon.setVisibility(View.VISIBLE);
+
+                        }
+
+                        if (model.getData().getFacebook() != null) {
+                            mBinding.imgFacebook.setVisibility(View.VISIBLE);
+                        }
+                        if (model.getData().getEmail() != null) {
+                            mBinding.imgEmailIcon.setVisibility(View.VISIBLE);
+                        }
+                        if (model.getData().getTwitter() != null) {
+                            mBinding.imgTwitterIcon.setVisibility(View.VISIBLE);
+                        }
                     } else {
                         displayDialog("Alert", model.getMessage(), ActivityDetails.this);
                     }
@@ -378,6 +407,8 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(ActivityDetails.this, "Item Already Added to Cart", Toast.LENGTH_SHORT).show();
 
         } else {
+            chaletDetails.setCheckIn(myDateCheckIn + "");
+            chaletDetails.setCheckOut(myDateCheckOut + "");
             checkoutList.add(chaletDetails);
             getSharedPreferences("main", Context.MODE_PRIVATE).edit().putString(Constants.USER_CART, new Gson().toJson(checkoutList)).apply();
 
@@ -583,7 +614,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
     @AfterPermissionGranted(RC_LOCATION_PERMISSION)
     private void checkPermissionsAndExecute() {
-        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
         if (EasyPermissions.hasPermissions(ActivityDetails.this, perms)) {
             captureUserLocation();
         } else {
@@ -625,7 +656,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
     @AfterPermissionGranted(RC_LOCATION_PERMISSION)
     private void methodRequiresTwoPermission() {
-        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        String[] perms = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
         if (EasyPermissions.hasPermissions(ActivityDetails.this, perms)) {
             captureUserLocation();
 

@@ -87,5 +87,6 @@
     <string name="property_type">انواع الادوات</string>
     <string name="comment">تعليق…</string>
     <string name="select_date">Select Date</string>
+    <string name="enter_city">أدخل المدينة</string>
 
 </resources>

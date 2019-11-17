@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 public class Review {
     @SerializedName("rating")
     @Expose
-    private Integer rating;
+    private float rating;
     @SerializedName("isActive")
     @Expose
     private Boolean isActive;
@@ -33,11 +33,11 @@ public class Review {
     @Expose
     private Integer v;
 
-    public Integer getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
