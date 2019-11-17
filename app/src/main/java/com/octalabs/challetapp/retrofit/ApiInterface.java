@@ -10,11 +10,13 @@ import com.octalabs.challetapp.models.ModelCity.CityModel;
 import com.octalabs.challetapp.models.ModelCountry.CountryModel;
 import com.octalabs.challetapp.models.ModelDetails.ModelChaletsDetails;
 import com.octalabs.challetapp.models.ModelLocation.LocationModel;
+import com.octalabs.challetapp.models.ModelLogin.CityId;
 import com.octalabs.challetapp.models.ModelLogin.LoginModel;
 import com.octalabs.challetapp.models.ModelRegister.RegisterModel;
 import com.octalabs.challetapp.models.ModelRegisterResponce;
 import com.octalabs.challetapp.models.ModelState.StateModel;
 import com.octalabs.challetapp.models.ModelWishlist.ModelWishlist;
+import com.octalabs.challetapp.models.modelseatchcity.ModelCityResponse;
 
 import java.util.HashMap;
 
@@ -70,6 +72,9 @@ public interface ApiInterface {
 
     @GET("location")
     Call<LocationModel> getAllLocations();
+
+    @GET("city")
+    Call<ModelCityResponse> getAllCities();
 
     @GET("state/{id}")
     Call<StateModel> getAllStates(@Path("id") String id);

@@ -60,6 +60,7 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
         if (item.getRating() > 0) {
             holder.ratingBar.setRating(item.getRating() + 0f);
         }
+//        holder.ratingBar.setRating(4);
 
         if (item.getFor() != null) {
             if (item.getFor().contains("Singles")) {
@@ -97,6 +98,7 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
             btnFamilies = itemView.findViewById(R.id.btn_families);
             btnOcassions = itemView.findViewById(R.id.btn_ocassion);
 
+            ratingBar.setNumStars(5);
 
             imgChalet = itemView.findViewById(R.id.img_chalet);
             itemView.setOnClickListener(new View.OnClickListener() {

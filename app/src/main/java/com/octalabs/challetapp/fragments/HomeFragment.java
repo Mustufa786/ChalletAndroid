@@ -222,6 +222,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
         mBtnchalet.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
         mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
         mBtnMarriageall.setTextColor(getActivity().getResources().getColor(R.color.white));
+        if (marraigeHallList == null) return;
         Collections.sort(marraigeHallList, new Comparator<Chalet>() {
             @Override
             public int compare(Chalet datum, Chalet t1) {
@@ -255,6 +256,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
         mBtnchalet.setTextColor(getActivity().getResources().getColor(R.color.white));
         mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
         mBtnMarriageall.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+        if (chaletArrayList == null) return;
         Collections.sort(chaletArrayList, new Comparator<Chalet>() {
             @Override
             public int compare(Chalet datum, Chalet t1) {
