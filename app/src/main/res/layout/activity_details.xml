@@ -37,7 +37,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Chalet Name"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -48,6 +48,8 @@
                     style="@style/Widget.MaterialRatingBar.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:isIndicator="true"
+
                     android:stepSize="0.01" />
 
 
@@ -61,7 +63,7 @@
                     android:gravity="center"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:text="4.0"
+                    android:text="0"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
@@ -84,7 +86,7 @@
                 android:drawableStart="@drawable/ic_location"
                 android:drawablePadding="10dp"
                 android:drawableTint="@color/red"
-                android:text="@string/building_111_abxc_street_xyz_road_2nd_ncommercial_area_dammam_saudi_arabia"
+                android:text=""
                 android:textColor="@color/colorPrimaryDark"
 
                 />
@@ -140,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:text="Rs 600"
+                    android:text=""
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp"
                     android:textStyle="bold" />

@@ -57,7 +57,7 @@ public class ActivitySearchAndFilterResult extends AppCompatActivity implements 
 
         initializeMap();
 
-
+        getSupportActionBar().hide();
         mBinding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

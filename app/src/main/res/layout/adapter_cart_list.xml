@@ -33,7 +33,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Chalet Name"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -45,7 +45,7 @@
                 android:drawablePadding="10dp"
 
                 android:gravity="center_vertical"
-                android:text="Sample Location"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
@@ -69,7 +69,7 @@
                     android:id="@+id/text_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1550 Riyal"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textStyle="normal" />
 

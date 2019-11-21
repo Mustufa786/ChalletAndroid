@@ -23,7 +23,6 @@
             android:name=".activities.LocationSelectionActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activities.ActivitySearchAndFilterResult"
-            android:theme="@style/Theme.Design.NoActionBar"
             android:screenOrientation="portrait" />
         <activity android:name=".activities.WebviewActivity" android:screenOrientation="portrait" />
         <activity android:name=".activities.ActivityBookingHistoryDetails" android:screenOrientation="portrait" />

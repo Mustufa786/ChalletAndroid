@@ -28,14 +28,18 @@
                     android:text="@string/rating"
                     android:textColor="@color/black" />
 
-
-                <RatingBar
+                <me.zhanghai.android.materialratingbar.MaterialRatingBar
                     android:id="@+id/chalet_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:stepSize="0.1"
                     android:numStars="5"
-                    android:saveEnabled="true" />
+                    android:max="5"
+                    android:layout_gravity="center"
+                    app:mrb_indeterminateTint="@color/colorPrimary"
+                    app:mrb_progressTint="@color/colorPrimary"
+                    />
+
 
                 <View
                     android:layout_width="match_parent"

@@ -51,7 +51,7 @@ public class AdapterSearchResults extends RecyclerView.Adapter<AdapterSearchResu
     @NonNull
     @Override
     public AdapterSearchResults.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new AdapterSearchResults.MyViewHolder(activity.getLayoutInflater().inflate(R.layout.adapter_chalets, parent, false));
+        return new AdapterSearchResults.MyViewHolder(activity.getLayoutInflater().inflate(R.layout.adapter_search_results, parent, false));
     }
 
     @Override
