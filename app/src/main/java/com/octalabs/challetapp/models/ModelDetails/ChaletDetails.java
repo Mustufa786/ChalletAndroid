@@ -16,7 +16,7 @@ public class ChaletDetails {
     private List<String> picture = null;
     @SerializedName("rating")
     @Expose
-    private Integer rating;
+    private float rating;
     @SerializedName("pricePerNight")
     @Expose
     private Integer pricePerNight;
@@ -111,11 +111,11 @@ public class ChaletDetails {
         this.picture = picture;
     }
 
-    public Integer getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 

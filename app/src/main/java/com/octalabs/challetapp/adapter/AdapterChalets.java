@@ -60,7 +60,7 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Chalet item = mlist.get(position);
         if (item.getPicture() != null && item.getPicture().size() > 0) {
-            Picasso.get().load(RetrofitInstance.BASE_IMG_CHALET_URL + item.getPicture().get(0)).resize(130 , 130).into(holder.imgChalet);
+            Picasso.get().load(RetrofitInstance.BASE_IMG_CHALET_URL + item.getPicture().get(0)).resize(130, 130).into(holder.imgChalet);
 
         }
         holder.textChaletName.setText(item.getName());
@@ -69,9 +69,13 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
         holder.textPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
         if (item.getRating() > 0) {
             holder.ratingBar.setRating(item.getRating() + 0f);
-        }
+        } else
+            holder.ratingBar.setRating(0);
 //        holder.ratingBar.setRating(4);
 
+        holder.btnSingles.setVisibility(View.GONE);
+        holder.btnFamilies.setVisibility(View.GONE);
+        holder.btnOcassions.setVisibility(View.GONE);
 
         if (item.getFor() != null) {
             if (item.getFor().contains("Singles")) {

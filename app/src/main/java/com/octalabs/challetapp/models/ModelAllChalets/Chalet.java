@@ -20,7 +20,7 @@ public class Chalet {
     private List<String> bookingType = null;
     @SerializedName("rating")
     @Expose
-    private Integer rating;
+    private float rating;
     @SerializedName("pricePerNight")
     @Expose
     private Integer pricePerNight;
@@ -99,11 +99,11 @@ public class Chalet {
         this.bookingType = bookingType;
     }
 
-    public Integer getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 

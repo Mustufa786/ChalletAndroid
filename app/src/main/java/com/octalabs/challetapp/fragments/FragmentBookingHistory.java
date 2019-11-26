@@ -51,8 +51,7 @@ public class FragmentBookingHistory extends Fragment {
     private RecyclerView mRvBookingHistory;
     KProgressHUD hud;
     AdapterBookingHistory mAdapter;
-
-
+    TextView textNoData;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,9 +65,11 @@ public class FragmentBookingHistory extends Fragment {
     }
 
     private void Init(View v) {
+        textNoData = v.findViewById(R.id.text_no_data);
         mRvBookingHistory = v.findViewById(R.id.rv_booking_history);
         mAdapter = new AdapterBookingHistory(getActivity(), new ArrayList<BookingHistoryItem>());
         mRvBookingHistory.setAdapter(mAdapter);
+
     }
 
     private void getAllWishListData() {
@@ -82,6 +83,9 @@ public class FragmentBookingHistory extends Fragment {
                     ModelBookingHistory model = response.body();
                     if (model.getSuccess()) {
                         ArrayList arrayList = new ArrayList<>(model.getData());
+                        if (arrayList.size() == 0) {
+                            textNoData.setVisibility(View.VISIBLE);
+                        }
                         mAdapter.setMlist(arrayList);
 
                     } else {

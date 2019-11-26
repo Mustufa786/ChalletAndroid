@@ -161,6 +161,11 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
         mBinding.layoutCheckIn.setOnClickListener(this);
         mBinding.layoutCheckOut.setOnClickListener(this);
+        mBinding.imgTwitterIcon.setOnClickListener(this);
+        mBinding.imgSmsIcon.setOnClickListener(this);
+        mBinding.imgFacebook.setOnClickListener(this);
+        mBinding.imgWhatsApp.setOnClickListener(this);
+        mBinding.imgEmailIcon.setOnClickListener(this);
 
 
         if (FragmentSearch.checkInDateStr != null) {
@@ -229,20 +234,23 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-                        if (model.getData().getWhatsapp() != null) {
-                            mBinding.imgWhatsApp.setVisibility(View.VISIBLE);
+                        if (model.getData().getWhatsapp() != null && !model.getData().getWhatsapp().equalsIgnoreCase("")) {
                             mBinding.imgSmsIcon.setVisibility(View.VISIBLE);
 
                         }
 
-                        if (model.getData().getFacebook() != null) {
+                        if (model.getData().getFacebook() != null && !model.getData().getFacebook().equalsIgnoreCase("")) {
                             mBinding.imgFacebook.setVisibility(View.VISIBLE);
+
+
                         }
-                        if (model.getData().getEmail() != null) {
+                        if (model.getData().getEmail() != null && !model.getData().getEmail().equalsIgnoreCase("")) {
                             mBinding.imgEmailIcon.setVisibility(View.VISIBLE);
                         }
-                        if (model.getData().getTwitter() != null) {
+                        if (model.getData().getTwitter() != null && !model.getData().getTwitter().equalsIgnoreCase("")) {
                             mBinding.imgTwitterIcon.setVisibility(View.VISIBLE);
+
+
                         }
                     } else {
                         displayDialog("Alert", model.getMessage(), ActivityDetails.this);
@@ -257,6 +265,12 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
         });
     }
 
+
+    public void composeSmsMessage(String message, String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + phoneNumber));
+        intent.putExtra("sms_body", "Message Here");
+        startActivity(intent);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -333,6 +347,35 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
+
+            case R.id.img_twitter_icon:
+                String url = "";
+                if (!chaletDetails.getTwitter().startsWith("https://") && !chaletDetails.getTwitter().startsWith("https://"))
+                    url = "https://" + chaletDetails.getTwitter();
+                else
+                    url = chaletDetails.getTwitter();
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(browserIntent);
+                break;
+
+
+            case R.id.img_facebook:
+                String facebookUrl = "";
+                if (!chaletDetails.getFacebook().startsWith("http://") && !chaletDetails.getFacebook().startsWith("https://"))
+                    facebookUrl = "http://" + chaletDetails.getFacebook();
+                else
+                    facebookUrl = chaletDetails.getFacebook();
+                Intent facebook = new Intent(Intent.ACTION_VIEW, Uri.parse(facebookUrl));
+                startActivity(facebook);
+                break;
+
+            case R.id.img_sms_icon:
+                composeSmsMessage("", chaletDetails.getWhatsapp());
+
+                break;
+            default:
+                break;
+
         }
     }
 

@@ -57,8 +57,15 @@ public class AdapterBookingHistoryDetails extends RecyclerView.Adapter<AdapterBo
         holder.textLocation.setText(item.getLocation());
         holder.textPrice.setText(item.getPricePerNight() + " Riyal");
         if (item.getRating() > 0) {
-            holder.ratingBar.setNumStars(item.getRating());
-        }
+            holder.ratingBar.setRating(item.getRating() + 0f);
+        } else
+            holder.ratingBar.setRating(0);
+//        holder.ratingBar.setRating(4);
+
+        holder.btnSingles.setVisibility(View.GONE);
+        holder.btnFamilies.setVisibility(View.GONE);
+        holder.btnOcassions.setVisibility(View.GONE);
+
         if (item.getFor() != null) {
             if (item.getFor().contains("Singles")) {
                 holder.btnSingles.setVisibility(View.VISIBLE);

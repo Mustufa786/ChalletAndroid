@@ -67,8 +67,13 @@ public class AdapterSearchResults extends RecyclerView.Adapter<AdapterSearchResu
         holder.textPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
         if (item.getRating() > 0) {
             holder.ratingBar.setRating(item.getRating() + 0f);
-        }
+        } else
+            holder.ratingBar.setRating(0);
 //        holder.ratingBar.setRating(4);
+
+        holder.btnSingles.setVisibility(View.GONE);
+        holder.btnFamilies.setVisibility(View.GONE);
+        holder.btnOcassions.setVisibility(View.GONE);
 
 
         if (item.getFor() != null) {

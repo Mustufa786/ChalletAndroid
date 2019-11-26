@@ -53,6 +53,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
@@ -73,7 +75,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
     private Calendar mCheckInn;
     public static int noOfDays = 1;
-    public static String checkInDateStr , checkOutDateStr;
+    public static String checkInDateStr, checkOutDateStr;
 
 
     @Nullable
@@ -135,10 +137,21 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     }
 
     private void setLocationData(ArrayList<ModelCity> locationArray) {
-        ModelCity datum = new ModelCity();
-        datum.setId("0");
-        datum.setName("Select Location");
-        locationArray.add(0, datum);
+
+        ModelCity city = new ModelCity();
+        city.setName("Dammam");
+
+
+        int index = -1;
+        for (int i = 0; i < locationArray.size(); i++) {
+            if (locationArray.get(i).getName().equalsIgnoreCase("Dammam")) {
+                index = i;
+                mLocationId = locationArray.get(i).getId();
+                break;
+            }
+        }
+
+
         mBinding.location.setThreshold(1);
         AdapterAutoCompelete adapter = new AdapterAutoCompelete(getActivity(), R.layout.adapter_auto_tv, locationArray);
         mBinding.location.setAdapter(adapter);
@@ -149,6 +162,10 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
                 mLocationId = obj.getId() + "";
             }
         });
+
+
+            mBinding.location.setText("Dammam");
+
 
 
     }
