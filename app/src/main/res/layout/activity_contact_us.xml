@@ -39,6 +39,7 @@
                     >
 
                     <EditText
+                        android:id="@+id/input_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"
@@ -63,6 +64,7 @@
 
 
                 <EditText
+                    android:id="@+id/input_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lines="10"

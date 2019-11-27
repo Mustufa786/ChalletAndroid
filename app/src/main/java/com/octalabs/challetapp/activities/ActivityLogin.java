@@ -1,15 +1,21 @@
 package com.octalabs.challetapp.activities;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
@@ -25,6 +31,7 @@ import org.json.JSONObject;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,6 +46,7 @@ public class ActivityLogin extends Activity {
     EditText inputEmail, inputPassowd;
     KProgressHUD hud;
     ImageView imgClose;
+    TextView textForgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +79,50 @@ public class ActivityLogin extends Activity {
 
             }
         });
+
+        textForgotPassword = findViewById(R.id.text_forgot_password);
+        textForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(ActivityLogin.this);
+                    final EditText edittext = new EditText(ActivityLogin.this);
+                    edittext.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+//                    alert.setMessage("Enter your email address . We will send the further instructions on your email");
+                    alert.setTitle("Enter Your Email Address");
+
+                    alert.setView(edittext);
+
+                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            //What ever you want to do with the value
+                            Editable YouEditTextValue = edittext.getText();
+                            if (Helper.isValidEmail(YouEditTextValue)) {
+                                forgotPassword(YouEditTextValue.toString());
+                            } else
+                                Toast.makeText(ActivityLogin.this, "Please Enter Correct Email Address ", Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    });
+
+                    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // what ever you want to do with No option.
+                            dialog.dismiss();
+                        }
+                    });
+
+                    alert.show();
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
     }
 
     private void loginUser() {
@@ -145,5 +197,47 @@ public class ActivityLogin extends Activity {
         }
 
 
+    }
+
+
+    private void forgotPassword(String youEditTextValue) {
+        if (!youEditTextValue.equalsIgnoreCase("")) {
+            try {
+                JSONObject object = new JSONObject();
+                object.put("email", youEditTextValue);
+                RequestBody mBody = RequestBody.create(MediaType.parse("application/json"), object.toString());
+                hud.show();
+                Call<ResponseBody> call = RetrofitInstance.service.forgotPassword(mBody, Helper.getJsonHeader());
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        try {
+                            hud.dismiss();
+                            if (response != null) {
+                                if (response.body() != null) {
+                                    JSONObject model = new JSONObject(response.body().string());
+
+                                    displayDialog("Alert", "Email has been sent with further instructions on your email address", ActivityLogin.this);
+                                } else {
+                                    Toast.makeText(ActivityLogin.this, "Some Error Occured", Toast.LENGTH_SHORT).show();
+//                                    displayDialog("Alert", "Invalid Username or Password", LoginActivity.this);
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        hud.dismiss();
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

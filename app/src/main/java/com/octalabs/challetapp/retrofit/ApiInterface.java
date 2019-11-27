@@ -115,4 +115,12 @@ public interface ApiInterface {
     Call<ModelBookingHistory> getBookingHistory(@HeaderMap HashMap<String, String> hashMap);
 
 
+    @POST("contact")
+    Call<ResponseBody> contactUs(@Body RequestBody body, @HeaderMap HashMap<String, String> hashMap);
+
+
+    @POST("auth/forget")
+    Call<ResponseBody> forgotPassword(@Body RequestBody body,
+                                      @HeaderMap HashMap<String, String> hashMap);
+
 }
