@@ -73,12 +73,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-
         initializeMap();
-
-
         Init(binding.getRoot());
         hud = KProgressHUD.create(getActivity()).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
         getAllChalets();
@@ -88,8 +84,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
                 startActivityForResult(new Intent(getActivity(), ActivityFilter.class), REQUEST_FILTER);
             }
         });
-
-
         return binding.getRoot();
     }
 

@@ -123,4 +123,9 @@ public interface ApiInterface {
     Call<ResponseBody> forgotPassword(@Body RequestBody body,
                                       @HeaderMap HashMap<String, String> hashMap);
 
+
+    @POST("checkout/check")
+    Call<ResponseBody> checkForAvailibility(@Body RequestBody body,
+                                            @HeaderMap HashMap<String, String> hashMap);
+
 }
