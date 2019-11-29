@@ -1,26 +1,17 @@
 package com.octalabs.challetapp.activities;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.app.Dialog;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,15 +24,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.adapter.AdapterDetailPicture;
@@ -50,13 +47,8 @@ import com.octalabs.challetapp.adapter.AdapterDetailsAmenities;
 import com.octalabs.challetapp.databinding.ActivityDetailsBinding;
 import com.octalabs.challetapp.fragments.FragmentSearch;
 import com.octalabs.challetapp.models.ModelAddReview;
-import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
-import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
-import com.octalabs.challetapp.models.ModelDetails.AmenityId;
 import com.octalabs.challetapp.models.ModelDetails.ChaletDetails;
-import com.octalabs.challetapp.models.ModelChangePassword;
 import com.octalabs.challetapp.models.ModelDetails.ModelChaletsDetails;
-import com.octalabs.challetapp.models.ModelLogin.LoginModel;
 import com.octalabs.challetapp.retrofit.ApiResponce;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
@@ -236,6 +228,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
                         if (model.getData().getWhatsapp() != null && !model.getData().getWhatsapp().equalsIgnoreCase("")) {
                             mBinding.imgSmsIcon.setVisibility(View.VISIBLE);
+                            mBinding.imgWhatsApp.setVisibility(View.VISIBLE);
 
                         }
 
@@ -372,6 +365,14 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
             case R.id.img_sms_icon:
                 composeSmsMessage("", chaletDetails.getWhatsapp());
 
+                break;
+
+
+            case R.id.img_whats_app:
+                Uri uri = Uri.parse("smsto:" + chaletDetails.getWhatsapp());
+                Intent i = new Intent(Intent.ACTION_SENDTO, uri);
+                i.setPackage("com.whatsapp");
+                startActivity(Intent.createChooser(i, ""));
                 break;
             default:
                 break;
