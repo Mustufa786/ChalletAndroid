@@ -7,11 +7,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,6 +49,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -202,7 +208,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
                 break;
 
             case R.id.btn_sort:
-                sortData();
+                openSortDialog();
                 break;
 
             default:
@@ -279,44 +285,100 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
         }
     }
 
-    private void sortData() {
-        if (Helper.hasInternetConnection(getActivity())) {
-            isAscendingOrder = !isAscendingOrder;
+    private void sortData(String sortType) {
 
-        } else {
-            Toast.makeText(getActivity(), "Check your internet connection for filter", Toast.LENGTH_SHORT).show();
-            return;
-
-        }
-        if (isChaletTab) {
-            Collections.sort(chaletArrayList, new Comparator<Chalet>() {
-                @Override
-                public int compare(Chalet datum, Chalet t1) {
-                    return datum.getId().compareToIgnoreCase(t1.getId());
+        switch (sortType) {
+            case "price":
+                if (isChaletTab) {
+                    Collections.sort(chaletArrayList, new Comparator<Chalet>() {
+                        @Override
+                        public int compare(Chalet datum, Chalet t1) {
+                            return datum.getPricePerNight().compareTo(t1.getPricePerNight());
+                        }
+                    });
+                    adapterChalets.setMlist(chaletArrayList);
+                } else {
+                    Collections.sort(marraigeHallList, new Comparator<Chalet>() {
+                        @Override
+                        public int compare(Chalet datum, Chalet t1) {
+                            return datum.getPricePerNight().compareTo(t1.getPricePerNight());
+                        }
+                    });
+                    adapterMarriageHall.setMlist(marraigeHallList);
                 }
-            });
+                break;
 
-            if (isAscendingOrder) {
-                adapterChalets.setMlist(chaletArrayList);
-            } else {
-                Collections.reverse(chaletArrayList);
-                adapterChalets.setMlist(chaletArrayList);
-            }
-        } else {
-            Collections.sort(marraigeHallList, new Comparator<Chalet>() {
-                @Override
-                public int compare(Chalet datum, Chalet t1) {
-                    return datum.getId().compareToIgnoreCase(t1.getId());
+            case "rating":
+                if (isChaletTab) {
+                    Collections.sort(chaletArrayList, new Comparator<Chalet>() {
+                        @Override
+                        public int compare(Chalet datum, Chalet t1) {
+                            return Float.compare(datum.getRating(), t1.getRating());
+                        }
+                    });
+                    Collections.reverse(chaletArrayList);
+                    adapterChalets.setMlist(chaletArrayList);
+                } else {
+                    Collections.sort(marraigeHallList, new Comparator<Chalet>() {
+                        @Override
+                        public int compare(Chalet datum, Chalet t1) {
+                            return Float.compare(datum.getRating(), t1.getRating());
+                        }
+                    });
+                    Collections.reverse(marraigeHallList);
+                    adapterMarriageHall.setMlist(marraigeHallList);
                 }
-            });
+                break;
 
-            if (isAscendingOrder) {
-                adapterMarriageHall.setMlist(marraigeHallList);
-            } else {
-                Collections.reverse(marraigeHallList);
-                adapterMarriageHall.setMlist(marraigeHallList);
-            }
+
+            case "men":
+                if (isChaletTab) {
+                    Collections.sort(chaletArrayList, new Comparator<Chalet>() {
+                        @Override
+                        public int compare(Chalet datum, Chalet t1) {
+                            return datum.getMale().compareTo(t1.getMale());
+                        }
+                    });
+                    Collections.reverse(chaletArrayList);
+                    adapterChalets.setMlist(chaletArrayList);
+                } else {
+                    Collections.sort(marraigeHallList, new Comparator<Chalet>() {
+                        @Override
+                        public int compare(Chalet datum, Chalet t1) {
+                            return datum.getMale().compareTo(t1.getMale());
+                        }
+                    });
+                    Collections.reverse(marraigeHallList);
+                    adapterMarriageHall.setMlist(marraigeHallList);
+                }
+                break;
+
+
+            case "women":
+                if (isChaletTab) {
+                    Collections.sort(chaletArrayList, new Comparator<Chalet>() {
+                        @Override
+                        public int compare(Chalet datum, Chalet t1) {
+                            return datum.getFemale().compareTo(t1.getFemale());
+                        }
+                    });
+                    Collections.reverse(chaletArrayList);
+                    adapterChalets.setMlist(chaletArrayList);
+                } else {
+                    Collections.sort(marraigeHallList, new Comparator<Chalet>() {
+                        @Override
+                        public int compare(Chalet datum, Chalet t1) {
+                            return datum.getFemale().compareTo(t1.getFemale());
+                        }
+                    });
+                    Collections.reverse(marraigeHallList);
+                    adapterMarriageHall.setMlist(marraigeHallList);
+                }
+                break;
+            default:
+                break;
         }
+
 
     }
 
@@ -371,6 +433,40 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
                 adapterChalets.setMlist(mList);
             }
         }
+    }
+
+
+    private void openSortDialog() {
+        LayoutInflater factory = LayoutInflater.from(getActivity());
+        final View alertDialogView = factory.inflate(R.layout.dialog_apply_sorting, null);
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        alertDialog.setView(alertDialogView);
+        alertDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.transparent));
+        final RadioButton price = alertDialogView.findViewById(R.id.price);
+        final RadioButton rating = alertDialogView.findViewById(R.id.rating);
+        final RadioButton men = alertDialogView.findViewById(R.id.men);
+        final RadioButton woman = alertDialogView.findViewById(R.id.woman);
+
+
+        Button btnApply = alertDialogView.findViewById(R.id.btn_apply);
+        alertDialog.setCancelable(true);
+        btnApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (price.isChecked()) {
+                    sortData("price");
+                } else if (rating.isChecked()) {
+                    sortData("rating");
+                } else if (men.isChecked()) {
+                    sortData("men");
+                } else if (woman.isChecked()) {
+                    sortData("women");
+                }
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 }
 

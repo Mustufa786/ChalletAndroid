@@ -215,6 +215,10 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                         mPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
                         mAddress.setText(model.getData().getLocation() + "");
 
+                        mBinding.textMalesCapacity.setText(chaletDetails.getMale());
+                        mBinding.textMalesCapacity.setText(chaletDetails.getFemale());
+
+
                         mName.setText(model.getData().getName() + "");
                         mTvRating.setText(model.getData().getRating() + "");
                         if (model.getData().getRating() > 0)
@@ -514,54 +518,6 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    private void addRating(final AlertDialog deleteDialog, String bookingItemId) {
-        try {
-            final RatingBar mRatingBar = deleteDialog.findViewById(R.id.review_rating);
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("rating", mRatingBar.getRating() + "");
-            jsonObject.put("bookingItemId", bookingItemId);
-            final RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
-
-            Call<ApiResponce<ModelAddReview>> call = RetrofitInstance.service.addRating(Helper.getJsonHeaderWithToken(this), requestBody);
-
-
-            hud.show();
-            call.enqueue(new Callback<ApiResponce<ModelAddReview>>() {
-                @Override
-                public void onResponse(Call<ApiResponce<ModelAddReview>> call, Response<ApiResponce<ModelAddReview>> response) {
-                    try {
-                        hud.dismiss();
-                        if (response.body() != null) {
-                            if (response.body().isSuccess) {
-                                if (response.body().msg.equalsIgnoreCase("Rating added successfully")) {
-//                                    getDetails(getIntent().getStringExtra(Constants.CHALET_OR_MARRAIGE_ID));
-//                                    deleteDialog.dismiss();
-                                }
-                            } else {
-
-                            }
-                        } else {
-                            deleteDialog.dismiss();
-                        }
-                    } catch (Exception e) {
-                        deleteDialog.dismiss();
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ApiResponce<ModelAddReview>> call, Throwable t) {
-                    t.printStackTrace();
-                    hud.dismiss();
-                    deleteDialog.dismiss();
-                }
-            });
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     private void addToWishList() {
         try {

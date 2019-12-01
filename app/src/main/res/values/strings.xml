@@ -89,4 +89,10 @@
 
     <string name="select_date">Select Date</string>
     <string name="enter_city">Enter city</string>
+    <string name="males_capacity">Males Capacity</string>
+    <string name="female_capacity">Female Capacity</string>
+    <string name="customize_your_sort">Customize your sort</string>
+    <string name="price">Price</string>
+    <string name="men">Men</string>
+    <string name="women">Women</string>
 </resources>

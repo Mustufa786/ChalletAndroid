@@ -91,6 +91,17 @@ public class ChaletDetails {
     @Expose
     private String email;
 
+    @SerializedName("male")
+    @Expose
+    private String male;
+
+
+
+
+    @SerializedName("female")
+    @Expose
+    private String female;
+
     public ChaletDetails() {
     }
 
@@ -293,5 +304,22 @@ public class ChaletDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    public String getMale() {
+        return male;
+    }
+
+    public void setMale(String male) {
+        this.male = male;
+    }
+
+    public String getFemale() {
+        return female;
+    }
+
+    public void setFemale(String female) {
+        this.female = female;
     }
 }
