@@ -68,7 +68,7 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(activity.getLayoutInflater().inflate(R.layout.adapter_chalets, parent, false));
+        return new MyViewHolder(activity.getLayoutInflater().inflate(R.layout.adapter_new_chalet, parent, false));
     }
 
     @Override

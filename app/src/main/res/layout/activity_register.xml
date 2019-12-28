@@ -279,6 +279,7 @@
                     android:background="@drawable/ic_rectangle_rounded"
                     android:backgroundTint="@color/colorPrimaryDark"
                     android:text="@string/sign_in"
+                    android:visibility="gone"
                     android:textColor="@color/white" />
 
 

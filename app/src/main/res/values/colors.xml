@@ -10,5 +10,6 @@
     <color name="grey">#ddd</color>
     <color name="grey_700">#535353</color>
     <color name="grey_500">#979797</color>
+    <color name="yellow">#FBB817</color>
 
 </resources>

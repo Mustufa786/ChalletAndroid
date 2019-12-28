@@ -1,11 +1,17 @@
 package com.octalabs.challetapp.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,6 +24,7 @@ import com.octalabs.challetapp.adapter.AdapterBookingHistoryDetails;
 import com.octalabs.challetapp.models.ModelBookingHistory.BookingHistoryDetails;
 import com.octalabs.challetapp.models.ModelDetails.ChaletDetails;
 import com.octalabs.challetapp.utils.Constants;
+import com.octalabs.challetapp.utils.CustomDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,11 +55,12 @@ public class ActivityBookingHistoryDetails extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view);
         mList = new Gson().fromJson(getIntent().getStringExtra(Constants.BOOKING_HISTORY_DETAILS), new TypeToken<List<BookingHistoryDetails>>() {
         }.getType());
-        AdapterBookingHistoryDetails mAdapter = new AdapterBookingHistoryDetails(this , mList);
+        AdapterBookingHistoryDetails mAdapter = new AdapterBookingHistoryDetails(this, mList);
         mRecyclerView.setAdapter(mAdapter);
 
 
     }
+
 
     private void setTextAction(ActionBar actionbar, String title) {
         TextView textview = new TextView(this);
@@ -67,12 +75,29 @@ public class ActivityBookingHistoryDetails extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.top_home_menu, menu);
+        if (menu instanceof MenuBuilder) {
+            MenuBuilder menuBuilder = (MenuBuilder) menu;
+            menuBuilder.setOptionalIconsVisible(true);
+        }
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;
+
+            case R.id.options:
+                CustomDialog cd = new CustomDialog(ActivityBookingHistoryDetails.this);
+                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cd.show();
+                return false;
         }
         return false;
     }

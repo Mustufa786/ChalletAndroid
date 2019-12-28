@@ -252,7 +252,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
     }
 
     private void showChalletTab() {
-        mBtnchalet.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
+        mBtnchalet.setBackgroundColor(getActivity().getResources().getColor(R.color.yellow));
         mBtnchalet.setTextColor(getActivity().getResources().getColor(R.color.white));
         mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
         mBtnMarriageall.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));

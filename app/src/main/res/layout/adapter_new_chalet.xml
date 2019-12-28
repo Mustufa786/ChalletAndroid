@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="7dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_chalet"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/image" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_chalet_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/text_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_location"
+                android:drawablePadding="10dp"
+                android:ellipsize="end"
+                android:gravity="start|center_vertical"
+                android:maxLines="2"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+
+
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:stepSize="0.1"
+                android:isIndicator="true"
+                android:layout_marginTop="5dp"
+                android:numStars="5"
+                android:max="5"
+                app:mrb_indeterminateTint="@color/colorPrimary"
+                app:mrb_progressTint="@color/colorPrimary"
+                style="@style/Widget.MaterialRatingBar.RatingBar.Small" />
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btn_single"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/board_shap"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="Singles"
+                    android:visibility="visible"
+                    android:padding="5dp"
+
+
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:id="@+id/btn_families"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/board_shap"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="Families"
+                    android:padding="5dp"
+
+                    android:visibility="visible"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="8sp" />
+
+
+                <TextView
+                    android:id="@+id/btn_ocassion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:padding="5dp"
+
+                    android:visibility="visible"
+                    android:background="@drawable/board_shap"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="Ocassions"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="8sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="10sp" />
+
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_check_availibilty"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@color/yellow"
+                android:paddingStart="10dp"
+                android:layout_marginTop="5dp"
+                android:paddingEnd="10dp"
+                android:text="Check Availability"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

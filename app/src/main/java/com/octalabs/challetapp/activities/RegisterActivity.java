@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +14,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
@@ -46,7 +52,7 @@ import retrofit2.Response;
 
 import static com.octalabs.challetapp.utils.Helper.displayDialog;
 
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 123;
     private Button mBtnRegister;
@@ -96,8 +102,23 @@ public class RegisterActivity extends Activity {
             }
         });
 
+        setTextAction(getSupportActionBar(), getResources().getString(R.string.sign_up));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
     }
 
+    private void setTextAction(ActionBar actionbar, String title) {
+        TextView textview = new TextView(this);
+        RelativeLayout.LayoutParams layoutparams = new RelativeLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
+        textview.setLayoutParams(layoutparams);
+        textview.setText(title);
+        textview.setTextColor(Color.WHITE);
+//        textview.setGravity(Gravity.CENTER);
+        textview.setTextSize(16);
+        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionbar.setCustomView(textview);
+    }
 
     private boolean validation() {
         if (mEdtusername.getText().toString().equalsIgnoreCase("")) {
