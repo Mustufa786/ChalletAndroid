@@ -128,4 +128,8 @@ public interface ApiInterface {
     Call<ResponseBody> checkForAvailibility(@Body RequestBody body,
                                             @HeaderMap HashMap<String, String> hashMap);
 
+
+    @POST("user/social")
+    Call<RegisterModel> socialMediaLogin(@Body RequestBody body);
+
 }

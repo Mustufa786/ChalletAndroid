@@ -1,4 +1,7 @@
 <resources>
+    <string name="facebook_app_id">1488356454649492</string>
+    <string name="fb_login_protocol_scheme">fb1488356454649492</string>
+
     <string name="app_name">Farhty</string>
     <string name="user_name">User Name</string>
     <string name="password">Password</string>

@@ -17,11 +17,28 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.models.ModelLogin.Login;
 import com.octalabs.challetapp.models.ModelLogin.LoginModel;
+import com.octalabs.challetapp.models.ModelRegister.RegisterModel;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.Helper;
@@ -29,7 +46,11 @@ import com.octalabs.challetapp.utils.Helper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.util.Arrays;
+
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -43,20 +64,32 @@ public class ActivityLogin extends Activity {
 
     private Button mBtnSignUP;
     private Button mBtnSignIN;
+    private ImageView imgFb, imgTwitter, imgGmail;
     EditText inputEmail, inputPassowd;
     KProgressHUD hud;
     ImageView imgClose;
     TextView textForgotPassword;
+    CallbackManager callbackManager;
+    private static final int REQ_CODE = 9001;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
+
         setContentView(R.layout.activity_login);
 
+        callbackManager = CallbackManager.Factory.create();
         mBtnSignIN = findViewById(R.id.btn_sig_in);
         mBtnSignUP = findViewById(R.id.btn_sig_up);
         inputEmail = findViewById(R.id.user_name);
         inputPassowd = findViewById(R.id.password);
+        imgFb = findViewById(R.id.img_facebook);
+        imgGmail = findViewById(R.id.img_gmail_icon);
+        userGoogleData();
+
         hud = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
         mBtnSignUP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +155,71 @@ public class ActivityLogin extends Activity {
             }
         });
 
+
+        imgFb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginManager.getInstance().logOut();
+                LoginManager.getInstance().logInWithReadPermissions(ActivityLogin.this, Arrays.asList(
+                        "public_profile", "email"));
+                LoginManager.getInstance().registerCallback(callbackManager,
+                        new FacebookCallback<LoginResult>() {
+                            @Override
+                            public void onSuccess(LoginResult loginResult) {
+                                GraphRequest request = GraphRequest.newMeRequest(
+                                        loginResult.getAccessToken(),
+                                        new GraphRequest.GraphJSONObjectCallback() {
+
+                                            @Override
+                                            public void onCompleted(final JSONObject object, GraphResponse response) {
+                                                Log.i("tag", object.toString());
+                                                try {
+                                                    socialMediaLogin(object.getString("email") , object.getString("name"));
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        });
+                                Bundle parameters = new Bundle();
+                                parameters.putString("fields", "id,name,email");
+                                request.setParameters(parameters);
+                                request.executeAsync();
+                            }
+
+                            @Override
+                            public void onCancel() {
+
+                            }
+
+                            @Override
+                            public void onError(FacebookException error) {
+
+                            }
+                        });
+            }
+        });
+
+        imgGmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                googleSignin();
+            }
+        });
+
+    }
+
+
+    private void userGoogleData() {
+
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
     }
 
@@ -200,6 +298,67 @@ public class ActivityLogin extends Activity {
     }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_CODE) {
+//            hideDialog();
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        } else if (FacebookSdk.isFacebookRequestCode(requestCode)) {
+            if (resultCode == RESULT_OK) {
+                callbackManager.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+
+
+    }
+
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount googleSignInAccount = completedTask.getResult(ApiException.class);
+
+            // Signed in googleSignInAccount, show authenticated UI.
+//            hideDialog();
+
+            String name = googleSignInAccount.getDisplayName();
+            String email = googleSignInAccount.getEmail();
+            String id = googleSignInAccount.getId();
+            String idToken = googleSignInAccount.getIdToken();
+//            String getObfuscatedIdentifier = googleSignInAccount.getObfuscatedIdentifier();
+            String serverAuthCode = googleSignInAccount.getServerAuthCode();
+            String account = googleSignInAccount.getAccount().toString();
+            String requestedScopes = String.valueOf(googleSignInAccount.getRequestedScopes());
+
+            socialMediaLogin(email, name);
+//            loginWithGoogle(id, email, "", "Google");
+            Log.e("TAG", "Google DATA:Name: " + name + "##Email:" + email + "##Id: " + id + "##id_token:" + idToken + "##Server Auth Code: " + serverAuthCode + "##Account: " + account + "##Requested Scope: " + requestedScopes);
+
+
+//            updateUI(account);
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w("TAG", "signInResult:failed code=" + e.getStatusCode());
+//            updateUI(null);
+        }
+    }
+
+    private void loginWithGoogle(final String googleUserId, final String email, final String accessToken, final String provider) {
+
+
+    }
+
+
+    private void googleSignin() {
+
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, REQ_CODE);
+    }
+
     private void forgotPassword(String youEditTextValue) {
         if (!youEditTextValue.equalsIgnoreCase("")) {
             try {
@@ -239,5 +398,75 @@ public class ActivityLogin extends Activity {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void socialMediaLogin(String emailAddress, String username) {
+
+        hud.show();
+
+        MultipartBody.Builder multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        multipartBody.addFormDataPart("userName", username);
+        multipartBody.addFormDataPart("socialId", emailAddress);
+        multipartBody.addFormDataPart("role", "end_user");
+
+
+        RequestBody mBody = multipartBody.build();
+
+
+        Call<RegisterModel> call = RetrofitInstance.service.socialMediaLogin(mBody);
+        call.enqueue(new Callback<RegisterModel>() {
+            @Override
+            public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
+
+
+                try {
+                    hud.dismiss();
+                    if (response.body() != null) {
+                        RegisterModel model = response.body();
+                        if (model.getSuccess()) {
+                            Gson gson = new Gson();
+                            JSONObject object = new JSONObject(gson.toJson(model.getData(), Login.class));
+                            SharedPreferences mPref = getSharedPreferences("main", MODE_PRIVATE);
+                            mPref.edit().putString(Constants.user_profile, object.toString()).apply();
+                            mPref.edit().putBoolean(Constants.IS_USER_LOGGED_IN, true).apply();
+
+                            android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(ActivityLogin.this)
+                                    .setTitle("Success")
+                                    .setMessage(model.getMessage())
+                                    .setCancelable(false)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.dismiss();
+                                            startActivity(new Intent(ActivityLogin.this, MainActivity.class));
+                                            finishAffinity();
+
+                                        }
+                                    });
+
+
+                            android.app.AlertDialog dialog = alertDialog.create();
+                            dialog.show();
+                            Log.i("tag", object.toString());
+                        } else {
+                            displayDialog("Alert", model.getMessage(), ActivityLogin.this);
+                        }
+                    } else {
+//                        displayDialog("Alert", "Invalid Username or Password", ActivityLogin.this);
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<RegisterModel> call, Throwable t) {
+                hud.dismiss();
+            }
+        });
     }
 }
