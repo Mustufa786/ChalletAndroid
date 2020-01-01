@@ -404,11 +404,24 @@ public class ActivityLogin extends Activity {
 
         hud.show();
 
+//        MultipartBody.Builder multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
+//
+//        multipartBody.addFormDataPart("userName", username);
+//        multipartBody.addFormDataPart("socialId", emailAddress);
+//        multipartBody.addFormDataPart("role", "end_user");
+
         MultipartBody.Builder multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         multipartBody.addFormDataPart("userName", username);
         multipartBody.addFormDataPart("socialId", emailAddress);
+        multipartBody.addFormDataPart("mobileNo", "");
+        multipartBody.addFormDataPart("address", "");
         multipartBody.addFormDataPart("role", "end_user");
+        multipartBody.addFormDataPart("countryId", "");
+        multipartBody.addFormDataPart("stateId", "");
+        multipartBody.addFormDataPart("cityId", "");
+        multipartBody.addFormDataPart("latitude", "");
+        multipartBody.addFormDataPart("longitude", "");
 
 
         RequestBody mBody = multipartBody.build();
