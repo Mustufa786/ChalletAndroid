@@ -66,6 +66,10 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         hud = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
         mEdtConPassword = findViewById(R.id.edt_con_password);
         mEdtOldPassword = findViewById(R.id.edt_old_password);
+        if(Helper.isSocialMediaUser(this))
+        {
+            mEdtOldPassword.setVisibility(View.GONE);
+        }
         mEdtNewPassword = findViewById(R.id.edt_new_password);
         mBtnUpdate = findViewById(R.id.btn_process);
         mBtnUpdate.setOnClickListener(this);
@@ -126,8 +130,13 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         try {
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("oldPassword", mEdtOldPassword.getText().toString());
-            jsonObject.put("newPassword", mEdtConPassword.getText().toString());
+            if (Helper.isSocialMediaUser(this)) {
+                jsonObject.put("isSocialUser", true);
+                jsonObject.put("newPassword", mEdtConPassword.getText().toString());
+            } else {
+                jsonObject.put("oldPassword", mEdtOldPassword.getText().toString());
+                jsonObject.put("newPassword", mEdtConPassword.getText().toString());
+            }
             final RequestBody requestBody = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
 
             Call<ModelChangePassword> call = RetrofitInstance.service.changePassword(Helper.getJsonHeaderWithToken(this), requestBody);
@@ -184,10 +193,13 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
     }
 
     private boolean validation() {
-        if (mEdtOldPassword.getText().toString().equalsIgnoreCase("")) {
-            Toast.makeText(this, "Please insert old password", Toast.LENGTH_SHORT).show();
-            return false;
+        if (!Helper.isSocialMediaUser(this)) {
+            if (mEdtOldPassword.getText().toString().equalsIgnoreCase("")) {
+                Toast.makeText(this, "Please insert old password", Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
+
         if (mEdtNewPassword.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(this, "Please insert new password", Toast.LENGTH_SHORT).show();
             return false;

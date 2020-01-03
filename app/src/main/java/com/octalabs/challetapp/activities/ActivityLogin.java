@@ -404,12 +404,6 @@ public class ActivityLogin extends Activity {
 
         hud.show();
 
-//        MultipartBody.Builder multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
-//
-//        multipartBody.addFormDataPart("userName", username);
-//        multipartBody.addFormDataPart("socialId", emailAddress);
-//        multipartBody.addFormDataPart("role", "end_user");
-
         MultipartBody.Builder multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
         multipartBody.addFormDataPart("userName", username);
@@ -417,11 +411,10 @@ public class ActivityLogin extends Activity {
         multipartBody.addFormDataPart("role", "end_user");
         RequestBody mBody = multipartBody.build();
 
-
-        Call<ResponseBody> call = RetrofitInstance.service.socialMediaLogin(mBody);
-        call.enqueue(new Callback<ResponseBody>() {
+        Call<LoginModel> call = RetrofitInstance.service.socialMediaLogin(mBody);
+        call.enqueue(new Callback<LoginModel>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
 
 
                 try {
@@ -429,20 +422,22 @@ public class ActivityLogin extends Activity {
                     if (response.body() != null) {
 //                        Log.i("TAG", );
 
+                        Login model = response.body().getData();
 
-                        JSONObject jsonObject = new JSONObject(response.body().string());
-                        Login model = new Login();
-                        model.setEmail(jsonObject.getJSONObject("data").getString("socialId"));
-                        model.setUserName(jsonObject.getJSONObject("data").getString("userName"));
-                        model.setRole(jsonObject.getJSONObject("data").getString("role"));
-                        model.setToken(jsonObject.getJSONObject("data").getString("token"));
-                        model.setId(jsonObject.getJSONObject("data").getString("_id"));
+//                        JSONObject jsonObject = new JSONObject(response.body().string());
+//                        Login model = new Login();
+//                        model.setEmail(jsonObject.getJSONObject("data").getString("socialId"));
+//                        model.setUserName(jsonObject.getJSONObject("data").getString("userName"));
+//                        model.setRole(jsonObject.getJSONObject("data").getString("role"));
+//                        model.setToken(jsonObject.getJSONObject("data").getString("token"));
+//                        model.setId(jsonObject.getJSONObject("data").getString("_id"));
 
                         Gson gson = new Gson();
                         JSONObject object = new JSONObject(gson.toJson(model, Login.class));
                         SharedPreferences mPref = getSharedPreferences("main", MODE_PRIVATE);
                         mPref.edit().putString(Constants.user_profile, object.toString()).apply();
                         mPref.edit().putBoolean(Constants.IS_USER_LOGGED_IN, true).apply();
+                        mPref.edit().putBoolean(Constants.IS_SOCIAL_MEDIA_USER, true).apply();
 
                         android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(ActivityLogin.this)
                                 .setTitle("Success")
@@ -471,9 +466,68 @@ public class ActivityLogin extends Activity {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<LoginModel> call, Throwable t) {
                 hud.dismiss();
             }
         });
+
+
+//        Call<ResponseBody> call = RetrofitInstance.service.socialMediaLogin(mBody);
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//
+//
+//                try {
+//                    hud.dismiss();
+//                    if (response.body() != null) {
+////                        Log.i("TAG", );
+//
+//
+//                        JSONObject jsonObject = new JSONObject(response.body().string());
+//                        Login model = new Login();
+//                        model.setEmail(jsonObject.getJSONObject("data").getString("socialId"));
+//                        model.setUserName(jsonObject.getJSONObject("data").getString("userName"));
+//                        model.setRole(jsonObject.getJSONObject("data").getString("role"));
+//                        model.setToken(jsonObject.getJSONObject("data").getString("token"));
+//                        model.setId(jsonObject.getJSONObject("data").getString("_id"));
+//
+//                        Gson gson = new Gson();
+//                        JSONObject object = new JSONObject(gson.toJson(model, Login.class));
+//                        SharedPreferences mPref = getSharedPreferences("main", MODE_PRIVATE);
+//                        mPref.edit().putString(Constants.user_profile, object.toString()).apply();
+//                        mPref.edit().putBoolean(Constants.IS_USER_LOGGED_IN, true).apply();
+//
+//                        android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(ActivityLogin.this)
+//                                .setTitle("Success")
+//                                .setMessage("User registered successfully")
+//                                .setCancelable(false)
+//                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialogInterface, int i) {
+//                                        dialogInterface.dismiss();
+//                                        startActivity(new Intent(ActivityLogin.this, MainActivity.class));
+//                                        finishAffinity();
+//
+//                                    }
+//                                });
+//
+//
+//                        android.app.AlertDialog dialog = alertDialog.create();
+//                        dialog.show();
+//                        Log.i("tag", object.toString());
+//                    }
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                hud.dismiss();
+//            }
+//        });
     }
 }

@@ -73,6 +73,12 @@ public class Helper {
     }
 
 
+    public static boolean isSocialMediaUser(Context context) {
+
+        return context.getSharedPreferences("main", MODE_PRIVATE).getBoolean(Constants.IS_SOCIAL_MEDIA_USER, false);
+    }
+
+
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }

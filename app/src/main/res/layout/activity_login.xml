@@ -134,7 +134,7 @@
                     android:layout_weight="1"
                     android:src="@drawable/twittericon"
 
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
 
                 <ImageView

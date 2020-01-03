@@ -14,6 +14,7 @@ public class Constants {
     public static String email_address = "email_address";
     public static String password = "password";
     public static String IS_USER_LOGGED_IN = "IS_USER_LOGGED_IN";
+    public static String IS_SOCIAL_MEDIA_USER = "IS_SOCIAL_MEDIA_USER";
     public static String USER_CART = "USER_CART";
     public static String ORDER_DETAILS = "ORDER_DETAILS";
 
