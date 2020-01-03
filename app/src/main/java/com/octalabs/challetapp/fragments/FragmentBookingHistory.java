@@ -78,8 +78,9 @@ public class FragmentBookingHistory extends Fragment {
         call.enqueue(new Callback<ModelBookingHistory>() {
             @Override
             public void onResponse(Call<ModelBookingHistory> call, Response<ModelBookingHistory> response) {
+                hud.dismiss();
                 if (response.body() != null) {
-                    hud.dismiss();
+
                     ModelBookingHistory model = response.body();
                     if (model.getSuccess()) {
                         ArrayList arrayList = new ArrayList<>(model.getData());

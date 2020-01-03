@@ -174,7 +174,7 @@ public class ActivityLogin extends Activity {
                                             public void onCompleted(final JSONObject object, GraphResponse response) {
                                                 Log.i("tag", object.toString());
                                                 try {
-                                                    socialMediaLogin(object.getString("email") , object.getString("name"));
+                                                    socialMediaLogin(object.getString("email"), object.getString("name"));
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }
@@ -414,60 +414,54 @@ public class ActivityLogin extends Activity {
 
         multipartBody.addFormDataPart("userName", username);
         multipartBody.addFormDataPart("socialId", emailAddress);
-        multipartBody.addFormDataPart("mobileNo", "");
-        multipartBody.addFormDataPart("address", "");
         multipartBody.addFormDataPart("role", "end_user");
-        multipartBody.addFormDataPart("countryId", "");
-        multipartBody.addFormDataPart("stateId", "");
-        multipartBody.addFormDataPart("cityId", "");
-        multipartBody.addFormDataPart("latitude", "");
-        multipartBody.addFormDataPart("longitude", "");
-
-
         RequestBody mBody = multipartBody.build();
 
 
-        Call<RegisterModel> call = RetrofitInstance.service.socialMediaLogin(mBody);
-        call.enqueue(new Callback<RegisterModel>() {
+        Call<ResponseBody> call = RetrofitInstance.service.socialMediaLogin(mBody);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
 
                 try {
                     hud.dismiss();
                     if (response.body() != null) {
-                        RegisterModel model = response.body();
-                        if (model.getSuccess()) {
-                            Gson gson = new Gson();
-                            JSONObject object = new JSONObject(gson.toJson(model.getData(), Login.class));
-                            SharedPreferences mPref = getSharedPreferences("main", MODE_PRIVATE);
-                            mPref.edit().putString(Constants.user_profile, object.toString()).apply();
-                            mPref.edit().putBoolean(Constants.IS_USER_LOGGED_IN, true).apply();
-
-                            android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(ActivityLogin.this)
-                                    .setTitle("Success")
-                                    .setMessage(model.getMessage())
-                                    .setCancelable(false)
-                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            dialogInterface.dismiss();
-                                            startActivity(new Intent(ActivityLogin.this, MainActivity.class));
-                                            finishAffinity();
-
-                                        }
-                                    });
+//                        Log.i("TAG", );
 
 
-                            android.app.AlertDialog dialog = alertDialog.create();
-                            dialog.show();
-                            Log.i("tag", object.toString());
-                        } else {
-                            displayDialog("Alert", model.getMessage(), ActivityLogin.this);
-                        }
-                    } else {
-//                        displayDialog("Alert", "Invalid Username or Password", ActivityLogin.this);
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        Login model = new Login();
+                        model.setEmail(jsonObject.getJSONObject("data").getString("socialId"));
+                        model.setUserName(jsonObject.getJSONObject("data").getString("userName"));
+                        model.setRole(jsonObject.getJSONObject("data").getString("role"));
+                        model.setToken(jsonObject.getJSONObject("data").getString("token"));
+                        model.setId(jsonObject.getJSONObject("data").getString("_id"));
 
+                        Gson gson = new Gson();
+                        JSONObject object = new JSONObject(gson.toJson(model, Login.class));
+                        SharedPreferences mPref = getSharedPreferences("main", MODE_PRIVATE);
+                        mPref.edit().putString(Constants.user_profile, object.toString()).apply();
+                        mPref.edit().putBoolean(Constants.IS_USER_LOGGED_IN, true).apply();
+
+                        android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(ActivityLogin.this)
+                                .setTitle("Success")
+                                .setMessage("User registered successfully")
+                                .setCancelable(false)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                        startActivity(new Intent(ActivityLogin.this, MainActivity.class));
+                                        finishAffinity();
+
+                                    }
+                                });
+
+
+                        android.app.AlertDialog dialog = alertDialog.create();
+                        dialog.show();
+                        Log.i("tag", object.toString());
                     }
 
                 } catch (Exception e) {
@@ -477,7 +471,7 @@ public class ActivityLogin extends Activity {
             }
 
             @Override
-            public void onFailure(Call<RegisterModel> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 hud.dismiss();
             }
         });

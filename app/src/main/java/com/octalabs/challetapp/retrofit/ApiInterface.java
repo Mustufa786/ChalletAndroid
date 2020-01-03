@@ -130,6 +130,6 @@ public interface ApiInterface {
 
 
     @POST("user/social")
-    Call<RegisterModel> socialMediaLogin(@Body RequestBody body);
+    Call<ResponseBody> socialMediaLogin(@Body RequestBody body);
 
 }
