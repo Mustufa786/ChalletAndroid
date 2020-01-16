@@ -71,6 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <TextView
@@ -145,7 +146,7 @@
                 android:id="@+id/btn_check_availibilty"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:background="@color/yellow"
+                android:background="@color/colorPrimaryDark"
                 android:paddingStart="10dp"
                 android:layout_marginTop="5dp"
                 android:paddingEnd="10dp"

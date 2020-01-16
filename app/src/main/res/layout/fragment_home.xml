@@ -4,8 +4,10 @@
 
 
     <LinearLayout
+        android:id="@+id/layout_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/yellow"
         android:orientation="vertical">
 
 
@@ -18,14 +20,14 @@
 
             android:background="@drawable/board_shap"
             android:orientation="horizontal"
-            android:padding="3dp">
+            android:padding="5dp">
 
             <Button
                 android:id="@+id/btn_chalet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/yellow"
+                android:background="@color/colorPrimaryDark"
                 android:text="@string/chalet"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />

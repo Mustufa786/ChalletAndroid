@@ -6,9 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 
 import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
@@ -36,6 +41,7 @@ import com.octalabs.challetapp.models.ModelState.CountryState;
 import com.octalabs.challetapp.models.ModelState.StateModel;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
+import com.octalabs.challetapp.utils.CustomDialog;
 import com.octalabs.challetapp.utils.FilePath;
 
 import org.json.JSONObject;
@@ -80,6 +86,8 @@ public class RegisterActivity extends AppCompatActivity {
         mEdtconpassword = findViewById(R.id.con_password);
         spinnerCountry = findViewById(R.id.country);
         spinnerStates = findViewById(R.id.state);
+        latitude = "";
+        longitude = "";
 
         hud = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
 
@@ -121,26 +129,26 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean validation() {
-        if (mEdtusername.getText().toString().equalsIgnoreCase("")) {
+        /*if (mEdtusername.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(this, "Please insert Username", Toast.LENGTH_SHORT).show();
             return false;
-        }
+        }*/
         if (mEdtemail.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(this, "Please insert Email", Toast.LENGTH_SHORT).show();
             return false;
         }
-//        if (mEdtmobileno.getText().toString().equalsIgnoreCase("")) {
-//            Toast.makeText(this, "Please insert Mobile Number", Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
+/*        if (mEdtmobileno.getText().toString().equalsIgnoreCase("")) {
+            Toast.makeText(this, "Please insert Mobile Number", Toast.LENGTH_SHORT).show();
+            return false;
+        }*/
         if (mEdtpassword.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(this, "Please insert Password", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (mEdtconpassword.getText().toString().equalsIgnoreCase("")) {
+       /* if (mEdtconpassword.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(this, "Please insert Confirm Password", Toast.LENGTH_SHORT).show();
             return false;
-        }
+        }*/
 
 
 //        if (mEdtaddress.getText().toString().equalsIgnoreCase("")) {
@@ -191,15 +199,15 @@ public class RegisterActivity extends AppCompatActivity {
 
         MultipartBody.Builder multipartBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-        multipartBody.addFormDataPart("userName", mEdtusername.getText().toString());
+//        multipartBody.addFormDataPart("userName", mEdtusername.getText().toString());
         multipartBody.addFormDataPart("email", mEdtemail.getText().toString());
         multipartBody.addFormDataPart("password", mEdtpassword.getText().toString());
         multipartBody.addFormDataPart("mobileNo", mEdtmobileno.getText().toString());
         multipartBody.addFormDataPart("address", mEdtaddress.getText().toString());
         multipartBody.addFormDataPart("role", "end_user");
-        multipartBody.addFormDataPart("countryId", countryID);
-        multipartBody.addFormDataPart("stateId", stateID);
-        multipartBody.addFormDataPart("cityId", cityID);
+//        multipartBody.addFormDataPart("countryId", countryID);
+//        multipartBody.addFormDataPart("stateId", stateID);
+//        multipartBody.addFormDataPart("cityId", cityID);
         multipartBody.addFormDataPart("latitude", latitude);
         multipartBody.addFormDataPart("longitude", longitude);
 
@@ -442,6 +450,34 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.top_home_menu, menu);
+        if (menu instanceof MenuBuilder) {
+            MenuBuilder menuBuilder = (MenuBuilder) menu;
+            menuBuilder.setOptionalIconsVisible(true);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+
+            case R.id.options:
+                CustomDialog cd = new CustomDialog(RegisterActivity.this);
+                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cd.show();
+                return false;
+        }
+        return false;
     }
 
 
