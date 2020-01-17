@@ -164,7 +164,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         });
 
 
-            mBinding.location.setText("Dammam");
+            mBinding.location.setText("الدمام");
 
 
 
