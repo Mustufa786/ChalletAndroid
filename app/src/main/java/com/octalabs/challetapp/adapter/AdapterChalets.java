@@ -81,7 +81,9 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
         holder.textChaletName.setText(item.getName());
         holder.textLocation.setText(item.getLocation());
         int totalPrice = item.getPricePerNight() * numOfBookingDays;
-        holder.textPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
+//        holder.textPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
+        holder.textPrice.setText(totalPrice + activity.getResources().getString(R.string.riyal_for) + numOfBookingDays + activity.getResources().getString(R.string.days));
+
         if (item.getRating() > 0) {
             holder.ratingBar.setRating(item.getRating() + 0f);
         } else

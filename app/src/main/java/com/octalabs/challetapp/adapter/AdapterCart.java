@@ -50,7 +50,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.MyViewHolder> 
 
         holder.textChaletName.setText(item.getName());
         holder.textLocation.setText(item.getLocation());
-        holder.textPrice.setText(item.getPricePerNight() + " Riyal");
+        holder.textPrice.setText(item.getPricePerNight() + " SR");
         holder.btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

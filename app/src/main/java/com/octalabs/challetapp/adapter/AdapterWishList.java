@@ -72,7 +72,7 @@ public class AdapterWishList extends RecyclerView.Adapter<AdapterWishList.MyView
 
         holder.textChaletName.setText(item.getBookingItemId().getName());
         holder.textLocation.setText(item.getBookingItemId().getLocation());
-        holder.textPrice.setText(item.getBookingItemId().getPricePerNight() + " Riyal");
+        holder.textPrice.setText(item.getBookingItemId().getPricePerNight() + " SR");
         if (item.getBookingItemId().getRating() > 0) {
             holder.ratingBar.setRating(item.getBookingItemId().getRating());
         } else

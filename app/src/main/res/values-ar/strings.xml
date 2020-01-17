@@ -28,13 +28,13 @@
     <string name="title_booking">الحجز</string>
     <string name="title_profile">الملف الشخصي</string>
     <string name="title_more">أكثر</string>
-    <string name="chalet">الشاليه</string>
+    <string name="chalet">الشاليهات</string>
     <string name="sort">فرز</string>
     <string name="booking_history">الحجوزات السابقة</string>
-    <string name="marriage_hall">قاعة الزواج</string>
+    <string name="marriage_hall">صالات الأفراح</string>
     <string name="filter">منقي</string>
     <string name="map">خريطة</string>
-    <string name="check_out">تسجيل الخروج</string>
+    <string name="check_out">بداية الحجز</string>
     <string name="cart">عربة التسوق</string>
     <string name="payment">دفع</string>
     <string name="confirm_payment" > تأكيد الدفع  </string>
@@ -65,13 +65,13 @@
     <string name="list">List</string>
     <string name="please_login_to_continue">الرجاء تسجيل الدخول للمتابعة</string>
     <string name="login">تسجيل الدخول</string>
-    <string name="check_in">تسجيل الدخول</string>
+    <string name="check_in">نهاية الحجز</string>
     <string name="search">بحث</string>
     <string name="search_results">نتائج البحث</string>
     <string name="description">الوصف</string>
     <string name="lowest_price_today">أدنى سعر اليوم</string>
     <string name="price_for_1_night">سعر ليلة واحدة</string>
-    <string name="amenities">وسائل الراحة</string>
+    <string name="amenities">مزايا متوفرة</string>
     <string name="reviews">استعراض</string>
 
     <string name="write_review"> كتابة تعليق</string>
@@ -88,12 +88,14 @@
     <string name="comment">تعليق…</string>
     <string name="select_date">حدد تاريخ</string>
     <string name="enter_city">أدخل المدينة</string>
-    <string name="males_capacity">قدرة الذكور</string>
-    <string name="female_capacity">قدرة الإناث</string>
+    <string name="males_capacity">السعة للرجال</string>
+    <string name="female_capacity">السعة للنساء</string>
     <string name="customize_your_sort">Customize your sort</string>
     <string name="price">السعر</string>
     <string name="men">رجال</string>
     <string name="women">أنثى</string>
     <string name="not_provided">غير مزود</string>
+    <string name="riyal_for" > SR For </string>
+    <string name="days" > أيام </string>
 
 </resources>

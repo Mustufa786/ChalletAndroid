@@ -139,12 +139,12 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
     private void setLocationData(ArrayList<ModelCity> locationArray) {
 
         ModelCity city = new ModelCity();
-        city.setName("Dammam");
+        city.setName("الدمام");
 
 
         int index = -1;
         for (int i = 0; i < locationArray.size(); i++) {
-            if (locationArray.get(i).getName().equalsIgnoreCase("Dammam")) {
+            if (locationArray.get(i).getName().equalsIgnoreCase("الدمام")) {
                 index = i;
                 mLocationId = locationArray.get(i).getId();
                 break;

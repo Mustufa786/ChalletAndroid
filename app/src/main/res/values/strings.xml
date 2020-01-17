@@ -99,4 +99,6 @@
     <string name="men">Men</string>
     <string name="women">Women</string>
     <string name="not_provided">Not Provided</string>
+    <string name="riyal_for" > SR For </string>
+    <string name="days" > Days </string>
 </resources>

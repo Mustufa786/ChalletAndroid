@@ -55,7 +55,7 @@ public class AdapterBookingHistoryDetails extends RecyclerView.Adapter<AdapterBo
 
         holder.textChaletName.setText(item.getName());
         holder.textLocation.setText(item.getLocation());
-        holder.textPrice.setText(item.getPricePerNight() + " Riyal");
+        holder.textPrice.setText(item.getPricePerNight() + " SR");
         if (item.getRating() > 0) {
             holder.ratingBar.setRating(item.getRating() + 0f);
         } else

@@ -217,7 +217,9 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                         }
                         mapFragment.getMapAsync(ActivityDetails.this);
                         int totalPrice = model.getData().getPricePerNight() * numOfBookingDays;
-                        mPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
+//                        mPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
+                        mPrice.setText(totalPrice + getResources().getString(R.string.riyal_for) + numOfBookingDays + getResources().getString(R.string.days));
+
                         mAddress.setText(model.getData().getLocation() + "");
 
                         mBinding.textMalesCapacity.setText(chaletDetails.getMale() != null ? chaletDetails.getMale() : getResources().getString(R.string.not_provided));
