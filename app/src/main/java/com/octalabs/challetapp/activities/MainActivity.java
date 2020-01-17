@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             mPagerAdapter.addFragmeent(new UserProfileFragment(), getResources().getString(R.string.user_profile));
             mPagerAdapter.addFragmeent(new FragmentMore(), getResources().getString(R.string.more));
         } else {
-            mPagerAdapter.addFragmeent(new LoginFragment(), getResources().getString(R.string.login));
+            mPagerAdapter.addFragmeent(new HomeFragment(), getResources().getString(R.string.home));
             mPagerAdapter.addFragmeent(new LoginFragment(), getResources().getString(R.string.login));
             mPagerAdapter.addFragmeent(new LoginFragment(), getResources().getString(R.string.login));
             mPagerAdapter.addFragmeent(new LoginFragment(), getResources().getString(R.string.login));

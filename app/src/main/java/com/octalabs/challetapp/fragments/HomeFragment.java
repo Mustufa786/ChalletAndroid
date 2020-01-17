@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
 
     private void getAllChalets() {
         hud.show();
-        Call<AllChaletsModel> call = RetrofitInstance.service.getAllChalets(Helper.getJsonHeaderWithToken(getContext()));
+        Call<AllChaletsModel> call = RetrofitInstance.service.getAllChalets(Helper.getJsonHeader());
         call.enqueue(new Callback<AllChaletsModel>() {
             @Override
             public void onResponse(Call<AllChaletsModel> call, Response<AllChaletsModel> response) {
