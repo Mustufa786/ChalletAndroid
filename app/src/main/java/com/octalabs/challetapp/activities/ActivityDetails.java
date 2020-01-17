@@ -220,8 +220,8 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                         mPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
                         mAddress.setText(model.getData().getLocation() + "");
 
-                        mBinding.textMalesCapacity.setText(chaletDetails.getMale());
-                        mBinding.textMalesCapacity.setText(chaletDetails.getFemale());
+                        mBinding.textMalesCapacity.setText(chaletDetails.getMale() != null ? chaletDetails.getMale() : getResources().getString(R.string.not_provided));
+                        mBinding.textMalesCapacity.setText(chaletDetails.getFemale() != null ? chaletDetails.getFemale() : getResources().getString(R.string.not_provided);
 
 
                         mName.setText(model.getData().getName() + "");

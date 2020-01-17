@@ -94,5 +94,6 @@
     <string name="price">السعر</string>
     <string name="men">رجال</string>
     <string name="women">أنثى</string>
+    <string name="not_provided">غير مزود</string>
 
 </resources>
