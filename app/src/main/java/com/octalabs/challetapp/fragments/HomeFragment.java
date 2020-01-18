@@ -180,8 +180,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
         mBtnchalet.setOnClickListener(this);
         mBtnMarriageall.setOnClickListener(this);
         mRecyclerView = v.findViewById(R.id.rv_marriage_hall);
-        adapterMarriageHall = new AdapterMarriageHall(getActivity(), new ArrayList<Chalet>());
-        adapterChalets = new AdapterChalets(getActivity(), new ArrayList<Chalet>());
+        adapterMarriageHall = new AdapterMarriageHall(getActivity(), new ArrayList<Chalet>() , FragmentSearch.noOfDays);
+        adapterChalets = new AdapterChalets(getActivity(), new ArrayList<Chalet>() , FragmentSearch.noOfDays);
         mRecyclerView.setAdapter(adapterChalets);
         binding.textMapOrList.setOnClickListener(this);
         binding.getRoot().findViewById(R.id.map).setVisibility(View.GONE);

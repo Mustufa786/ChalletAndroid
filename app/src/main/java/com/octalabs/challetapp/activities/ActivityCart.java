@@ -33,6 +33,7 @@ import com.octalabs.challetapp.utils.Helper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ActivityCart extends AppCompatActivity {
 
@@ -60,6 +61,8 @@ public class ActivityCart extends AppCompatActivity {
         setTextAction(getSupportActionBar(), getResources().getString(R.string.cart));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.black)));
 
 
         btnCheckout.setOnClickListener(new View.OnClickListener() {

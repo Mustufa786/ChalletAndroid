@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -78,7 +79,8 @@ public class LocationSelectionActivity extends AppCompatActivity implements OnMa
         setTextAction(Objects.requireNonNull(getSupportActionBar()), "Location");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.black)));
         if (Build.VERSION.SDK_INT >= 23) {
             checkForPhoneStatePermissionLocationAccess();
         } else {

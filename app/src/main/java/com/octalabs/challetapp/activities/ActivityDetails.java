@@ -122,6 +122,8 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_details);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.black)));
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
@@ -163,6 +165,18 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
         mBinding.imgFacebook.setOnClickListener(this);
         mBinding.imgWhatsApp.setOnClickListener(this);
         mBinding.imgEmailIcon.setOnClickListener(this);
+        mBinding.imgAddToWishlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isUserLoggedIn) {
+                    addToWishList();
+
+                } else {
+                    Intent intent = new Intent(ActivityDetails.this, ActivityLogin.class);
+                    startActivityForResult(intent, ADD_TO_WISHLIST_REQUEST);
+                }
+            }
+        });
 
 
         if (FragmentSearch.checkInDateStr != null) {
@@ -218,7 +232,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                         mapFragment.getMapAsync(ActivityDetails.this);
                         int totalPrice = model.getData().getPricePerNight() * numOfBookingDays;
 //                        mPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
-                        mPrice.setText(totalPrice + getResources().getString(R.string.riyal_for) + numOfBookingDays + getResources().getString(R.string.days));
+                        mPrice.setText(totalPrice + " " + getResources().getString(R.string.riyal_for)  + " " + numOfBookingDays + " " +  getResources().getString(R.string.days));
 
                         mAddress.setText(model.getData().getLocation() + "");
 

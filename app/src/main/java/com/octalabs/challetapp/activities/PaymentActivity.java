@@ -48,6 +48,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -80,7 +81,8 @@ public class PaymentActivity extends AppCompatActivity {
         setTextAction(getSupportActionBar(), getResources().getString(R.string.payment));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.black)));
     }
 
     private void onClickListeners() {

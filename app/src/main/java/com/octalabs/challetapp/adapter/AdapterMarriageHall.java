@@ -28,7 +28,7 @@ import static com.octalabs.challetapp.utils.Constants.CHALET_OR_MARRAIGE_ID;
 public class AdapterMarriageHall extends RecyclerView.Adapter<AdapterMarriageHall.MyViewHolder> {
 
     private final Activity activity;
-
+    private int numOfBookingDays = 1;
     public void setMlist(ArrayList<Chalet> mlist) {
         this.mlist = mlist;
         notifyDataSetChanged();
@@ -36,9 +36,10 @@ public class AdapterMarriageHall extends RecyclerView.Adapter<AdapterMarriageHal
 
     private ArrayList<Chalet> mlist;
 
-    public AdapterMarriageHall(Activity activity, ArrayList<Chalet> mlist) {
+    public AdapterMarriageHall(Activity activity, ArrayList<Chalet> mlist , int numOfBookingDays) {
         this.activity = activity;
         this.mlist = mlist;
+        this.numOfBookingDays = numOfBookingDays;
     }
 
     @NonNull
@@ -57,7 +58,8 @@ public class AdapterMarriageHall extends RecyclerView.Adapter<AdapterMarriageHal
 
         holder.textChaletName.setText(item.getName());
         holder.textLocation.setText(item.getLocation());
-        holder.textPrice.setText(item.getPricePerNight() + " SR");
+        int totalPrice = item.getPricePerNight() * numOfBookingDays;
+        holder.textPrice.setText(totalPrice + " " +  activity.getResources().getString(R.string.riyal_for) + " " + numOfBookingDays + " " +  activity.getResources().getString(R.string.days));
         if (item.getRating() > 0) {
             holder.ratingBar.setRating(item.getRating() + 0f);
         } else

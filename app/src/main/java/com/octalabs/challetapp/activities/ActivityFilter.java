@@ -2,6 +2,7 @@ package com.octalabs.challetapp.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -37,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -60,7 +62,8 @@ public class ActivityFilter extends AppCompatActivity implements OnItemClicked<A
         setTextAction(getSupportActionBar(), getResources().getString(R.string.filter));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.black)));
         getamenities();
         binding.btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override

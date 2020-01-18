@@ -49,6 +49,8 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
         this.activity = activitySearchAndFilterResult;
         this.mlist = mList;
         this.numOfBookingDays = numOfBookingDays;
+        this.hud = KProgressHUD.create(activity).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
+
     }
 
     public void setMlist(ArrayList<Chalet> mlist) {
@@ -61,7 +63,6 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
     public AdapterChalets(Activity activity, ArrayList<Chalet> mlist) {
         this.activity = activity;
         this.mlist = mlist;
-        this.hud = KProgressHUD.create(activity).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
 
     }
 
@@ -82,7 +83,7 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
         holder.textLocation.setText(item.getLocation());
         int totalPrice = item.getPricePerNight() * numOfBookingDays;
 //        holder.textPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
-        holder.textPrice.setText(totalPrice + activity.getResources().getString(R.string.riyal_for) + numOfBookingDays + activity.getResources().getString(R.string.days));
+        holder.textPrice.setText(totalPrice + " " +  activity.getResources().getString(R.string.riyal_for) + " " + numOfBookingDays + " " +  activity.getResources().getString(R.string.days));
 
         if (item.getRating() > 0) {
             holder.ratingBar.setRating(item.getRating() + 0f);

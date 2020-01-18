@@ -47,6 +47,8 @@ public class ActivityContactUs extends AppCompatActivity {
         setTextAction(Objects.requireNonNull(getSupportActionBar()), getResources().getString(R.string.contact_us));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.black)));
         hud = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
 
         mBinding.btnProcess.setOnClickListener(new View.OnClickListener() {

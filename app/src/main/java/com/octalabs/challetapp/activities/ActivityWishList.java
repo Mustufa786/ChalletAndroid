@@ -53,6 +53,8 @@ public class ActivityWishList extends AppCompatActivity {
         setTextAction(Objects.requireNonNull(getSupportActionBar()), "WishList");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.black)));
         hud = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
         getAllWishListData();
 

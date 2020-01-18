@@ -47,6 +47,8 @@ public class ActivityBookingHistoryDetails extends AppCompatActivity {
         setTextAction(Objects.requireNonNull(getSupportActionBar()), "Booking History Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.black)));
         hud = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
 
     }

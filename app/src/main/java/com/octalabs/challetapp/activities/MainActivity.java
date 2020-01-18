@@ -31,6 +31,8 @@ import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.CustomDialog;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     public static ActionBar getactionbar;
     private MyPagerAdapter mPagerAdapter;
@@ -75,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         setTextAction(actionbar, getResources().getString(R.string.title_search));
         getactionbar = actionbar;
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.black)));
         Init();
     }
 

@@ -48,6 +48,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -113,7 +114,8 @@ public class RegisterActivity extends AppCompatActivity {
         setTextAction(getSupportActionBar(), getResources().getString(R.string.sign_up));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.black)));
     }
 
     private void setTextAction(ActionBar actionbar, String title) {
