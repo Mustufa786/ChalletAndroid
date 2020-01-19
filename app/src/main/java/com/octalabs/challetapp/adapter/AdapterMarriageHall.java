@@ -19,6 +19,7 @@ import com.octalabs.challetapp.models.ModelChalet;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
@@ -58,8 +59,16 @@ public class AdapterMarriageHall extends RecyclerView.Adapter<AdapterMarriageHal
 
         holder.textChaletName.setText(item.getName());
         holder.textLocation.setText(item.getLocation());
-        int totalPrice = item.getPricePerNight() * numOfBookingDays;
+        /*int totalPrice = item.getPricePerNight() * numOfBookingDays;
         holder.textPrice.setText(totalPrice + " " +  activity.getResources().getString(R.string.riyal_for) + " " + numOfBookingDays + " " +  activity.getResources().getString(R.string.days));
+        */
+        DecimalFormat decim = new DecimalFormat("#,###.##");
+        float totalPrice = item.getPricePerNight() * numOfBookingDays;
+//        holder.textPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
+//        holder.textPrice.setText(decim.format(totalPrice)  + activity.getResources().getString(R.string.riyal_for) + numOfBookingDays + activity.getResources().getString(R.string.days));
+
+        holder.textPrice.setText(decim.format(totalPrice)  + " " +  activity.getResources().getString(R.string.riyal_for) + " " + numOfBookingDays + " " +  activity.getResources().getString(R.string.days));
+
         if (item.getRating() > 0) {
             holder.ratingBar.setRating(item.getRating() + 0f);
         } else

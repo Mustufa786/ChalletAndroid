@@ -26,6 +26,7 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
@@ -81,9 +82,14 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
         }
         holder.textChaletName.setText(item.getName());
         holder.textLocation.setText(item.getLocation());
-        int totalPrice = item.getPricePerNight() * numOfBookingDays;
+//        int totalPrice = item.getPricePerNight() * numOfBookingDays;
 //        holder.textPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
-        holder.textPrice.setText(totalPrice + " " +  activity.getResources().getString(R.string.riyal_for) + " " + numOfBookingDays + " " +  activity.getResources().getString(R.string.days));
+        DecimalFormat decim = new DecimalFormat("#,###.##");
+        float totalPrice = item.getPricePerNight() * numOfBookingDays;
+//        holder.textPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
+//        holder.textPrice.setText(decim.format(totalPrice)  + activity.getResources().getString(R.string.riyal_for) + numOfBookingDays + activity.getResources().getString(R.string.days));
+
+        holder.textPrice.setText(decim.format(totalPrice)  + " " +  activity.getResources().getString(R.string.riyal_for) + " " + numOfBookingDays + " " +  activity.getResources().getString(R.string.days));
 
         if (item.getRating() > 0) {
             holder.ratingBar.setRating(item.getRating() + 0f);

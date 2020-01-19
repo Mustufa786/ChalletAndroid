@@ -63,6 +63,7 @@ import com.octalabs.challetapp.utils.Helper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -230,9 +231,16 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 
                         }
                         mapFragment.getMapAsync(ActivityDetails.this);
-                        int totalPrice = model.getData().getPricePerNight() * numOfBookingDays;
+                       /* int totalPrice = model.getData().getPricePerNight() * numOfBookingDays;
 //                        mPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
                         mPrice.setText(totalPrice + " " + getResources().getString(R.string.riyal_for)  + " " + numOfBookingDays + " " +  getResources().getString(R.string.days));
+*/
+                        DecimalFormat decim = new DecimalFormat("#,###.##");
+                        float totalPrice = model.getData().getPricePerNight() * numOfBookingDays;
+//        holder.textPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
+//        holder.textPrice.setText(decim.format(totalPrice)  + activity.getResources().getString(R.string.riyal_for) + numOfBookingDays + activity.getResources().getString(R.string.days));
+
+                        mPrice.setText(decim.format(totalPrice)  + " " +  getResources().getString(R.string.riyal_for) + " " + numOfBookingDays + " " +  getResources().getString(R.string.days));
 
                         mAddress.setText(model.getData().getLocation() + "");
 
