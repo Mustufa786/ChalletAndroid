@@ -164,8 +164,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         });
 
 
-            mBinding.location.setText("الدمام");
-
+        mBinding.location.setText("الدمام");
 
 
     }
@@ -266,6 +265,8 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
             jsonObject.put("cityId", mLocationId);
             jsonObject.put("checkIn", checkInStr);
             jsonObject.put("checkOut", checkoutStr);
+            if (!mBinding.venueName.getText().toString().equalsIgnoreCase(""))
+                jsonObject.put("venueName", mBinding.venueName.getText().toString());
             RequestBody body = RequestBody.create(MediaType.get("application/json"), jsonObject.toString());
             hud.show();
 

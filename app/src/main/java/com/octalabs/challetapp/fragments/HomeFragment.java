@@ -33,6 +33,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
+import com.octalabs.challetapp.activities.ActivityDetails;
 import com.octalabs.challetapp.activities.ActivityFilter;
 import com.octalabs.challetapp.adapter.AdapterChalets;
 import com.octalabs.challetapp.adapter.AdapterMarriageHall;
@@ -55,6 +56,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static com.octalabs.challetapp.utils.Constants.CHALET_OR_MARRAIGE_ID;
+import static com.octalabs.challetapp.utils.Constants.NUM_OF_BOOKING_DAYS;
 import static com.octalabs.challetapp.utils.Helper.displayDialog;
 
 public class HomeFragment extends Fragment implements View.OnClickListener, OnMapReadyCallback {
@@ -242,6 +245,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
                     Marker m = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude()))));
                     m.setTag(item);
 
+
                     if (i == 0) {
                         CameraUpdate update = CameraUpdateFactory.newLatLngZoom(
                                 new LatLng(Double.parseDouble(item.getLatitude()), Double.parseDouble(item.getLongitude())), 15);
@@ -421,6 +425,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
         googleMap.setIndoorEnabled(true);
         googleMap.setBuildingsEnabled(true);
         this.mMap = googleMap;
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Chalet position = (Chalet) marker.getTag();
+                Intent intent = new Intent(getContext(), ActivityDetails.class);
+                intent.putExtra(CHALET_OR_MARRAIGE_ID, position.getId());
+                intent.putExtra(NUM_OF_BOOKING_DAYS, FragmentSearch.noOfDays);
+                startActivity(intent);
+                return false;
+            }
+        });
 
 
     }
