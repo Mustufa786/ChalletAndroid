@@ -63,7 +63,7 @@ public class ActivityFilter extends AppCompatActivity implements OnItemClicked<A
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources()
-                .getColor(R.color.black)));
+                .getColor(R.color.colorPrimaryDark)));
         getamenities();
         binding.btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -33,7 +33,7 @@
                 android:orientation="horizontal">
 
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:id="@+id/chalet_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                     android:stepSize="0.01" />
 
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:id="@+id/tv_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp" />
 
-            <TextView
+            <com.octalabs.challetapp.custome.CustomTextView
                 android:id="@+id/chalet_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                 android:background="@color/grey" />
 
 
-            <TextView
+            <com.octalabs.challetapp.custome.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -121,7 +121,7 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp" />
 
-            <TextView
+            <com.octalabs.challetapp.custome.CustomTextView
                 android:id="@+id/chalet_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -138,7 +138,7 @@
                 android:orientation="horizontal">
 
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:id="@+id/text_price"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
                     android:textSize="13sp" />
 
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:id="@+id/chalet_price_nit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -170,7 +170,7 @@
                 android:background="@color/grey" />
 
 
-            <TextView
+            <com.octalabs.challetapp.custome.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -218,7 +218,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -230,7 +230,7 @@
                         android:textSize="20sp" />
 
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:id="@+id/time_check_out"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -251,7 +251,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -263,7 +263,7 @@
                         android:textSize="20sp" />
 
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:id="@+id/time_check_in"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -300,7 +300,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -312,7 +312,7 @@
                         android:textSize="20sp" />
 
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:id="@+id/text_males_capacity"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -332,7 +332,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -344,7 +344,7 @@
                         android:textSize="20sp" />
 
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:id="@+id/text_female_capacity"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -368,7 +368,7 @@
 
 
 
-            <TextView
+            <com.octalabs.challetapp.custome.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -404,7 +404,7 @@
                 android:gravity="center"
                 android:padding="10dp">
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -426,7 +426,7 @@
                 android:gravity="center"
                 android:padding="10dp">
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -497,7 +497,7 @@
             </LinearLayout>
 
 
-            <TextView
+            <com.octalabs.challetapp.custome.CustomTextView
                 android:id="@+id/btn_add_to_cart"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"

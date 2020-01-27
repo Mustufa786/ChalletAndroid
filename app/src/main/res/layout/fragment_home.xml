@@ -76,7 +76,7 @@
                     android:layout_marginStart="20dp"
                     android:src="@drawable/sorticon" />
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -108,7 +108,7 @@
 
                         android:src="@drawable/filtericon" />
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="start|center_vertical"
@@ -136,7 +136,7 @@
                     android:layout_marginStart="20dp"
                     android:background="@drawable/mapicon" />
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:id="@+id/text_map_or_list"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

@@ -82,7 +82,7 @@ public class PaymentActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources()
-                .getColor(R.color.black)));
+                .getColor(R.color.colorPrimaryDark)));
     }
 
     private void onClickListeners() {

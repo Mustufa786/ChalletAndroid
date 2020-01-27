@@ -44,7 +44,7 @@
                         android:layout_height="wrap_content"
                         >
 
-                        <EditText
+                        <com.octalabs.challetapp.custome.CustomEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingStart="10dp"
@@ -63,7 +63,7 @@
 
 
 
-                        <EditText
+                        <com.octalabs.challetapp.custome.CustomEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingStart="10dp"
@@ -91,7 +91,7 @@
 
 
 
-                            <EditText
+                            <com.octalabs.challetapp.custome.CustomEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingStart="10dp"
@@ -115,7 +115,7 @@
 
 
 
-                            <EditText
+                            <com.octalabs.challetapp.custome.CustomEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingStart="10dp"
@@ -137,7 +137,7 @@
 
 
 
-                        <EditText
+                        <com.octalabs.challetapp.custome.CustomEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingStart="10dp"
@@ -233,7 +233,7 @@
 
 
 
-                            <EditText
+                            <com.octalabs.challetapp.custome.CustomEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:paddingStart="10dp"

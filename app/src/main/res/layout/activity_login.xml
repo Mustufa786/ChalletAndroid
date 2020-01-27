@@ -36,7 +36,7 @@
             android:padding="10dp">
 
 
-            <EditText
+            <com.octalabs.challetapp.custome.CustomEditText
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
@@ -51,7 +51,7 @@
                 android:singleLine="true"
                 android:textColorHint="@color/black" />
 
-            <EditText
+            <com.octalabs.challetapp.custome.CustomEditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
@@ -68,7 +68,7 @@
                 android:textColorHint="@color/black"
                 android:textDirection="locale" />
 
-            <TextView
+            <com.octalabs.challetapp.custome.CustomTextView
                 android:id="@+id/text_forgot_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

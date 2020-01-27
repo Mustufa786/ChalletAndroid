@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
+            <com.octalabs.challetapp.custome.CustomTextView
                 android:id="@+id/text_chalet_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            <TextView
+            <com.octalabs.challetapp.custome.CustomTextView
                 android:id="@+id/text_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                 android:visibility="gone"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:id="@+id/btn_single"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="8sp" />
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:id="@+id/btn_families"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                     android:textSize="8sp" />
 
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:id="@+id/btn_ocassion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:id="@+id/text_price"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -154,7 +154,8 @@
                 android:text="Check Availability"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:visibility="invisible"/>
 
         </LinearLayout>
 

@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
+            <com.octalabs.challetapp.custome.CustomTextView
                 android:id="@+id/text_chalet_name"
 
                 android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            <TextView
+            <com.octalabs.challetapp.custome.CustomTextView
                 android:id="@+id/text_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                     android:textColor="@color/redNew"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
 
                     android:id="@+id/text_price"
                     android:layout_width="wrap_content"
@@ -85,7 +85,7 @@
                 android:visibility="gone"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Booking Date: "
@@ -93,7 +93,7 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:id="@+id/booking_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

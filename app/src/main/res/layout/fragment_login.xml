@@ -23,7 +23,7 @@
         android:padding="10dp">
 
 
-        <TextView
+        <com.octalabs.challetapp.custome.CustomTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"

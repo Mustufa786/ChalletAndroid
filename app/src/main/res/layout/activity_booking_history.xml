@@ -14,7 +14,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
-    <TextView
+    <com.octalabs.challetapp.custome.CustomTextView
         android:id="@+id/text_no_data"
         android:visibility="gone"
         android:layout_width="wrap_content"

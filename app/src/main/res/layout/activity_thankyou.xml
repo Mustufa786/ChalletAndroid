@@ -43,7 +43,7 @@
                 android:layout_weight="1">
 
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
@@ -53,7 +53,7 @@
                     android:textColor="@color/colorPrimaryDark"/>
 
 
-                <TextView
+                <com.octalabs.challetapp.custome.CustomTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
@@ -71,7 +71,7 @@
                     android:orientation="horizontal">
 
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text="Invoice#"
@@ -82,7 +82,7 @@
                         android:layout_weight="1"/>
 
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text=""
@@ -105,7 +105,7 @@
                     android:orientation="horizontal">
 
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text="Chalet Name#"
@@ -116,7 +116,7 @@
                         android:layout_weight="1"/>
 
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text="Chalet"
@@ -138,7 +138,7 @@
                     android:orientation="horizontal">
 
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text="Booking Date:"
@@ -149,7 +149,7 @@
                         android:layout_weight="1"/>
 
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text="30/09/2019"
@@ -171,7 +171,7 @@
                     android:orientation="horizontal">
 
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text="Price:"
@@ -182,7 +182,7 @@
                         android:layout_weight="1"/>
 
 
-                    <TextView
+                    <com.octalabs.challetapp.custome.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text="600 Riyal"

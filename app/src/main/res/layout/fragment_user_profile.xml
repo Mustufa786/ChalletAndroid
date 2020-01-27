@@ -67,7 +67,7 @@
                     android:padding="15dp">
 
 
-                    <EditText
+                    <com.octalabs.challetapp.custome.CustomEditText
                         android:id="@+id/user_name"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
@@ -82,7 +82,7 @@
                         android:textColorHint="@color/black"
                         android:textSize="14sp" />
 
-                    <EditText
+                    <com.octalabs.challetapp.custome.CustomEditText
                         android:id="@+id/email"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
@@ -99,7 +99,7 @@
                         android:textSize="14sp" />
 
 
-                    <EditText
+                    <com.octalabs.challetapp.custome.CustomEditText
                         android:id="@+id/mobile"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
@@ -116,7 +116,7 @@
                         android:textSize="14sp" />
 
 
-                    <EditText
+                    <com.octalabs.challetapp.custome.CustomEditText
                         android:id="@+id/address"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"

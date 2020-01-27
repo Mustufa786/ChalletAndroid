@@ -62,7 +62,7 @@ public class ActivityConfirmPayment extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources()
-                .getColor(R.color.black)));
+                .getColor(R.color.colorPrimaryDark)));
         hud = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
         sharedPreferences = getSharedPreferences("main", MODE_PRIVATE);
         gson = new Gson();

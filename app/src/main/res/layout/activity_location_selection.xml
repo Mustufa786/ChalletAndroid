@@ -22,7 +22,7 @@
             android:layout_marginRight="15dp"
             android:background="@drawable/ic_search_black_24dp" />
 
-        <TextView
+        <com.octalabs.challetapp.custome.CustomTextView
             android:id="@+id/current_location_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -80,7 +80,7 @@ public class LocationSelectionActivity extends AppCompatActivity implements OnMa
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources()
-                .getColor(R.color.black)));
+                .getColor(R.color.colorPrimaryDark)));
         if (Build.VERSION.SDK_INT >= 23) {
             checkForPhoneStatePermissionLocationAccess();
         } else {

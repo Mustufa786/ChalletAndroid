@@ -18,33 +18,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.activities.ActivitySearchAndFilterResult;
-import com.octalabs.challetapp.activities.PaymentActivity;
-import com.octalabs.challetapp.activities.RegisterActivity;
-import com.octalabs.challetapp.adapter.AdapterAutoCompelete;
-import com.octalabs.challetapp.adapter.AdapterBookingHistory;
-import com.octalabs.challetapp.adapter.AdapterChalets;
-import com.octalabs.challetapp.adapter.CustomSpinnerAdapter;
 import com.octalabs.challetapp.databinding.FragmentSearchListingBinding;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
-import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
-import com.octalabs.challetapp.models.ModelChalet;
-import com.octalabs.challetapp.models.ModelCity.CityModel;
-import com.octalabs.challetapp.models.ModelCity.StateCity;
-import com.octalabs.challetapp.models.ModelCountry.Country;
-import com.octalabs.challetapp.models.ModelCountry.CountryModel;
-import com.octalabs.challetapp.models.ModelLocation.LocationModel;
-import com.octalabs.challetapp.models.ModelLocation.SampleLocation;
-import com.octalabs.challetapp.models.ModelWishlist.ModelWishlist;
-import com.octalabs.challetapp.models.modelseatchcity.ModelCity;
-import com.octalabs.challetapp.models.modelseatchcity.ModelCityResponse;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
-import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.Helper;
 
 import org.json.JSONObject;
@@ -70,7 +51,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
     private FragmentSearchListingBinding mBinding;
     private KProgressHUD hud;
-    private String mLocationId = "";
     public static Long checkInStr, checkoutStr;
 
     private Calendar mCheckInn;
@@ -104,69 +84,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         noOfDays = 1;
 
 
-        getAllLocations();
-
-
         return mBinding.getRoot();
-    }
-
-    private void getAllLocations() {
-        hud.show();
-        Call<ModelCityResponse> call = RetrofitInstance.service.getAllCities();
-        call.enqueue(new Callback<ModelCityResponse>() {
-            @Override
-            public void onResponse(Call<ModelCityResponse> call, Response<ModelCityResponse> response) {
-                if (response.body() != null) {
-                    hud.dismiss();
-                    ModelCityResponse model = response.body();
-                    if (model.getSuccess()) {
-                        ArrayList<ModelCity> countryArray = new ArrayList<>(model.getData());
-                        setLocationData(countryArray);
-                    } else {
-                        displayDialog("Alert", model.getMessage(), getActivity());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ModelCityResponse> call, Throwable t) {
-                t.printStackTrace();
-                hud.dismiss();
-            }
-        });
-    }
-
-    private void setLocationData(ArrayList<ModelCity> locationArray) {
-
-        ModelCity city = new ModelCity();
-        city.setName("الدمام");
-
-
-        int index = -1;
-        for (int i = 0; i < locationArray.size(); i++) {
-            if (locationArray.get(i).getName().equalsIgnoreCase("الدمام")) {
-                index = i;
-                mLocationId = locationArray.get(i).getId();
-                break;
-            }
-        }
-
-
-        mBinding.location.setThreshold(1);
-        AdapterAutoCompelete adapter = new AdapterAutoCompelete(getActivity(), R.layout.adapter_auto_tv, locationArray);
-        mBinding.location.setAdapter(adapter);
-        mBinding.location.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ModelCity obj = (ModelCity) adapterView.getItemAtPosition(i);
-                mLocationId = obj.getId() + "";
-            }
-        });
-
-
-        mBinding.location.setText("الدمام");
-
-
     }
 
 
@@ -244,12 +162,7 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
 
 
             case R.id.btn_search:
-                if (!mLocationId.equalsIgnoreCase("0")) {
-                    getSearchData();
-                } else {
-                    Toast.makeText(getContext(), "Select Atleast One Location To Continue and select check in and check out dates", Toast.LENGTH_SHORT).show();
-                }
-
+                getSearchData();
                 break;
 
             default:
@@ -262,7 +175,6 @@ public class FragmentSearch extends Fragment implements View.OnClickListener {
         try {
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("cityId", mLocationId);
             jsonObject.put("checkIn", checkInStr);
             jsonObject.put("checkOut", checkoutStr);
             if (!mBinding.venueName.getText().toString().equalsIgnoreCase(""))

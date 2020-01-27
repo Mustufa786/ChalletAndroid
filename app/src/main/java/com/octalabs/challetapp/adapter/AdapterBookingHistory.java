@@ -24,6 +24,7 @@ import com.octalabs.challetapp.utils.Helper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.octalabs.challetapp.utils.Constants.BOOKING_HISTORY_DETAILS;
 import static com.octalabs.challetapp.utils.Constants.CHALET_OR_MARRAIGE_ID;
@@ -56,12 +57,24 @@ public class AdapterBookingHistory extends RecyclerView.Adapter<AdapterBookingHi
 
         BookingHistoryItem item = mlist.get(position);
 
-        holder.textOdrerNum.setText(String.valueOf(position + 1));
         holder.textOrderTitle.setText("Order : " + position + 1 + "");
         holder.textNumOfItems.setText("No of items : " + item.getBookingItemIds().size() + "");
-        holder.textBookingDate.setText(Helper.getDate(Long.parseLong(item.getCreatedAt()), "dd-MMM-yyyy"))
-        ;
-
+        holder.textBookingDate.setText(Helper.getDate(Long.parseLong(item.getCreatedAt()), "dd-MMM-yyyy"));
+        try {
+            if (item.getBookingItemIds() != null && item.getBookingItemIds().size() > 0) {
+                List<String> pictures = item.getBookingItemIds().get(0).getPicture();
+                if (pictures != null && pictures.size() > 0) {
+                    String imageName = pictures.get(0);
+                    Picasso.get().load(RetrofitInstance.BASE_IMG_CHALET_URL + imageName).into(holder.itemImage);
+                } else {
+                    holder.itemImage.setImageBitmap(null);
+                }
+            } else {
+                holder.itemImage.setImageBitmap(null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -71,13 +84,14 @@ public class AdapterBookingHistory extends RecyclerView.Adapter<AdapterBookingHi
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textOrderTitle, textOdrerNum, textBookingDate, textNumOfItems;
+        TextView textOrderTitle, textBookingDate, textNumOfItems;
+        ImageView itemImage;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            textOdrerNum = itemView.findViewById(R.id.text_order_num);
             textOrderTitle = itemView.findViewById(R.id.text_order_title);
 
+            itemImage = itemView.findViewById(R.id.item_image);
             textBookingDate = itemView.findViewById(R.id.text_booking_date);
             textNumOfItems = itemView.findViewById(R.id.text_num_of_bookings);
             itemView.setOnClickListener(new View.OnClickListener() {

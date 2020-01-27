@@ -3,6 +3,7 @@ package com.octalabs.challetapp.utils;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -161,5 +162,13 @@ public class Helper {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static Typeface getRelativeFont(Context context) {
+        if(context.getSharedPreferences("main", MODE_PRIVATE).getString(Constants.SELECTED_LANGUAGE, "en").equalsIgnoreCase("en")) {
+            return Typeface.SANS_SERIF;
+        } else {
+            return Typeface.createFromAsset(context.getResources().getAssets(), "arabic_font.ttf");
+        }
     }
 }

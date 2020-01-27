@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         setTextAction(actionbar, getResources().getString(R.string.title_search));
         getactionbar = actionbar;
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources()
-                .getColor(R.color.black)));
+                .getColor(R.color.colorPrimaryDark)));
         Init();
     }
 

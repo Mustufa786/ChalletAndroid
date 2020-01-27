@@ -69,7 +69,6 @@ public class FragmentBookingHistory extends Fragment {
         mRvBookingHistory = v.findViewById(R.id.rv_booking_history);
         mAdapter = new AdapterBookingHistory(getActivity(), new ArrayList<BookingHistoryItem>());
         mRvBookingHistory.setAdapter(mAdapter);
-
     }
 
     private void getAllWishListData() {
