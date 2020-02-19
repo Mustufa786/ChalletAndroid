@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.ActivityConfirmPayment">
+
+    <LinearLayout  android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#D4D4D4">
+
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                card_view:cardElevation="5dp"
+                android:elevation="10dp"
+
+                android:layout_height="match_parent"
+                card_view:cardCornerRadius="4dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="15dp"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/cardholder_s_name"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_weight="0.4"/>
+
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:id="@+id/text_card_holder_name"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text=""
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textColor="@color/black"
+                            android:layout_weight="0.6"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/card_number"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_weight="0.4"/>
+
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:id="@+id/text_card_number"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text=""
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textColor="@color/black"
+                            android:layout_weight="0.6"/>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/expiry_date"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_weight="0.4"/>
+
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:id="@+id/text_expiry_date"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text=""
+                            android:paddingStart="10dp" android:paddingEnd="10dp"
+                            android:textColor="@color/black"
+                            android:layout_weight="0.6"/>
+
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/ccv"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_weight="0.4"/>
+
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:id="@+id/text_cvv"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text=""
+                            android:paddingStart="10dp" android:paddingEnd="10dp"
+                            android:textColor="@color/black"
+                            android:layout_weight="0.6"/>
+
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/billing_address"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_weight="0.4"/>
+
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:id="@+id/text_billing_address"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text=""
+                            android:paddingStart="10dp" android:paddingEnd="10dp"
+                            android:textColor="@color/black"
+                            android:layout_weight="0.6"/>
+
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/country"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_weight="0.4"/>
+
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:id="@+id/text_country_name"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text=""
+                            android:paddingStart="10dp" android:paddingEnd="10dp"
+                            android:textColor="@color/black"
+                            android:layout_weight="0.6"/>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/state"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_weight="0.4"/>
+
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:id="@+id/text_state_name"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text=""
+                            android:paddingStart="10dp" android:paddingEnd="10dp"
+                            android:textColor="@color/black"
+                            android:layout_weight="0.6"/>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/city"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_weight="0.4"/>
+
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:id="@+id/text_city_name"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text=""
+                            android:paddingStart="10dp" android:paddingEnd="10dp"
+                            android:textColor="@color/black"
+                            android:layout_weight="0.6"/>
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/postal_code"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_weight="0.4"/>
+
+
+
+                        <com.octalabs.challetapp.custome.CustomTextView
+                            android:id="@+id/text_postal_code"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text=""
+                            android:paddingStart="10dp" android:paddingEnd="10dp"
+                            android:textColor="@color/black"
+                            android:layout_weight="0.6"/>
+
+
+                    </LinearLayout>
+
+
+
+                    <Button
+                        android:id="@+id/btn_confirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:layout_margin="20dp"
+                        android:text="@string/confirm"
+
+                        android:textColor="@color/white"
+                        android:background="@drawable/rounded_btn_new"
+                        />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
+
+
+</layout>

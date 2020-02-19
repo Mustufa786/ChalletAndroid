@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "76772233362",
+    "firebase_url": "https://chaletapp-32f8b.firebaseio.com",
+    "project_id": "chaletapp-32f8b",
+    "storage_bucket": "chaletapp-32f8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76772233362:android:d13aa2cf92624e24ac164b",
+        "android_client_info": {
+          "package_name": "com.octalabs.challetapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "76772233362-l4ekac8q2s5pnvr2ilm1l8ls0nirtv6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrHC4iV_13puOY1sRM36bmO4m9crNyeR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "76772233362-l4ekac8q2s5pnvr2ilm1l8ls0nirtv6k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

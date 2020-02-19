@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+
+    <LinearLayout  android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#D4D4D4"
+        tools:context=".activities.PaymentActivity">
+
+
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                card_view:cardElevation="5dp"
+                android:elevation="10dp"
+
+                android:layout_height="match_parent"
+                card_view:cardCornerRadius="4dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="15dp"
+                    android:orientation="vertical">
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <com.octalabs.challetapp.custome.CustomEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:id="@+id/input_name"
+                            android:textSize="14sp"
+                            android:hint="@string/cardholder_s_name"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        >
+
+
+
+                        <com.octalabs.challetapp.custome.CustomEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:id="@+id/input_card_number"
+                            android:textSize="14sp"
+                            android:hint="@string/card_number" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            >
+
+
+
+                            <com.octalabs.challetapp.custome.CustomEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="10dp"
+                                android:focusable="false"
+                                android:id="@+id/input_expiry_date"
+                                android:paddingEnd="10dp"
+                                android:textSize="14sp"
+                                android:hint="@string/expiry_date" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            >
+
+
+
+                            <com.octalabs.challetapp.custome.CustomEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="10dp"
+                                android:textSize="14sp"
+                                android:id="@+id/input_cvv"
+                                android:paddingEnd="10dp"
+                                android:hint="@string/ccv" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        >
+
+
+
+                        <com.octalabs.challetapp.custome.CustomEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="10dp"
+                            android:textSize="14sp"
+                            android:id="@+id/input_billing_address"
+                            android:paddingEnd="10dp"
+                            android:hint="@string/billing_address" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    <Spinner
+                        android:id="@+id/country"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:focusable="false"
+                        android:textSize="14sp"
+                        android:layout_marginTop="10dp"
+
+                        android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:textColorHint="@color/black"
+                        android:hint="@string/country" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="#000"
+                        android:alpha="0.5"></View>
+
+
+
+
+
+
+
+                    <Spinner
+                        android:id="@+id/state"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:focusable="false"
+                        android:textSize="14sp"
+                        android:layout_marginTop="10dp"
+
+                        android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:textColorHint="@color/black"
+                        android:hint="@string/country" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="#000"
+                        android:alpha="0.5"></View>
+
+
+
+                    <Spinner
+                        android:id="@+id/city"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:focusable="false"
+                        android:textSize="14sp"
+                        android:layout_marginTop="10dp"
+
+                        android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:textColorHint="@color/black"
+                        android:hint="@string/country" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="#000"
+                        android:alpha="0.5"></View>
+
+
+
+
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            >
+
+
+
+                            <com.octalabs.challetapp.custome.CustomEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="10dp"
+                                android:id="@+id/input_postal_code"
+                                android:paddingEnd="10dp"
+                                android:textSize="14sp"
+                                android:hint="@string/postal_code" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+                    <Button
+                        android:id="@+id/btn_process"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:layout_margin="20dp"
+                        android:text="Proceed"
+
+                        android:textColor="@color/white"
+                        android:background="@drawable/rounded_btn_new"
+                        />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#D4D4D4"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:elevation="6dp"
+                android:src="@drawable/new_avatar"
+                app:civ_border_color="@color/colorPrimaryDark"
+                app:civ_border_width="2dp" />
+
+            <RelativeLayout
+                android:id="@+id/layout_change_pic"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="-30dp"
+                android:layout_marginTop="145dp"
+                android:layout_toEndOf="@id/profile_image"
+                android:background="@drawable/circle_new"
+                android:elevation="6dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ic_edit_black_24dp" />
+
+            </RelativeLayout>
+
+
+            <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/profile_image"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="-60dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="5dp"
+
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="5dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="80dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+
+                    <com.octalabs.challetapp.custome.CustomEditText
+                        android:id="@+id/user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:drawableStart="@drawable/ic_usernameicon"
+                        android:drawablePadding="20dp"
+                        android:ellipsize="end"
+                        android:hint="@string/user_name"
+                        android:maxLines="1"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:singleLine="true"
+                        android:textColorHint="@color/black"
+                        android:textSize="14sp" />
+
+                    <com.octalabs.challetapp.custome.CustomEditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:drawableStart="@drawable/emailicon"
+                        android:drawablePadding="20dp"
+                        android:ellipsize="end"
+                        android:hint="@string/email"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:singleLine="true"
+                        android:textColorHint="@color/black"
+                        android:textSize="14sp" />
+
+
+                    <com.octalabs.challetapp.custome.CustomEditText
+                        android:id="@+id/mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:drawableStart="@drawable/mobileicon"
+                        android:drawablePadding="20dp"
+                        android:ellipsize="end"
+                        android:hint="@string/phone"
+                        android:inputType="phone"
+                        android:maxLines="1"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:singleLine="true"
+                        android:textColorHint="@color/black"
+                        android:textSize="14sp" />
+
+
+                    <com.octalabs.challetapp.custome.CustomEditText
+                        android:id="@+id/address"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:drawableStart="@drawable/addressicon"
+                        android:drawablePadding="20dp"
+                        android:ellipsize="end"
+                        android:hint="@string/address"
+                        android:maxLines="1"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:singleLine="true"
+                        android:textColorHint="@color/black"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:src="@drawable/cityicon1" />
+
+                        <Spinner
+                            android:id="@+id/country"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawableStart="@drawable/cityicon1"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+
+                            android:drawablePadding="20dp"
+                            android:focusable="false"
+                            android:hint="@string/country"
+                            android:textColorHint="@color/black"
+                            android:textSize="14sp" />
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:alpha="0.5"
+                        android:background="#000"></View>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:paddingStart="10dp"
+
+                            android:paddingEnd="10dp"
+                            android:src="@drawable/cityicon1" />
+
+                        <Spinner
+                            android:id="@+id/state"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawableStart="@drawable/cityicon1"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+
+                            android:drawablePadding="20dp"
+                            android:focusable="false"
+                            android:hint="@string/country"
+                            android:textColorHint="@color/black"
+                            android:textSize="14sp" />
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:alpha="0.5"
+                        android:background="#000"></View>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:paddingStart="10dp"
+
+                            android:paddingEnd="10dp"
+                            android:src="@drawable/cityicon1" />
+
+                        <Spinner
+                            android:id="@+id/city"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:drawableStart="@drawable/cityicon1"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+
+                            android:drawablePadding="20dp"
+                            android:focusable="false"
+                            android:hint="@string/country"
+                            android:textColorHint="@color/black"
+                            android:textSize="14sp" />
+
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:alpha="0.5"
+                        android:background="#000"></View>
+
+
+                    <Button
+                        android:id="@+id/btn_process"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_margin="20dp"
+                        android:background="@drawable/rounded_btn_new"
+                        android:backgroundTint="@color/colorPrimaryDark"
+
+                        android:text="Proceed"
+                        android:textColor="@color/white" />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+</layout>
+

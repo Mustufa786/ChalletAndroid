@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:cardCornerRadius="20dp"
+
+            app:cardElevation="6dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <com.octalabs.challetapp.custome.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rating"
+                    android:textColor="@color/black" />
+
+                <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                    android:id="@+id/chalet_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stepSize="0.1"
+                    android:numStars="5"
+                    android:max="5"
+                    android:layout_gravity="center"
+                    app:mrb_indeterminateTint="@color/colorPrimary"
+                    app:mrb_progressTint="@color/colorPrimary"
+                    />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/grey_500" />
+
+
+                <com.octalabs.challetapp.custome.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/price_range"
+                    android:textColor="@color/black" />
+
+                <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+                    android:id="@+id/rangeSeekbar5"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:bar_color="#F7BB88"
+                    app:bar_highlight_color="#E07416"
+                    app:corner_radius="10"
+                    app:data_type="_integer"
+                    app:left_thumb_color="@color/colorPrimary"
+                    app:right_thumb_color="@color/colorPrimary"
+                    app:left_thumb_color_pressed="@color/colorPrimary"
+                    app:right_thumb_color_pressed="@color/colorPrimary"
+                    app:max_value="300000"
+                    app:min_value="10000"
+                    app:steps="10" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.octalabs.challetapp.custome.CustomTextView
+                        android:id="@+id/tv_min"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:text="0" />
+
+                    <com.octalabs.challetapp.custome.CustomTextView
+                        android:id="@+id/tv_max"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="1000000" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/grey_500" />
+
+                <com.octalabs.challetapp.custome.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/amenities"
+                    android:textColor="@color/black" />
+
+                <!--  <CheckBox
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="Swimming Pool"
+                      android:textStyle="bold" />
+
+                  <CheckBox
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="Baby Toys"
+                      android:textStyle="bold" />
+
+                  <CheckBox
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="Children's Pool"
+                      android:textStyle="bold" />
+      -->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_amenities"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/grey_500" />
+
+                <com.octalabs.challetapp.custome.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/booking_type"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/chk_instant_booking"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/instant_booking"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/chk_check_booking"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/check_availability"
+                    android:textStyle="bold" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/grey_500" />
+
+                <com.octalabs.challetapp.custome.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/chalet_for"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/chk_for_single"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Singles"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/chk_for_family"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Family"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/chk_for_occasion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Occasions"
+                    android:textStyle="bold" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/grey_500" />
+
+                <com.octalabs.challetapp.custome.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/property_type"
+                    android:textColor="@color/black" />
+
+                <CheckBox
+                    android:id="@+id/chk_chalet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Chalets"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/chk_hall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Marriage Halls"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/btn_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?actionBarSize"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="90dp"
+                        android:src="@drawable/filtericon"
+                        android:tint="@color/white" />
+
+                    <com.octalabs.challetapp.custome.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="90dp"
+                        android:paddingStart="10dp"
+                        android:text="@string/filter"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </ScrollView>
+</layout>

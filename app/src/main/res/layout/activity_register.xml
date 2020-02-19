@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+            <ImageView
+                android:layout_width="280dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="230dp"
+                android:layout_marginTop="50dp"
+                android:padding="10dp"
+                android:src="@drawable/newnewlogo" />
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+
+                <com.octalabs.challetapp.custome.CustomEditText
+                    android:id="@+id/user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:drawableStart="@drawable/ic_usernameicon"
+                    android:drawablePadding="20dp"
+                    android:hint="@string/user_name"
+                    android:paddingStart="10dp"
+                    android:maxLines="1"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:visibility="gone"
+
+                    android:ellipsize="end"
+                    android:paddingEnd="10dp"
+                    android:textColorHint="@color/black" />
+
+                <com.octalabs.challetapp.custome.CustomEditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:drawableStart="@drawable/emailicon"
+                    android:drawablePadding="20dp"
+                    android:hint="@string/email"
+                    android:maxLines="1"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:paddingStart="10dp"
+                    android:inputType="textEmailAddress"
+                    android:paddingEnd="10dp"
+                    android:textColorHint="@color/black" />
+
+
+                <com.octalabs.challetapp.custome.CustomEditText
+                    android:id="@+id/mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:drawableStart="@drawable/mobileicon"
+                    android:drawablePadding="20dp"
+                    android:hint="@string/phone"
+                    android:paddingStart="10dp"
+                    android:textSize="14sp"
+                    android:maxLines="1"
+                    android:visibility="visible"
+
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:inputType="phone"
+                    android:paddingEnd="10dp"
+                    android:textColorHint="@color/black" />
+
+
+                <com.octalabs.challetapp.custome.CustomEditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:drawableStart="@drawable/ic_passwordicon"
+                    android:drawablePadding="20dp"
+                    android:hint="@string/password"
+                    android:paddingStart="10dp"
+                    android:textSize="14sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:inputType="textPassword"
+                    android:paddingEnd="10dp"
+                    android:textColorHint="@color/black" />
+
+
+                <com.octalabs.challetapp.custome.CustomEditText
+                    android:id="@+id/con_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:drawableStart="@drawable/ic_passwordicon"
+                    android:drawablePadding="20dp"
+                    android:hint="@string/con_password"
+                    android:paddingStart="10dp"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:inputType="textPassword"
+                    android:paddingEnd="10dp"
+                    android:textColorHint="@color/black" />
+
+
+                <com.octalabs.challetapp.custome.CustomEditText
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:drawableStart="@drawable/addressicon"
+                    android:drawablePadding="20dp"
+                    android:hint="@string/address"
+                    android:focusable="false"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textSize="14sp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:textColorHint="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:visibility="gone"
+
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/cityicon1"/>
+
+                    <Spinner
+                        android:id="@+id/country"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:focusable="false"
+                        android:textSize="14sp"
+
+                        android:drawableStart="@drawable/cityicon1"
+                        android:drawablePadding="20dp"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:textColorHint="@color/black"
+                        android:hint="@string/country" />
+
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:visibility="gone"
+
+                    android:background="#000"
+                    android:alpha="0.5"></View>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:visibility="gone"
+
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/cityicon1"/>
+
+                    <Spinner
+                        android:id="@+id/state"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:focusable="false"
+                        android:textSize="14sp"
+
+                        android:drawableStart="@drawable/cityicon1"
+                        android:drawablePadding="20dp"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:textColorHint="@color/black"
+                        android:hint="@string/country" />
+
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:visibility="gone"
+
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="#000"
+                    android:alpha="0.5"></View>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:visibility="gone"
+
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/cityicon1"/>
+
+                    <Spinner
+                        android:id="@+id/city"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:focusable="false"
+                        android:textSize="14sp"
+
+                        android:drawableStart="@drawable/cityicon1"
+                        android:drawablePadding="20dp"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:textColorHint="@color/black"
+                        android:hint="@string/country" />
+
+
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:visibility="gone"
+
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="#000"
+                    android:alpha="0.5"></View>
+
+
+                <Button
+                    android:id="@+id/btn_sign_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/ic_rectangle_rounded"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="@string/sign_up"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/ic_rectangle_rounded"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:text="@string/sign_in"
+                    android:visibility="gone"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+</LinearLayout>

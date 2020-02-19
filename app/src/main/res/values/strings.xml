@@ -1,0 +1,104 @@
+<resources>
+    <string name="facebook_app_id">1488356454649492</string>
+    <string name="fb_login_protocol_scheme">fb1488356454649492</string>
+
+    <string name="app_name">Farhty</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="forgot_password"><u>Forgot Password</u></string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="con_password">Confirm Password</string>
+    <string name="address">Address</string>
+    <string name="city">City</string>
+    <string name="cardholder_s_name" translatable="false">Cardholder\'s Name</string>
+    <string name="card_number" translatable="false">Card Number</string>
+    <string name="expiry_date" translatable="false">Expiry Date</string>
+    <string name="ccv" translatable="false">CCV</string>
+    <string name="billing_address" translatable="false">Billing Address</string>
+    <string name="city_new" translatable="false">City</string>
+    <string name="postal_code" translatable="false">Postal Code</string>
+
+    <string name="home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_booking">Booking</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_more">More</string>
+    <string name="chalet">Chalet</string>
+    <string name="marriage_hall">Marriage Hall</string>
+    <string name="sort">Sort</string>
+    <string name="filter">Filter</string>
+    <string name="map">Map</string>
+    <string name="booking_history">Booking Histoy</string>
+    <string name="check_out">Check Out</string>
+    <string name="cart">Cart</string>
+    <string name="time" translatable="false"><b>Time</b> : 9:45</string>
+    <string name="building_111_abxc_street_xyz_road_2nd_ncommercial_area_dammam_saudi_arabia" translatable="false">Building # 111 ABXC Street Xyz Road, 2nd Commercial Area, Dammam, Saudi Arabia</string>
+    <string name="payment" translatable="false">Payment</string>
+    <string name="confirm_payment" translatable="false"> Confirm Payment </string>
+    <string name="country" translatable="false">Country</string>
+    <string name="state" translatable="false">State</string>
+    <string name="thank_you" translatable="false">Thank you</string>
+    <string name="last_name" translatable="false">Last Name</string>
+    <string name="first_name" translatable="false">First Name</string>
+    <string name="mobile_no" translatable="false">Mobile No</string>
+    <string name="user_profile" translatable="false">User Profile</string>
+    <string name="more" translatable="false">More</string>
+    <string name="old_password" translatable="false">Old Password</string>
+    <string name="new_password" translatable="false">New Password</string>
+    <string name="confirm_password" translatable="false">Confirm Password</string>
+    <string name="message" translatable="false">Message</string>
+    <string name="change_password" translatable="false">Change Password</string>
+    <string name="contact_us" translatable="false">Contact Us</string>
+    <string name="enter_your_message_here" translatable="false">Enter your message here</string>
+    <string name="title" translatable="false">Title</string>
+    <string name="select_language">ع/En</string>
+    <string name="wishlist">WishList</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="logout">Logout</string>
+    <string name="submit">Submit</string>
+    <string name="update">Update</string>
+    <string name="confirm">Confirm</string>
+    <string name="list">List</string>
+    <string name="please_login_to_continue">Please Login To Continue</string>
+    <string name="login">Login</string>
+    <string name="check_in">Check In</string>
+
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+            AIzaSyDlbGK8T0OhEr8DEZPs9nT_Shg_Mw65y5k
+    </string>
+    <string name="search">Search</string>
+    <string name="search_results">Search Results</string>
+    <string name="description">Description</string>
+    <string name="lowest_price_today">Lowest Price today</string>
+    <string name="price_for_1_night">Price for 1 night</string>
+    <string name="amenities">Amenities</string>
+    <string name="reviews">Reviews</string>
+    <string name="write_review">Write Review</string>
+    <string name="add_to_wishlist">Add to wishlist</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="rating">Rating</string>
+    <string name="price_range">Price Range</string>
+    <string name="booking_type">Booking Type</string>
+    <string name="instant_booking">Instant Booking</string>
+    <string name="check_availability">Check Availability</string>
+    <string name="chalet_for">Chalet For</string>
+    <string name="property_type">Property Type</string>
+    <string name="comment">Comment...</string>
+
+    <string name="select_date">Select Date</string>
+    <string name="enter_city">Enter city</string>
+    <string name="males_capacity">Males Capacity</string>
+    <string name="female_capacity">Female Capacity</string>
+    <string name="customize_your_sort">Customize your sort</string>
+    <string name="price">Price</string>
+    <string name="men">Men</string>
+    <string name="women">Women</string>
+    <string name="not_provided">Not Provided</string>
+    <string name="riyal_for" > SR For </string>
+    <string name="days" > Days </string>
+</resources>
