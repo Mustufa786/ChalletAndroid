@@ -168,7 +168,7 @@ public class Helper {
         if(context.getSharedPreferences("main", MODE_PRIVATE).getString(Constants.SELECTED_LANGUAGE, "en").equalsIgnoreCase("en")) {
             return Typeface.SANS_SERIF;
         } else {
-            return Typeface.createFromAsset(context.getResources().getAssets(), "arabic_font.ttf");
+            return Typeface.createFromAsset(context.getResources().getAssets(), "noto_kufi.ttf");
         }
     }
 }
