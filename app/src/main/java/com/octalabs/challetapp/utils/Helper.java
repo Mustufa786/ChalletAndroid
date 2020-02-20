@@ -10,6 +10,7 @@ import android.util.Log;
 import android.util.Patterns;
 
 import com.google.gson.Gson;
+import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.models.ModelLogin.Login;
 
 import java.text.ParseException;
@@ -168,7 +169,7 @@ public class Helper {
         if(context.getSharedPreferences("main", MODE_PRIVATE).getString(Constants.SELECTED_LANGUAGE, "en").equalsIgnoreCase("en")) {
             return Typeface.SANS_SERIF;
         } else {
-            return Typeface.createFromAsset(context.getResources().getAssets(), "arabic_font.ttf");
+            return Typeface.createFromAsset(context.getResources().getAssets(), "fonts/arabic_font.ttf");
         }
     }
 }
