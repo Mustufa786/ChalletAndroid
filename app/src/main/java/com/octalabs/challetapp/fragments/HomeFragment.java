@@ -222,7 +222,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
 
     private void showMarraigeTab() {
 
-        binding.layoutMain.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
+        binding.layoutMain.setBackgroundColor(getActivity().getResources().getColor(R.color.yellow));
         mBtnchalet.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
         mBtnchalet.setTextColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
         mBtnMarriageall.setBackgroundColor(getActivity().getResources().getColor(R.color.colorPrimaryDark));
