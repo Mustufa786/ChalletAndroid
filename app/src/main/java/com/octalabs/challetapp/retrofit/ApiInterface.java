@@ -4,13 +4,13 @@ import com.octalabs.challetapp.models.ModelAddReview;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
 import com.octalabs.challetapp.models.ModelAmeneties.ModelAmenety;
 import com.octalabs.challetapp.models.ModelBookingHistory.ModelBookingHistory;
+import com.octalabs.challetapp.models.ModelChalletCheck.ChalletCheckResponse;
 import com.octalabs.challetapp.models.ModelChangePassword;
 import com.octalabs.challetapp.models.ModelCheckout.ModelCheckout;
 import com.octalabs.challetapp.models.ModelCity.CityModel;
 import com.octalabs.challetapp.models.ModelCountry.CountryModel;
 import com.octalabs.challetapp.models.ModelDetails.ModelChaletsDetails;
 import com.octalabs.challetapp.models.ModelLocation.LocationModel;
-import com.octalabs.challetapp.models.ModelLogin.CityId;
 import com.octalabs.challetapp.models.ModelLogin.LoginModel;
 import com.octalabs.challetapp.models.ModelRegister.RegisterModel;
 import com.octalabs.challetapp.models.ModelRegisterResponce;
@@ -62,6 +62,10 @@ public interface ApiInterface {
 
     @POST("user")
     Call<RegisterModel> register(@Body RequestBody body);
+
+    @POST("checkout/check")
+    Call<ChalletCheckResponse> checkChalletAvailability(@Body RequestBody body,
+                                                        @HeaderMap HashMap<String, String> hashMap);
 
     @PUT("user")
     Call<RegisterModel> updateProfile(@HeaderMap HashMap<String, String> hashMap, @Body RequestBody body);

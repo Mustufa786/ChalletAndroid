@@ -22,7 +22,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +50,7 @@ import com.octalabs.challetapp.adapter.AdapterDetailsAmenities;
 import com.octalabs.challetapp.databinding.ActivityDetailsBinding;
 import com.octalabs.challetapp.fragments.FragmentSearch;
 import com.octalabs.challetapp.models.ModelAddReview;
+import com.octalabs.challetapp.models.ModelChalletCheck.ChalletCheckResponse;
 import com.octalabs.challetapp.models.ModelDetails.ChaletDetails;
 import com.octalabs.challetapp.models.ModelDetails.ModelChaletsDetails;
 import com.octalabs.challetapp.retrofit.ApiResponce;
@@ -96,6 +96,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
     ArrayList<ChaletDetails> checkoutList;
     SharedPreferences sharedPreferences;
     ChaletDetails chaletDetails;
+    boolean isChalletAvailable;
     Gson gson;
 
     private RecyclerView mRvPictures, mRvAmenities, mRvReview;
@@ -240,7 +241,7 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 //        holder.textPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
 //        holder.textPrice.setText(decim.format(totalPrice)  + activity.getResources().getString(R.string.riyal_for) + numOfBookingDays + activity.getResources().getString(R.string.days));
 
-                        mPrice.setText(decim.format(totalPrice)  + " " +  getResources().getString(R.string.riyal_for) + " " + numOfBookingDays + " " +  getResources().getString(R.string.days));
+                        mPrice.setText(decim.format(totalPrice) + " " + getResources().getString(R.string.riyal_for) + " " + numOfBookingDays + " " + getResources().getString(R.string.days));
 
                         mAddress.setText(model.getData().getLocation() + "");
 
@@ -358,7 +359,13 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
 //                    Intent intent = new Intent(ActivityDetails.this, ActivityLogin.class);
 //                    startActivityForResult(intent, ADD_TO_CART_REQUEST);
 //                }
-                addToLocalCart();
+
+                try {
+                    challetAvailable();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 break;
 
             case R.id.layout_add_review:
@@ -377,9 +384,8 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                 isCheckInDate = true;
                 myCalendar = Calendar.getInstance();
                 myCalendar.add(Calendar.DAY_OF_MONTH, 1);
-                new DatePickerDialog(ActivityDetails.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(ActivityDetails.this, date, myCalendar.get(Calendar.YEAR),
+                        myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
 
 
@@ -428,6 +434,38 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
                 break;
 
         }
+    }
+
+    private void challetAvailable() throws JSONException {
+        hud.show();
+        JSONObject object = new JSONObject();
+        object.put("bookingItemId", bookingItemID);
+        object.put("bookingFrom", myDateCheckIn);
+        object.put("bookingTo", myDateCheckOut);
+        final RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), object.toString());
+        Call<ChalletCheckResponse> call = RetrofitInstance.service.checkChalletAvailability(requestBody, Helper.getJsonHeader());
+        call.enqueue(new Callback<ChalletCheckResponse>() {
+            @Override
+            public void onResponse(Call<ChalletCheckResponse> call, Response<ChalletCheckResponse> response) {
+                hud.dismiss();
+                if (response.isSuccessful()) {
+                    if (response.body().getData()) {
+                        addToLocalCart();
+                    } else {
+                        Toast.makeText(ActivityDetails.this, "Not Available on selected date. Please Select another date", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ChalletCheckResponse> call, Throwable t) {
+                hud.dismiss();
+                Toast.makeText(ActivityDetails.this, "Check your network connection", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
 
@@ -489,8 +527,18 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
     }
 
     private void addToLocalCart() {
+        chaletDetails.setCheckIn(myDateCheckIn + "");
+        chaletDetails.setCheckOut(myDateCheckOut + "");
+        checkoutList.add(chaletDetails);
+        getSharedPreferences("main", Context.MODE_PRIVATE).edit().putString(Constants.USER_CART, new Gson().toJson(checkoutList)).apply();
+        if (Helper.isUserLoggedIn(ActivityDetails.this)) {
+            startActivity(new Intent(ActivityDetails.this, PaymentActivity.class));
+        } else {
+            Intent intent = new Intent(ActivityDetails.this, ActivityLogin.class);
+            startActivity(intent);
+        }
 
-        int index = Collections.binarySearch(checkoutList, chaletDetails, new Comparator<ChaletDetails>() {
+        /*int index = Collections.binarySearch(checkoutList, chaletDetails, new Comparator<ChaletDetails>() {
             @Override
             public int compare(ChaletDetails chalet, ChaletDetails t1) {
                 return chalet.getId().compareTo(t1.getId());
@@ -501,15 +549,11 @@ public class ActivityDetails extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(ActivityDetails.this, "Item Already Added to Cart", Toast.LENGTH_SHORT).show();
 
         } else {
-            chaletDetails.setCheckIn(myDateCheckIn + "");
-            chaletDetails.setCheckOut(myDateCheckOut + "");
-            checkoutList.add(chaletDetails);
-            getSharedPreferences("main", Context.MODE_PRIVATE).edit().putString(Constants.USER_CART, new Gson().toJson(checkoutList)).apply();
 
             Toast.makeText(ActivityDetails.this, "Item Successfully Added to Cart", Toast.LENGTH_SHORT).show();
 
 
-        }
+        }*/
 
     }
 
