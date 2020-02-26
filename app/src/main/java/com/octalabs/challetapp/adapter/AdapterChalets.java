@@ -1,12 +1,13 @@
 package com.octalabs.challetapp.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,18 +17,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.activities.ActivityDetails;
-import com.octalabs.challetapp.activities.ActivitySearchAndFilterResult;
 import com.octalabs.challetapp.fragments.FragmentSearch;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
-import com.octalabs.challetapp.models.ModelChalet;
+import com.octalabs.challetapp.models.ModelBookingHistory.BookingDate;
+import com.octalabs.challetapp.models.ModelChaletBooking.ChaletBookingDate;
+import com.octalabs.challetapp.models.ModelChaletBooking.ChaletBookingItem;
+import com.octalabs.challetapp.models.ModelChaletBooking.ModelChaletBooking;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Helper;
 import com.squareup.picasso.Picasso;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 import okhttp3.MediaType;
@@ -44,7 +50,7 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
 
     private final Activity activity;
     private int numOfBookingDays = 1;
-    KProgressHUD hud;
+    private KProgressHUD hud;
 
     public AdapterChalets(Activity activitySearchAndFilterResult, ArrayList<Chalet> mList, int numOfBookingDays) {
         this.activity = activitySearchAndFilterResult;
@@ -89,7 +95,14 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
 //        holder.textPrice.setText(totalPrice + " Riyal For " + numOfBookingDays + " Days");
 //        holder.textPrice.setText(decim.format(totalPrice)  + activity.getResources().getString(R.string.riyal_for) + numOfBookingDays + activity.getResources().getString(R.string.days));
 
-        holder.textPrice.setText(decim.format(totalPrice)  + " " +  activity.getResources().getString(R.string.riyal_for) + " " + numOfBookingDays + " " +  activity.getResources().getString(R.string.days));
+        holder.textPrice.setText(new StringBuilder(decim.format(totalPrice))
+                .append(" ")
+                .append(activity.getResources().getString(R.string.riyal_for))
+                .append(" ")
+                .append(numOfBookingDays)
+                .append(" ")
+                .append(activity.getResources().getString(R.string.days))
+        );
 
         if (item.getRating() > 0) {
             holder.ratingBar.setRating(item.getRating() + 0f);
@@ -109,7 +122,6 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
                 holder.btnFamilies.setVisibility(View.VISIBLE);
             }
             if (item.getFor().contains("Ocassions")) {
-
                 holder.btnOcassions.setVisibility(View.VISIBLE);
             }
         }
@@ -117,12 +129,12 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
         holder.btnCheckAvailibality.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkForAvailibality(item.getId());
+                checkForAvailability(item.getId());
             }
         });
     }
 
-    private void checkForAvailibality(String id) {
+    private void checkForAvailability(final String id) {
         try {
             hud.show();
             JSONObject jsonObject = new JSONObject();
@@ -130,7 +142,7 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
             jsonObject.put("bookingFrom", FragmentSearch.checkInStr);
             jsonObject.put("bookingTo", FragmentSearch.checkoutStr);
             RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString());
-            Call<ResponseBody> call = RetrofitInstance.service.checkForAvailibility(requestBody, Helper.getJsonHeader());
+            Call<ResponseBody> call = RetrofitInstance.service.checkForAvailability(requestBody, Helper.getJsonHeader());
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -140,6 +152,7 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
                             JSONObject jsonObject1 = new JSONObject(response.body().string());
                             if (jsonObject1.getBoolean("success")) {
                                 Toast.makeText(activity, "Chalet Available On These Dates", Toast.LENGTH_SHORT).show();
+                                getAvailabilityDates(id, activity);
                             } else
                                 Toast.makeText(activity, "Chalet Not Available On These Dates . Try Selecting Some Other Dates", Toast.LENGTH_SHORT).show();
 
@@ -166,7 +179,7 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
         return mlist.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView textChaletName, textLocation, textPrice;
         ImageView imgChalet;
@@ -174,7 +187,7 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
         TextView btnSingles, btnFamilies, btnOcassions;
         Button btnCheckAvailibality;
 
-        public MyViewHolder(@NonNull View itemView) {
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
             textChaletName = itemView.findViewById(R.id.text_chalet_name);
             textLocation = itemView.findViewById(R.id.text_location);
@@ -196,5 +209,48 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
                 }
             });
         }
+    }
+
+    private void getAvailabilityDates(String id, Context mContext) {
+        Call<ModelChaletBooking> call = RetrofitInstance.service.getChaletsBookingDetails(id, Helper.getJsonHeaderWithToken(mContext));
+        call.enqueue(new Callback<ModelChaletBooking>() {
+            @Override
+            public void onResponse(@NotNull Call<ModelChaletBooking> call, @NotNull Response<ModelChaletBooking> response) {
+
+                hud.dismiss();
+                try {
+                    if (response.body() != null) {
+                        List<ChaletBookingItem> bookingHistory = response.body().getData();
+                        if (bookingHistory.size() == 0) return;
+
+                        for (ChaletBookingItem bookings : bookingHistory) {
+                            List<ChaletBookingDate> bookingDate = bookings.getBookingDates();
+                            if (bookingDate.size() == 0) return;
+
+                            for (ChaletBookingDate items : bookingDate) {
+
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTimeInMillis((int) Math.abs(Double.valueOf(items.getBookingTo())));
+
+                                Calendar calendar02 = Calendar.getInstance();
+                                calendar02.setTimeInMillis((int) Math.abs(Double.valueOf(items.getBookingFrom())));
+
+                                Log.d("onResponse: ",calendar02.toString());
+
+                            }
+                        }
+
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelChaletBooking> call, Throwable t) {
+                hud.dismiss();
+            }
+        });
     }
 }

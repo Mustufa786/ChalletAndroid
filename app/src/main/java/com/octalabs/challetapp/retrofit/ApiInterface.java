@@ -4,6 +4,7 @@ import com.octalabs.challetapp.models.ModelAddReview;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
 import com.octalabs.challetapp.models.ModelAmeneties.ModelAmenety;
 import com.octalabs.challetapp.models.ModelBookingHistory.ModelBookingHistory;
+import com.octalabs.challetapp.models.ModelChaletBooking.ModelChaletBooking;
 import com.octalabs.challetapp.models.ModelChalletCheck.ChalletCheckResponse;
 import com.octalabs.challetapp.models.ModelChangePassword;
 import com.octalabs.challetapp.models.ModelCheckout.ModelCheckout;
@@ -129,8 +130,11 @@ public interface ApiInterface {
 
 
     @POST("checkout/check")
-    Call<ResponseBody> checkForAvailibility(@Body RequestBody body,
+    Call<ResponseBody> checkForAvailability(@Body RequestBody body,
                                             @HeaderMap HashMap<String, String> hashMap);
+
+    @GET("checkout/bookings/{id}")
+    Call<ModelChaletBooking> getChaletsBookingDetails(@Path("id") String id, @HeaderMap HashMap<String, String> hashMap);
 
 
     @POST("user/social")

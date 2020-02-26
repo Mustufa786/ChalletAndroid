@@ -1,7 +1,6 @@
 package com.octalabs.challetapp.adapter;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
-import com.octalabs.challetapp.activities.ActivityDetails;
 import com.octalabs.challetapp.fragments.FragmentSearch;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
@@ -33,9 +31,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.octalabs.challetapp.utils.Constants.CHALET_OR_MARRAIGE_ID;
-import static com.octalabs.challetapp.utils.Constants.NUM_OF_BOOKING_DAYS;
 
 public class AdapterSearchResults extends RecyclerView.Adapter<AdapterSearchResults.MyViewHolder> {
 
@@ -128,7 +123,7 @@ public class AdapterSearchResults extends RecyclerView.Adapter<AdapterSearchResu
             jsonObject.put("bookingFrom", FragmentSearch.checkInStr);
             jsonObject.put("bookingTo", FragmentSearch.checkoutStr);
             RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString());
-            Call<ResponseBody> call = RetrofitInstance.service.checkForAvailibility(requestBody, Helper.getJsonHeader());
+            Call<ResponseBody> call = RetrofitInstance.service.checkForAvailability(requestBody, Helper.getJsonHeader());
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

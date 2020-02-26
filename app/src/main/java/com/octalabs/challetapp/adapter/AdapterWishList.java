@@ -96,7 +96,7 @@ public class AdapterWishList extends RecyclerView.Adapter<AdapterWishList.MyView
             jsonObject.put("bookingFrom", FragmentSearch.checkInStr);
             jsonObject.put("bookingTo", FragmentSearch.checkoutStr);
             RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString());
-            Call<ResponseBody> call = RetrofitInstance.service.checkForAvailibility(requestBody, Helper.getJsonHeader());
+            Call<ResponseBody> call = RetrofitInstance.service.checkForAvailability(requestBody, Helper.getJsonHeader());
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
