@@ -14,12 +14,29 @@
     </style>
 
 
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
-    </style>
+
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem"></style>
+
     <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
 
+    </style>
+
+    <style name="calenderPicker">
+        <item name="bpHeaderBackgroundColor">?attr/colorPrimary</item>
+        <item name="bpPreHeaderBackgroundColor">?attr/colorPrimaryDark</item>
+        <item name="bpHeaderUnselectedTextColor">@color/radial_gray_light</item>
+        <item name="bpHeaderSelectedTextColor">@color/bpWhite</item>
+        <item name="bpBodyBackgroundColor">@color/bpWhite</item>
+        <item name="bpBodySelectedTextColor">?attr/colorPrimary</item>
+        <item name="bpBodyUnselectedTextColor">@color/date_picker_text_normal</item>
+        <item name="bpButtonsBackgroundColor">@color/bpWhite</item>
+        <item name="bpButtonsTextColor">?attr/colorPrimary</item>
+        <item name="bpRadialBackgroundColor">@color/radial_gray_light</item>
+        <item name="bpRadialTextColor">?attr/colorPrimary</item>
+        <item name="bpRadialPointerColor">?attr/colorPrimary</item>
+        <item name="bpAmPmCircleColor">?attr/colorPrimary</item>
+        <item name="bpDisabledDayTextColor">@color/colorPrimary</item>
     </style>
 
 </resources>

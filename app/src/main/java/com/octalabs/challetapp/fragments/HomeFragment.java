@@ -1,16 +1,15 @@
 package com.octalabs.challetapp.fragments;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
@@ -20,6 +19,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.codetroopers.betterpickers.Utils;
+import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
+import com.codetroopers.betterpickers.calendardatepicker.MonthAdapter;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -49,12 +51,10 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import ru.slybeaver.slycalendarview.SlyCalendarDialog;
 
 import static android.app.Activity.RESULT_OK;
 import static com.octalabs.challetapp.utils.Constants.CHALET_OR_MARRAIGE_ID;
@@ -490,23 +490,32 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
 
     @Override
     public void getAvailabilityDates(List<ChaletBookingDate> bookingHistory) {
-        // Get Current Date
-        final Calendar c = Calendar.getInstance();
-        int mYear = c.get(Calendar.YEAR);
-        int mMonth = c.get(Calendar.MONTH);
-        int mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
-                new DatePickerDialog.OnDateSetListener() {
+        // Initialize disabled days list
+        // Disabled days are located at a formatted location in the format "yyyyMMdd"
+        SparseArray<MonthAdapter.CalendarDay> disabledDays = new SparseArray<>();
 
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
+        for (ChaletBookingDate item : bookingHistory) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis((long) Math.abs(Double.valueOf(item.getBookingTo())));
+            int key = Utils.formatDisabledDayForKey(calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            disabledDays.put(key, new MonthAdapter.CalendarDay(calendar));
 
+            Calendar calendar02 = Calendar.getInstance();
+            calendar02.setTimeInMillis((long) Math.abs(Double.valueOf(item.getBookingFrom())));
+            int key02 = Utils.formatDisabledDayForKey(calendar02.get(Calendar.YEAR),
+                    calendar02.get(Calendar.MONTH), calendar02.get(Calendar.DAY_OF_MONTH));
+            disabledDays.put(key02, new MonthAdapter.CalendarDay(calendar02));
+        }
 
-                    }
-                }, mYear, mMonth, mDay);
-        datePickerDialog.show();
+        CalendarDatePickerDialogFragment cdp = new CalendarDatePickerDialogFragment()
+                // Set Disabled Days
+                .setDisabledDays(disabledDays)
+                .setThemeCustom(R.style.calenderPicker);
+
+        cdp.show(getActivity().getSupportFragmentManager(), "");
+
     }
 }
 

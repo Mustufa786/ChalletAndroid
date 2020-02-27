@@ -239,21 +239,7 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
 
                         List<ChaletBookingDate> bookingDate = new ArrayList<>();
                         for (ChaletBookingItem bookings : bookingHistory) {
-//                            List<ChaletBookingDate> bookingDate = bookings.getBookingDates();
                             bookingDate.addAll(bookings.getBookingDates());
-                            /*if (bookingDate.size() == 0) return;
-
-                            for (ChaletBookingDate items : bookingDate) {
-
-                                Calendar calendar = Calendar.getInstance();
-                                calendar.setTimeInMillis((long) Math.abs(Double.valueOf(items.getBookingTo())));
-
-                                Calendar calendar02 = Calendar.getInstance();
-                                calendar02.setTimeInMillis((long) Math.abs(Double.valueOf(items.getBookingFrom())));
-
-                                Log.d("onResponse: ", calendar02.toString());
-
-                            }*/
                         }
 
                         delegate.getAvailabilityDates(bookingDate);
