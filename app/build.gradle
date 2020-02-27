@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'io.fabric'
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
@@ -65,6 +67,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.github.BlackBoxVision:datetimepicker-edittext:v0.4.0'
+
+    def calender_version = '2.1.2'
+    implementation "com.appeaser.sublimepickerlibrary:sublimepickerlibrary:$calender_version"
 
 }
 apply plugin: 'com.google.gms.google-services'

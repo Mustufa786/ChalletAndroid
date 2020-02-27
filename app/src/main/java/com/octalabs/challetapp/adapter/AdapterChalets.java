@@ -12,12 +12,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.octalabs.challetapp.R;
 import com.octalabs.challetapp.activities.ActivityDetails;
+import com.octalabs.challetapp.custome.NonSwipeableViewPager;
 import com.octalabs.challetapp.fragments.FragmentSearch;
+import com.octalabs.challetapp.fragments.LoginFragment;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
 import com.octalabs.challetapp.models.ModelBookingHistory.BookingDate;
 import com.octalabs.challetapp.models.ModelChaletBooking.ChaletBookingDate;
@@ -51,13 +55,15 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
     private final Activity activity;
     private int numOfBookingDays = 1;
     private KProgressHUD hud;
+    private Availability delegate;
 
-    public AdapterChalets(Activity activitySearchAndFilterResult, ArrayList<Chalet> mList, int numOfBookingDays) {
+    public AdapterChalets(Activity activitySearchAndFilterResult, Fragment fragment, ArrayList<Chalet> mList, int numOfBookingDays) {
         this.activity = activitySearchAndFilterResult;
         this.mlist = mList;
         this.numOfBookingDays = numOfBookingDays;
         this.hud = KProgressHUD.create(activity).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(false);
 
+        delegate = (Availability) fragment;
     }
 
     public void setMlist(ArrayList<Chalet> mlist) {
@@ -146,15 +152,23 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    hud.dismiss();
                     if (response.body() != null) {
                         try {
                             JSONObject jsonObject1 = new JSONObject(response.body().string());
                             if (jsonObject1.getBoolean("success")) {
-                                Toast.makeText(activity, "Chalet Available On These Dates", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(activity, "Chalet Available On These Dates", Toast.LENGTH_SHORT).show();
+
+                                if (Helper.getToken(activity) == null) {
+                                    hud.dismiss();
+                                    NonSwipeableViewPager bottomNavigation = activity.findViewById(R.id.main_pager);
+                                    bottomNavigation.setCurrentItem(2);
+                                    return;
+                                }
                                 getAvailabilityDates(id, activity);
-                            } else
+                            } else {
+                                hud.dismiss();
                                 Toast.makeText(activity, "Chalet Not Available On These Dates . Try Selecting Some Other Dates", Toast.LENGTH_SHORT).show();
+                            }
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -223,24 +237,26 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
                         List<ChaletBookingItem> bookingHistory = response.body().getData();
                         if (bookingHistory.size() == 0) return;
 
+                        List<ChaletBookingDate> bookingDate = new ArrayList<>();
                         for (ChaletBookingItem bookings : bookingHistory) {
-                            List<ChaletBookingDate> bookingDate = bookings.getBookingDates();
-                            if (bookingDate.size() == 0) return;
+//                            List<ChaletBookingDate> bookingDate = bookings.getBookingDates();
+                            bookingDate.addAll(bookings.getBookingDates());
+                            /*if (bookingDate.size() == 0) return;
 
                             for (ChaletBookingDate items : bookingDate) {
 
                                 Calendar calendar = Calendar.getInstance();
-                                calendar.setTimeInMillis((int) Math.abs(Double.valueOf(items.getBookingTo())));
+                                calendar.setTimeInMillis((long) Math.abs(Double.valueOf(items.getBookingTo())));
 
                                 Calendar calendar02 = Calendar.getInstance();
-                                calendar02.setTimeInMillis((int) Math.abs(Double.valueOf(items.getBookingFrom())));
+                                calendar02.setTimeInMillis((long) Math.abs(Double.valueOf(items.getBookingFrom())));
 
-                                Log.d("onResponse: ",calendar02.toString());
+                                Log.d("onResponse: ", calendar02.toString());
 
-                            }
+                            }*/
                         }
 
-
+                        delegate.getAvailabilityDates(bookingDate);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -252,5 +268,9 @@ public class AdapterChalets extends RecyclerView.Adapter<AdapterChalets.MyViewHo
                 hud.dismiss();
             }
         });
+    }
+
+    public interface Availability {
+        void getAvailabilityDates(List<ChaletBookingDate> bookingHistory);
     }
 }

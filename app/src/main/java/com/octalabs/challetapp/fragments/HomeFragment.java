@@ -1,5 +1,6 @@
 package com.octalabs.challetapp.fragments;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,10 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.DatePicker;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,30 +36,32 @@ import com.octalabs.challetapp.activities.ActivityDetails;
 import com.octalabs.challetapp.activities.ActivityFilter;
 import com.octalabs.challetapp.adapter.AdapterChalets;
 import com.octalabs.challetapp.adapter.AdapterMarriageHall;
-import com.octalabs.challetapp.adapter.MyPagerAdapter;
 import com.octalabs.challetapp.databinding.FragmentHomeBinding;
 import com.octalabs.challetapp.models.ModelAllChalets.AllChaletsModel;
 import com.octalabs.challetapp.models.ModelAllChalets.Chalet;
+import com.octalabs.challetapp.models.ModelChaletBooking.ChaletBookingDate;
 import com.octalabs.challetapp.retrofit.RetrofitInstance;
 import com.octalabs.challetapp.utils.Constants;
 import com.octalabs.challetapp.utils.Helper;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
-import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ru.slybeaver.slycalendarview.SlyCalendarDialog;
 
 import static android.app.Activity.RESULT_OK;
 import static com.octalabs.challetapp.utils.Constants.CHALET_OR_MARRAIGE_ID;
 import static com.octalabs.challetapp.utils.Constants.NUM_OF_BOOKING_DAYS;
 import static com.octalabs.challetapp.utils.Helper.displayDialog;
 
-public class HomeFragment extends Fragment implements View.OnClickListener, OnMapReadyCallback {
+public class HomeFragment extends Fragment implements View.OnClickListener, OnMapReadyCallback, AdapterChalets.Availability {
 
     private Button mBtnchalet, mBtnMarriageall;
     private RecyclerView mRecyclerView;
@@ -118,7 +119,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
                     hud.dismiss();
                     AllChaletsModel model = response.body();
                     if (model.getSuccess()) {
-                        getAllMarrigeHalls();
+                        getAllMarriageHalls();
                         chaletArrayList = new ArrayList<>(model.getData());
                         for (int i = 0; i < model.getData().size(); i++) {
                             Chalet item = model.getData().get(i);
@@ -150,7 +151,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
     }
 
 
-    private void getAllMarrigeHalls() {
+    private void getAllMarriageHalls() {
         hud.show();
         Call<AllChaletsModel> call = RetrofitInstance.service.getAllMarraiges(Helper.getJsonHeader());
         call.enqueue(new Callback<AllChaletsModel>() {
@@ -183,8 +184,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
         mBtnchalet.setOnClickListener(this);
         mBtnMarriageall.setOnClickListener(this);
         mRecyclerView = v.findViewById(R.id.rv_marriage_hall);
-        adapterMarriageHall = new AdapterMarriageHall(getActivity(), new ArrayList<Chalet>() , FragmentSearch.noOfDays);
-        adapterChalets = new AdapterChalets(getActivity(), new ArrayList<Chalet>() , FragmentSearch.noOfDays);
+        adapterMarriageHall = new AdapterMarriageHall(getActivity(), new ArrayList<Chalet>(), FragmentSearch.noOfDays);
+        adapterChalets = new AdapterChalets(getActivity(), this, new ArrayList<Chalet>(), FragmentSearch.noOfDays);
         mRecyclerView.setAdapter(adapterChalets);
         binding.textMapOrList.setOnClickListener(this);
         binding.getRoot().findViewById(R.id.map).setVisibility(View.GONE);
@@ -485,6 +486,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener, OnMa
             }
         });
         alertDialog.show();
+    }
+
+    @Override
+    public void getAvailabilityDates(List<ChaletBookingDate> bookingHistory) {
+        // Get Current Date
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
     }
 }
 
